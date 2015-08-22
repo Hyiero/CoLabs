@@ -1,7 +1,21 @@
-.login-button-list ul {
+.login-button-list {
+    display: inline-block;
     list-style-type: none;
+    padding: 0;
+}
+
+.login-button-list li {
+    margin: 1.5rem;
 }
 
 .login-button-list .fa {
     color: #fff;
+}
+
+.navbar-collapse li {
+    display: block;
+}
+
+.navbar-collapse[aria-expanded] li {
+    display: inline-block;
 }

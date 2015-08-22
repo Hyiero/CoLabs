@@ -11,7 +11,7 @@ Router.map ->
     path: '/search'
     data: ->
       message: 'Search page'
-  @route 'admin',
+  @route 'adminLanding',
     path: '/admin'
     data: ->
-      message: 'Admin page'
+      adminMessage: 'Admin page'
