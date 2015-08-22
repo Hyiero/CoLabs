@@ -15,3 +15,7 @@
 .navbar-fixed-top li {
     display: inline-block;
 }
+
+.navbar-collapse > ul {
+    display: inline-block;
+}
