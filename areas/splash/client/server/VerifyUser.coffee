@@ -4,5 +4,3 @@ Template.splashLanding.created = ->
     Accounts.verifyEmail Accounts._verifyEmailToken, (err) ->
       if err?
         err.message
-      else
-        console.log "Congratz you are now confirmed"
