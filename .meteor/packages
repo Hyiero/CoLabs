@@ -12,3 +12,8 @@ coffeescript
 accounts-password
 ian:accounts-ui-bootstrap-3
 fortawesome:fontawesome
+accounts-facebook
+accounts-google
+accounts-github
+accounts-twitter
+pauli:accounts-linkedin
