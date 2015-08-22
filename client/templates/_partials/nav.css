@@ -12,10 +12,6 @@
     color: #fff;
 }
 
-.navbar-collapse li {
-    display: block;
-}
-
-.navbar-collapse[aria-expanded] li {
+.navbar-fixed-top li {
     display: inline-block;
 }
