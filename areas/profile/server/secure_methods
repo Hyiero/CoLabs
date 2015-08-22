@@ -1,0 +1,10 @@
+InsertOne = (Users,newUser)->
+  Users.insert(newUser)
+
+if Users.find().count()==0
+  for user in userSeeds
+    InsertOne(Users,user)
+
+Meteor.publish('allUsers',()->
+  Users.find()
+)
