@@ -1,5 +1,5 @@
-Accounts.config({
-  sendVerificationEmail: true,
-  forbidClientAccountCreation: false,
-  restrictCreationByEmailDomain: false
-})
+#Accounts.config({
+#  sendVerificationEmail: true,
+#  forbidClientAccountCreation: false,
+#  restrictCreationByEmailDomain: false
+#})
