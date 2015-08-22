@@ -7,6 +7,7 @@ Router.map ->
     path: '/profile'
     data: ->
       message: 'Profile page'
+      user:Users.GetTestUser()
   @route 'search',
     path: '/search'
     data: ->
@@ -15,3 +16,5 @@ Router.map ->
     path: '/admin'
     data: ->
       message: 'Admin page'
+
+

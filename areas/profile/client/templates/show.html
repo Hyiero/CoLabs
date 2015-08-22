@@ -1,15 +1,27 @@
 <template name="profileShow">
-    <div class="container" style="padding-top: 60px">
-        <div class="row">
-            <div class="col-md-7">
-                <img src="/images/{{image}}" alt=""/>
+    <div class="col-sm-4">
+        <div class="col-item">
+            <div class="photo">
+                <img src="/images/profile/{{user.image}}" class="img-responsive" alt="a" />
             </div>
-            <div class="col-md-5">
-                <h1>{{name}}</h1>
-                <p class="lead"><i>{{age}}</i></p>
+            <div class="info">
                 <div class="row">
-                    <div class="col-md-12">
-                        <hr/>
+                    <div class="price col-md-6">
+                        <h5>
+                            <p>Name:{{user.name}}</p>
+                        </h5>
+                        <h5 class="">
+                            <p>Age:{{user.age}}</p>
+                        </h5>
+                        <h5 class="">
+                            <ul>
+                                {{#each user.interests}}
+                                <li>
+                                      <p>{{this}}</p>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </h5>
                     </div>
                 </div>
             </div>
