@@ -1,0 +1,2 @@
+Users.InsertOne = (newUser)->
+  Users.insert(newUser)
