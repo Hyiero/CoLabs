@@ -14,7 +14,7 @@ Router.map ->
       message: 'Profile edit page'
       user: Meteor.user()
       setSession:()->
-        Session.set("tags",Meteor.user().interests)
+        Session.set("tags",Meteor.user().tags)
   @route 'search',
     path: '/search'
   @route 'adminLanding',
@@ -32,3 +32,5 @@ Router.map ->
 
       message: 'Projects Page',
       projects: projects
+  @route 'inboxLanding',
+    path: '/inbox'

@@ -1,24 +1,32 @@
 Meteor.subscribe('allUsers')
 Meteor.subscribe('allProjects')
 
-findByUsersTags = (name, tags)->
+findByUsersTags = (username, tags)->
   Meteor.users.find(
-    name: { $regex: "^"+name+".*", $options: "i"}
+    username: { $regex: "^"+username+".*", $options: "i"}
     tags: { $all: tags }
   ).fetch()
 
-findByProjectTags = (name, tags)->
+findByProjectTags = (username, tags)->
   Projects.find(
-    name: { $regex: "^"+name+".*", $options: "i"}
+    username: { $regex: "^"+username+".*", $options: "i"}
     tags: { $all: tags }
   ).fetch()
 
 Template.searchResults.helpers
   filterResults: ->
     tags = Session.get 'search'
-    name = Session.get 'nameSearch'
+    username = Session.get 'usernameSearch'
     if tags is undefined or tags.length == 0 then tags = ["searchable"]
     else tags = tags.trim().split ' '
-    if name is undefined then name = ''
-    tempResults = findByUsersTags(name, tags)
-    filterResults = findByProjectTags(name, tags).concat(tempResults)
+    if username is undefined then username = ''
+    tempResults = findByUsersTags(username, tags)
+    filterResults = findByProjectTags(username, tags).concat(tempResults)
+
+Template.searchResults.events
+  "click #messageContact": (event) ->
+    userId = event.target.attributes['value'].value
+    user=Meteor.users.findOne({_id:userId})
+    console.log(user)
+    Session.set "currentContact", user
+

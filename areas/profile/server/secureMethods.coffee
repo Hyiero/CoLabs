@@ -11,7 +11,7 @@ Meteor.methods(
           firstName: updateObject.firstName,
           lastName: updateObject.lastName,
           age: updateObject.age,
-          interests: updateObject.interests
+          tags: updateObject.tags
         }
       }
     )

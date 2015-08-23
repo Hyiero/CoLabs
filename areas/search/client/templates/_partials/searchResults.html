@@ -1,10 +1,14 @@
 <template name="searchResults">
     <h3>Search Results</h3>
     {{#each filterResults}}
-        <ul>
-        {{#with this}}
-           <li>{{name}}</li>
-        {{/with}}
-        </ul>
+        <div class="filterResult">
+            <ul class="resultAttributes">
+            {{#with this}}
+                <li class="attribute">{{name}}</li>
+                <li class="attribute">{{tags}}</li>
+            {{/with}}
+            </ul>
+            <a class="btn btn-default messageButton" href="{{pathFor 'inboxLanding'}}" id="messageContact" value="{{this._id}}">Message</a>
+        </div>
     {{/each}}
 </template>

@@ -3,7 +3,7 @@
     <form id="editProfileForm">
         <div class="col-sm-4">
             <div class="col-item">
-                {{saveInterestsToSession}}
+                {{saveTagsToSession}}
                 {{#with user}}
                     <div class="info">
                         <div class="row">
@@ -72,7 +72,7 @@
 
                                 <h4>Current Tags</h4>
                                 <ul>
-                                    {{#each currentInterests}}
+                                    {{#each currentTags}}
                                         <li>
                                             {{>tagButton}}
                                         </li>

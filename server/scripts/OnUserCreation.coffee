@@ -6,8 +6,9 @@ Accounts.onCreateUser (options,user) ->
   user.projects = {}
   user.avatar=""
   user.age=""
-  user.interests=[]
+  user.tags=["searchable", "user"]
   user.firstName=""
+  user.name= user.username
   Meteor.setTimeout ->
     Accounts.sendVerificationEmail(user._id)
   ,2000
