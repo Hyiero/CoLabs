@@ -32,11 +32,11 @@ Router.map ->
 
       message: 'Projects Page',
       projects: projects
-      @route 'inboxLanding',
+  @route 'inboxLanding',
    	 path: '/inbox'
 
   @route 'notificationsLanding',
     path: '/notifications'
-      message:'Notifications Page',
-      notifications:()->
-        Notifications.find()
+    message:'Notifications Page',
+    notifications:()->
+      Notifications.find()
