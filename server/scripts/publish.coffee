@@ -1,5 +1,5 @@
 Meteor.publish('allUsers',()->
-  Users.find()
+  Meteor.users.find()
 )
 
 

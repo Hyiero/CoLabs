@@ -7,8 +7,7 @@ Router.map ->
     path: '/profile'
     data: ->
       message: 'Profile page'
-      user:Users.GetUserByName(Session.get(Constants.sessionLoggedInUserKey))
-      log:Users.GetUserByName(Session.get(Constants.sessionLoggedInUserKey))
+      user:Meteor.user()
   @route 'search',
     path: '/search'
     data: ->

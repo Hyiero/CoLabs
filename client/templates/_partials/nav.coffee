@@ -3,8 +3,6 @@ Template.loginButton.events
     authService = this.toString()
     authService = authService[0].toUpperCase() + authService.slice(1)
     console.log authService
-    Session.set Constants.sessionLoggedInUserKey,"Juan"
-    console.log(Session.get Constants.sessionLoggedInUserKey)
     Meteor["loginWith#{authService}"]()
 
 
@@ -22,7 +20,3 @@ Template.verifiedUserNavLinks.created = ->
     console.log "Are you logged in?"
     $('#projectsLanding').addClass('hidden')
   
-Accounts.onLogin(->
-  Session.set Constants.sessionLoggedInUserKey,"Juan"
-  console.log("User name set")
-)

@@ -7,11 +7,17 @@ process.env.METEOR_SETTINGS = {
     }
   }
 }
+
 ###
 
-# TODO: May not need hopefully at some point
-#This can't go on local environments....it breaks the build
-#process.env.PORT = 80
-#process.env.ROOT_URL = "http://qa.colabs.biz/"
-#process.env.MONGO_URL = "mongodb://qa.colabs.biz:82/meteor"
-#process.env.BIND_IP = "qa.colabs.biz"
+if Meteor.settings and
+  Meteor.settings.env and
+  Meteor.settings.type isnt 'development'
+    console.log Meteor.settings
+    {port, rootUrl, mongoUrl, bindIp} = Meteor.settings.env
+    process.env.PORT = port
+    process.env.ROOT_URL = rootUrl
+    process.env.MONGO_URL = mongoUrl
+    process.env.BIND_IP = bindIp
+#else
+  #Logger.enable()
