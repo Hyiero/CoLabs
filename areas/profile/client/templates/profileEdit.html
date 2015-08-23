@@ -4,6 +4,7 @@
         <div class="col-sm-4">
             <div class="col-item">
                 {{setSession}}
+                {{saveInterestsToSession}}
                 {{#with user}}
                 <div class="photo">
                     <img src="/images/profile/{{avatar}}" class="img-responsive" alt="a" />
@@ -31,9 +32,9 @@
                             <h5 class="">
                                 Current Tags:
                                 <ul>
-                                    {{#each interests}}
+                                    {{#each currentInterests}}
                                     <li>
-                                        {{tagButton}}
+                                        {{>tagButton}}
                                     </li>
                                     {{/each}}
                                 </ul>

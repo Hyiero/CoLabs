@@ -3,7 +3,7 @@ Template.profileEdit.events
     e.preventDefault()
     id=Meteor.userId()
     longTagString=e.target.tagTextBox.value
-    allTags=longTagString.split(" ")
+    allTags=longTagString.trim().split(" ")
 
     if allTags.length==1 and allTags[0]==""
       allTags=[]
@@ -23,12 +23,20 @@ Template.profileEdit.events
 
 getConcatTags=()->
   strings=""
-  for tag in Meteor.user().interests
+  for tag in getCurrentInterests()
     strings=strings+" "+tag
   strings.substring(1,strings.length)
 
+getCurrentInterests=()->
+    Session.get("tempInterests")
 
 Template.profileEdit.helpers
   concatTags:()->
     getConcatTags()
+
+  currentInterests:()->
+    getCurrentInterests()
+
+  saveInterestsToSession:()->
+    Session.set("tempInterests",Meteor.user().interests)
 
