@@ -15,6 +15,10 @@ Router.map ->
   @route 'adminLanding',
     path: '/admin'
     data: ->
+<<<<<<< HEAD
+      message: 'Admin page'
+
+
+=======
       adminMessage: 'Admin page'
-
-
+>>>>>>> 51e8de19f3f975a68f785628af424ba656ff9b21

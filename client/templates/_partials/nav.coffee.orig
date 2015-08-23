@@ -1,0 +1,12 @@
+Template.loginButton.events
+  'click': ->
+<<<<<<< HEAD
+    Meteor["loginWith#{this}"]()
+
+
+=======
+    authService = this.toString()
+    authService = authService[0].toUpperCase() + authService.slice(1)
+    console.log authService
+    Meteor["loginWith#{authService}"]()
+>>>>>>> 51e8de19f3f975a68f785628af424ba656ff9b21
