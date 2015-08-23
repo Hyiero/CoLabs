@@ -8,6 +8,10 @@ Template.loginButton.events
     Meteor["loginWith#{authService}"]()
 
 
+Template.navLinks.rendered = ->
+  routeName = Router.current().route.getName();
+  document.getElementById(routeName).classList.add('active')
+  
 Accounts.onLogin(->
   Session.set Constants.sessionLoggedInUserKey,"Juan"
   console.log("User name set")
