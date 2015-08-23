@@ -1,0 +1,30 @@
+<template name="checkEmailRegistrationLinkModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                    <i class="fa fa-close"></i>
+                </button>
+
+                <div class="modal-header">
+                    <h4 class="modal-title">{{title}}</h4>
+                </div>
+
+                <div class="modal-body">
+                    {{message}}
+                    <form class="login-form">
+                        <input class="btn btn-primary col-xs-12 col-sm-12"
+                               type="submit"
+                               id="okButton"
+                               value="OK" />
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>

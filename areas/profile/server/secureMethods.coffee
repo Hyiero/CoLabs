@@ -15,5 +15,15 @@ Meteor.methods(
         }
       }
     )
+
+  updateName: (id,newName)->
+    Meteor.users.update(
+      {_id:id},
+      {$set:
+        {
+          name:newName
+        }
+      }
+    )
 )
 

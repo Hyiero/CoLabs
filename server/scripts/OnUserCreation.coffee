@@ -9,7 +9,7 @@ Accounts.onCreateUser (options,user) ->
   user.age=""
   user.tags=["searchable", "user"]
   user.firstName=""
-  user.name= user.username
+  user.name= ""
   Meteor.setTimeout ->
     Accounts.sendVerificationEmail(user._id)
   ,2000
