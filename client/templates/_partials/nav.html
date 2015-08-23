@@ -30,8 +30,13 @@
                     <li>
                         {{> loginButton 'github' }}
                     </li>
+                    {{#if currentUser}}
+                        {{> profileNavLink}}
+                        {{> signOutButton}}
+                    {{else}}
+                        {{> signInButton }}
+                    {{/if}}
                 </ul>
-                {{> loginOrRegister }}
             </div><!--/.nav-collapse -->
         </div>
     </nav>
@@ -39,11 +44,21 @@
 
 <template name ="navLinks">
     <li id="splashLanding"><a href="{{pathFor 'splashLanding'}}">Home</a></li>
-    <li id="profileLanding"><a href="{{pathFor 'profileLanding'}}">My Profile</a></li>
+    {{#if verifiedUser}}
+        <li id="profileLanding"><a href="{{pathFor 'profileLanding'}}">My Profile</a></li>
+    {{/if}}
     <li id="adminLanding"><a href="{{pathFor 'adminLanding'}}">Admin</a></li>
     <li id="search"><a href="{{pathFor 'search'}}">Search</a></li>
-    {{> verifiedUserNavLinks}}
+    {{#if currentUser}}
+        {{#if verifiedUser}}
+            {{> verifiedUserNavLinks}}
+        {{/if}}
+    {{/if}}
     <!--Need to put the verifiedUserNavLinks in a currentUser and then verifiedUser if statement-->
+</template>
+
+<template name="profileNavLink">
+    <li>{{username}}</li>
 </template>
 
 <template name="verifiedUserNavLinks">
