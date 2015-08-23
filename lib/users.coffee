@@ -15,12 +15,16 @@ userSeeds = [
   }
 ]
 
-if Users.find().count()==0
-  for user in userSeeds
-    Users.insert(user)
+if Meteor.isServer
+  if Users.find().count()==0
+    for user in userSeeds
+      Users.insert(user)
 
 Users.GetTestUser = ()->
     Users.findOne({name:"Juan"})
+
+Users.GetUserByName = (name)->
+  Users.findOne({name:name})
 
 
 

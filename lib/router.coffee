@@ -7,7 +7,8 @@ Router.map ->
     path: '/profile'
     data: ->
       message: 'Profile page'
-      user:Users.GetTestUser()
+      user:Users.GetUserByName(Session.get(Constants.sessionLoggedInUserKey))
+      log:Users.GetUserByName(Session.get(Constants.sessionLoggedInUserKey))
   @route 'search',
     path: '/search'
     data: ->
