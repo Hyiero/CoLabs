@@ -1,7 +1,6 @@
 Template.splashLanding.events
-  "click #searchUsers": (event) ->
-    Session.set "searchFilter", "user"
-    Session.set "search", "user"
-  "click #searchProjects": (event) ->
-    Session.set "searchFilter", "project"
-    Session.set "search", "project"
+  "click .searchChoice": (event) ->
+    type = event.target.attributes['value'].value
+    Session.set "searchFilter", type
+    Session.set "search", type
+    Router.go('/search')
