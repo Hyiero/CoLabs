@@ -3,6 +3,8 @@
 
 Accounts.onCreateUser (options,user) ->
   user.profile = {};
+  user.projects = {};
+
   Meteor.setTimeout ->
     Accounts.sendVerificationEmail(user._id)
   ,2000
