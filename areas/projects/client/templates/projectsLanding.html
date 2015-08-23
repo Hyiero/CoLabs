@@ -1,17 +1,32 @@
 <template name="projectsLanding">
     {{> nav}}
-    <h1>Projects Page</h1>
+    <h1>Projects</h1>
+    <ul>
+        {{#each projects}}
+            {{> project }}
+        {{/each}}
+    </ul>
     {{> projectForm}}
 </template>
 
 <template name="projectForm">
     <div class="container">
+        {{#if edit}}
         <form class="projectSubmitForm">
-            <input id="projectName" type="text" placeholder="name"/>
+            <input id="projectName" type="text" placeholder="Name" value="{{projectName}}"/>
             <br>
             <textarea id="projectDescription" placeholder="Description">
+                {{projectDescription}}
             </textarea>
-            <input id="submitProject" type="submit" value="Submit Project"/>
+            <input id="submitProject" type="submit" value="Save Project"/>
         </form>
+        {{else}}
+            <button class="edit">
+                <i class="fa fa-edit"></i>
+                <span class="txt">Edit</span>
+            </button>
+            <h3 class="project-name">{{projectName}}</h3>
+            <p class="project-description">{{projectDescription}}</p>
+        {{/if}}
     </div>
 </template>
