@@ -1,0 +1,49 @@
+<template name="profileEdit">
+    {{>nav}}
+    <form id="editProfileForm">
+        <div class="col-sm-4">
+            <div class="col-item">
+                {{setSession}}
+                {{#with user}}
+                <div class="photo">
+                    <img src="/images/profile/{{avatar}}" class="img-responsive" alt="a" />
+                </div>
+
+                <div class="info">
+                    <div class="row">
+                        <div class="price col-md-12">
+                            <h5>
+                                Avatar:<input type="text" name="avatarPathTextBox" class="at_avatarPathTextBox" value="{{avatar}}"/>
+                                <button id="uploadImageButton" class="at_uploadImageButton">Upload Image</button>
+                            </h5>
+                            <h5>
+                                <p>First Name:<input type="text" name="firstNameTextBox" class="at_firstNameTextBox" value="{{firstName}}"/></p>
+                            </h5>
+                            <h5>
+                                <p>Last Name:<input type="text" name="lastNameTextBox" class="at_lastNameTextBox" value="{{lastName}}"/></p>
+                            </h5>
+                            <h5 class="">
+                                <p>Age:<input type="text" name="ageTextBox" class="at_ageTextBox" value="{{age}}"/></p>
+                            </h5>
+                            <h5 class="">
+                                <input type="text" name="tagTextBox" class="at_tagTextBox" value="{{concatTags}}">
+                            </h5>
+                            <h5 class="">
+                                Current Tags:
+                                <ul>
+                                    {{#each interests}}
+                                    <li>
+                                        {{tagButton}}
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+                {{/with}}
+                <input type="submit" id="submitProfileEditButton" class="at_submitProfileEditButton">
+            </div>
+        </div>
+    </form>
+</template>

@@ -4,7 +4,7 @@
 Accounts.onCreateUser (options,user) ->
   user.profile = {}
   user.projects = {}
-  user.avatar={}
+  user.avatar=""
   user.age=""
   user.interests=[]
   user.firstName=""

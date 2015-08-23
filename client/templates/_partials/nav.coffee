@@ -8,4 +8,5 @@ Template.loginButton.events
 
 Template.navLinks.rendered = ->
   routeName = Router.current().route.getName();
-  document.getElementById(routeName).classList.add('active')
+  linkClicked = document.getElementById(routeName)
+  if linkClicked? then linkClicked.classList.add('active') else console.log 'stop breaking shit'

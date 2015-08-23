@@ -7,7 +7,14 @@ Router.map ->
     path: '/profile'
     data: ->
       message: 'Profile page'
-      user:Meteor.user()
+      user: Meteor.user()
+  @route 'profileEdit',
+    path:'/profile/edit'
+    data:->
+      message: 'Profile edit page'
+      user: Meteor.user()
+      setSession:()->
+        Session.set("tags",Meteor.user().interests)
   @route 'search',
     path: '/search'
     data: ->
