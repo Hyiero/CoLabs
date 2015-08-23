@@ -25,5 +25,6 @@ Template.verifiedUserNavLinks.created = ->
 
 Template.profileNavLink.helpers(
   username: ->
-    Meteor.user().username
+    if Meteor.users.find({'_id' : Meteor.userId()})
+      Meteor.user().username
 )

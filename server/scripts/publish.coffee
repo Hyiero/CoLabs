@@ -1,5 +1,5 @@
-Meteor.publish('allUsers',()->
-  Meteor.users.find()
+Meteor.publish('userLoggedIn',()->
+  Meteor.users.find({_id: this.userId})
 )
 Meteor.publish('allProjects', ()->
   Projects.find()

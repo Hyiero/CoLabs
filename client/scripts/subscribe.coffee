@@ -1,2 +1,2 @@
-Meteor.subscribe('allUsers')
+Meteor.subscribe('userLoggedIn')
 Meteor.subscribe('allProjects')
