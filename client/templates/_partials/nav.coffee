@@ -12,7 +12,10 @@ Template.navLinks.rendered = ->
 
 Template.navLinks.helpers(
   verifiedUser: ->
-    if Meteor.users.find({'emails.verified' : 'true'}) then true else false
+    if Meteor.users.find({'_id': Meteor.userId(),'emails.verified' : true}).count() != 0
+      true
+    else
+      false
 )
 
 Template.verifiedUserNavLinks.created = ->

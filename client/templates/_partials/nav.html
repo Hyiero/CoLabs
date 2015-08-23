@@ -44,8 +44,10 @@
     <li id="profileLanding"><a href="{{pathFor 'profileLanding'}}">My Profile</a></li>
     <li id="adminLanding"><a href="{{pathFor 'adminLanding'}}">Admin</a></li>
     <li id="search"><a href="{{pathFor 'search'}}">Search</a></li>
-    {{#if verifiedUser}}
-        {{> verifiedUserNavLinks}}
+    {{#if currentUser}}
+        {{#if verifiedUser}}
+            {{> verifiedUserNavLinks}}
+        {{/if}}
     {{/if}}
 </template>
 
