@@ -5,42 +5,82 @@
             <div class="col-item">
                 {{saveInterestsToSession}}
                 {{#with user}}
-                <div class="photo">
-                    <img src="/images/profile/{{avatar}}" class="img-responsive" alt="a" />
-                </div>
+                    <div class="info">
+                        <div class="row">
+                            <div class="price col-md-12">
 
-                <div class="info">
-                    <div class="row">
-                        <div class="price col-md-12">
-                            <h5>
-                                Avatar:<input type="text" name="avatarPathTextBox" class="at_avatarPathTextBox" value="{{avatar}}"/>
+                                <h4>Avatar</h4>
+                                <p><input type="text" name="avatarPathTextBox" class="at_avatarPathTextBox" value="{{avatar}}"/></p>
+                                {{#if avatar}}
+                                    <div class="photo">
+                                        <img src="/images/profile/{{avatar}}" class="img-responsive" alt="a" />
+                                    </div>
+                                {{else}}
+                                    <p><em>Click 'Upload Image' to choose a custom avatar.</em></p>
+                                {{/if}}
                                 <button id="uploadImageButton" class="at_uploadImageButton">Upload Image</button>
-                            </h5>
-                            <h5>
-                                <p>First Name:<input type="text" name="firstNameTextBox" class="at_firstNameTextBox" value="{{firstName}}"/></p>
-                            </h5>
-                            <h5>
-                                <p>Last Name:<input type="text" name="lastNameTextBox" class="at_lastNameTextBox" value="{{lastName}}"/></p>
-                            </h5>
-                            <h5 class="">
-                                <p>Age:<input type="text" name="ageTextBox" class="at_ageTextBox" value="{{age}}"/></p>
-                            </h5>
-                            <h5 class="">
-                                <input type="text" name="tagTextBox" class="at_tagTextBox" value="{{concatTags}}">
-                            </h5>
-                            <h5 class="">
-                                Current Tags:
+                                <hr />
+
+                                <h4>First Name</h4>
+                                <p><input type="text"
+                                          name="firstNameTextBox"
+                                          class="at_firstNameTextBox"
+                                          placeholder="What's your name again?"
+                                          value="{{firstName}}"/></p>
+                                <hr />
+
+                                <h4>Last Name</h4>
+                                <input type="text"
+                                       name="lastNameTextBox"
+                                       class="at_lastNameTextBox"
+                                       placeholder="What's your last name?"
+                                       value="{{lastName}}"/>
+                                <hr />
+
+                                <h4>Age</h4>
+                                <input type="text"
+                                       name="ageTextBox"
+                                       class="at_ageTextBox"
+                                       placeholder="What's your age again?"
+                                       value="{{age}}"/>
+                                <hr />
+
+                                <h4>Skills & Interests</h4>
+                                <div class="help help-text">
+                                    <p><em>
+                                        Enter some skills or creative interests you
+                                        have so others can find you for their projects!
+                                    </em></p>
+                                    <p><em>
+                                        Remember, too many might make you come off as
+                                        a jack-of-all-trades and master-of-none.
+                                    </em></p>
+                                    <p><em>
+                                        Eventually, others will be able to privately rate the
+                                        relevance of the skill after working with you,
+                                        so try not to change them too often either!
+                                    </em></p>
+                                </div>
+                                <br />
+                                <h5>Add Tags</h5>
+                                <input type="text"
+                                       name="tagTextBox"
+                                       class="at_tagTextBox"
+                                       placeholder="Got skills?"
+                                       value="{{concatTags}}">
+                                <hr />
+
+                                <h4>Current Tags</h4>
                                 <ul>
                                     {{#each currentInterests}}
-                                    <li>
-                                        {{>tagButton}}
-                                    </li>
+                                        <li>
+                                            {{>tagButton}}
+                                        </li>
                                     {{/each}}
                                 </ul>
-                            </h5>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {{/with}}
                 <input type="submit" id="submitProfileEditButton" class="at_submitProfileEditButton">
             </div>
