@@ -1,2 +1,2 @@
 Users.InsertOne = (newUser)->
-  Users.insert(newUser)
+  Meteor.users.insert(newUser)

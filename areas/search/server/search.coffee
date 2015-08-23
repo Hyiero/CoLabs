@@ -1,2 +1,2 @@
 Meteor.publish 'users', ->
-  Users.find()
+  Meteor.users.find()

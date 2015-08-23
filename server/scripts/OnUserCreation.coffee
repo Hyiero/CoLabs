@@ -2,9 +2,13 @@
 #until the email verification link has been clicked
 
 Accounts.onCreateUser (options,user) ->
-  user.profile = {};
+  user.profile = {}
   user.projects = {};
 
+  user.avatar={}
+  user.age={}
+  user.interests={}
+  user.firstName={}
   Meteor.setTimeout ->
     Accounts.sendVerificationEmail(user._id)
   ,2000
