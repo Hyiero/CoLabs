@@ -17,11 +17,11 @@ Router.map ->
         Session.set("tags",Meteor.user().interests)
   @route 'search',
     path: '/search'
-    data: ->
-      message: 'Search page'
   @route 'adminLanding',
     path: '/admin'
     data: ->
       adminMessage: 'Admin page'
-
-
+  @route 'projectsLanding',
+    path: '/projects'
+    data: ->
+      message: 'Projects Page'

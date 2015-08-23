@@ -1,8 +1,10 @@
 <template name="searchResults">
     <h3>Search Results</h3>
-    <ul>
-        {{#each tags}}
-           <li>{{this}}</li>
-        {{/each}}
-    </ul>
+    {{#each filterResults}}
+        <ul>
+        {{#with this}}
+           <li>{{name}}</li>
+        {{/with}}
+        </ul>
+    {{/each}}
 </template>
