@@ -17,5 +17,9 @@ Router.map ->
     path: '/admin'
     data: ->
       adminMessage: 'Admin page'
+  @route 'projectsLanding',
+    path: '/projects'
+    data: ->
+      message: 'Projects Page'
 
 

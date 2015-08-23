@@ -11,6 +11,16 @@ Template.loginButton.events
 Template.navLinks.rendered = ->
   routeName = Router.current().route.getName();
   document.getElementById(routeName).classList.add('active')
+
+Template.navLinks.helpers(
+  verifiedUser: ->
+    if Meteor.users.find({'emails.verified' : 'true'}) then true else false
+)
+
+Template.verifiedUserNavLinks.created = ->
+  if Meteor.user()?
+    console.log "Are you logged in?"
+    $('#projectsLanding').addClass('hidden')
   
 Accounts.onLogin(->
   Session.set Constants.sessionLoggedInUserKey,"Juan"

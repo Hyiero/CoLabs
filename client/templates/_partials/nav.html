@@ -41,9 +41,16 @@
 
 <template name ="navLinks">
     <li id="splashLanding"><a href="{{pathFor 'splashLanding'}}">Home</a></li>
-    <li id="profileLanding"><a href="{{pathFor 'profileLanding'}}">MyProfile</a></li>
+    <li id="profileLanding"><a href="{{pathFor 'profileLanding'}}">My Profile</a></li>
     <li id="adminLanding"><a href="{{pathFor 'adminLanding'}}">Admin</a></li>
     <li id="search"><a href="{{pathFor 'search'}}">Search</a></li>
+    {{#if verifiedUser}}
+        {{> verifiedUserNavLinks}}
+    {{/if}}
+</template>
+
+<template name="verifiedUserNavLinks">
+    <li id="projectsLanding"><a href="{{pathFor 'projectsLanding'}}">My Projects</a></li>
 </template>
 
 <template name="loginButton">
