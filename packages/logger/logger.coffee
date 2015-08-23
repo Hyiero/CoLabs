@@ -83,7 +83,7 @@ if Meteor.isClient
 
 if Meteor.isServer
   deleteAll = ->
-    Logs.remove log._id for log in Logs.find()
+    Logs.remove log._id for log in Logs.find().fetch()
   Meteor.startup -> deleteAll()
   Meteor.publish 'logs', -> Logs.find()
   Meteor.methods
