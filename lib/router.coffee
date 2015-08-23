@@ -10,8 +10,6 @@ Router.map ->
       user:Meteor.user()
   @route 'search',
     path: '/search'
-    data: ->
-      message: 'Search page'
   @route 'adminLanding',
     path: '/admin'
     data: ->
