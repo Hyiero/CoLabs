@@ -2,6 +2,8 @@
     margin: 2rem auto;
     padding: 1px 0;
     list-style-type: none;
+    border: .1rem solid rgba(200,200,200,0.75);
+    border-radius: .2rem;
 }
 
 .log {
@@ -14,7 +16,7 @@
 
 .log {
     border-color: rgba(200,255,255,0.75);
-    box-shadow: inset -3px 0 50px rgba(200,255,255,0.75);
+    box-shadow: inset -3px 0 50px rgba(200,200,200,0.5);
 }
 
 .log.info {
