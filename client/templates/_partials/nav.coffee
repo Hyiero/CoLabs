@@ -9,11 +9,12 @@ Template.navLinks.rendered = ->
   routeName = Router.current().route.getName();
   linkClicked = document.getElementById(routeName)
 
-  if linkClicked? then linkClicked.classList.add('active') else console.log 'stop breaking shit'
+  if linkClicked? then linkClicked.classList.add('active')
+  else console.log 'stop breaking shit, Juan'
 
 Template.navLinks.helpers
   verifiedUser: ->
-    if Meteor.users.find({'_id': Meteor.userId(),'emails.verified' : true}).count() != 0
+    if Meteor.users.find({'_id': Meteor.user()._id,'emails.verified' : true}).count() != 0
       true
     else
       false
@@ -25,6 +26,6 @@ Template.verifiedUserNavLinks.created = ->
 
 Template.profileNavLink.helpers(
   username: ->
-    if Meteor.users.find({'_id' : Meteor.userId()})
+    if Meteor.users.find({'_id' : Meteor.user()._id})
       Meteor.user().username
 )

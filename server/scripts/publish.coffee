@@ -1,21 +1,19 @@
-Meteor.publish('userLoggedIn',()->
-  Meteor.users.find({_id: this.userId})
-)
-Meteor.publish('allUsers',() ->
+
+Meteor.publish('allUsers', ->
   Meteor.users.find()
 )
-Meteor.publish('allProjects', ()->
+
+Meteor.publish('allProjects', ->
   Projects.find()
 )
+
 Meteor.publish('myProjects', (userId) ->
-  if Helpers.isVerifiedUser()
+  if Helpers.isVerifiedUser() and userId
     Projects.find(
       users: { $in: userId }
     )
   else console.warn 'User is not verified.'
 )
-Meteor.users.allow({
-  update:(userId)->
-    return !!userId;
-})
 
+Meteor.users.allow
+  update: (userId) -> userId?

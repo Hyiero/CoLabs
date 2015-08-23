@@ -1,6 +1,12 @@
 Template.projectsLanding.helpers
   projects: Projects.find().fetch()
 
+Template.project.helpers
+  users: ->
+    Users.find(
+      _id: { $in: @users }
+    )
+
 Template.projectForm.events
   'click #submitProject': (e) ->
     e.preventDefault()
@@ -8,8 +14,9 @@ Template.projectForm.events
       name: $('#projectName').val(),
       description: $('#projectDescription').val()
     }
-    Meteor.call 'createProject', data, (args...) ->
-      console.log args
+    Meteor.call 'createProject', data, (err, res) ->
+      if err console.error err
+      else Session.set 'editProject', false
 
   'click button.edit': (e) ->
     Session.set 'editProject', true
