@@ -1,6 +1,3 @@
 .idea
 settings.json
-.orig
-client/templates/_partials/nav.coffee.orig
-server/scripts/publish.coffee.orig
-areas/profile/client/scripts/profileEdit.coffee.orig
+*.orig
