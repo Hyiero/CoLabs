@@ -12,6 +12,12 @@ userSeeds = [
     image: "illudium-q36.jpg"
     age:10
     interests:["none"]
+  },
+  {
+    name: "Christopher"
+    image: "johnny-liftoff.jpg"
+    age: 37
+    interests: ["users", "projects", "tags"]
   }
 ]
 
