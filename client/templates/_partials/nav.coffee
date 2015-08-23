@@ -20,7 +20,6 @@ Template.navLinks.helpers(
 
 Template.verifiedUserNavLinks.created = ->
   if Meteor.user()?
-    console.log "Are you logged in?"
     $('#projectsLanding').addClass('hidden')
 
 Template.profileNavLink.helpers(
