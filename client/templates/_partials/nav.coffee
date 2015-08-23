@@ -6,6 +6,6 @@ Template.loginButton.events
     Meteor["loginWith#{authService}"]()
 
 
-Template.navLinks.rendered = ->
-  routeName = Router.current().route.getName();
-  document.getElementById(routeName).classList.add('active')
+#Template.navLinks.rendered = ->
+#  routeName = Router.current().route.getName();
+#  document.getElementById(routeName).classList.add('active')
