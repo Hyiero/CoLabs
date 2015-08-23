@@ -20,5 +20,3 @@ Router.map ->
     path: '/projects'
     data: ->
       message: 'Projects Page'
-
-
