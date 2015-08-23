@@ -3,8 +3,7 @@
 
 Accounts.onCreateUser (options,user) ->
   user.profile = {}
-  user.projects = {};
-
+  user.projects = {}
   user.avatar={}
   user.age={}
   user.interests={}

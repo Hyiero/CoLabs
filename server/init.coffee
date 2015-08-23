@@ -19,3 +19,5 @@ if Meteor.settings and
     process.env.ROOT_URL = rootUrl
     process.env.MONGO_URL = mongoUrl
     process.env.BIND_IP = bindIp
+#else
+  #Logger.enable()
