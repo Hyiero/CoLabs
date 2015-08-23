@@ -1,6 +1,6 @@
 <template name="signInButton">
     <li>
-        <button>Sign In</button>
+        <button class="btn btn-xs btn-contrast">Sign In / Sign Up</button>
     </li>
 </template>
 
@@ -13,8 +13,11 @@
 <template name="loginOrRegisterModal">
     <div class="modal fade">
         <div class="modal-dialog">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             <div class="modal-content">
+
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                    <i class="fa fa-close"></i>
+                </button>
 
                 <div class="modal-header">
                     <h4 class="modal-title">Sign In</h4>
@@ -34,12 +37,12 @@
 
 <template name="loginForm">
     <form class="login-form">
+        <input id="loginRadioOption" type="radio" name="signInOption" value="Login" checked>Login
+        <input id="signupRadioOption" type="radio" name="signInOption" value="Sign Up">Sign Up
         <input id="login-username" name="username" type="text" placeholder="Username" class="form-control">
         <input id="login-email" name="email" type="text" placeholder="Email" class="form-control hidden">
         <input id="login-password" name="password" type="password" placeholder="Password" class="form-control">
         <input id="login-verify-password" name="verifyPassword" type="password" placeholder="Verify Password" class="form-control hidden">
-        <input id="loginRadioOption" type="radio" name="signInOption" value="Login" checked>Login
-        <input id="signupRadioOption" type="radio" name="signInOption" value="Sign Up">Sign Up
         <input class="btn btn-primary col-xs-12 col-sm-12"
                type="submit"
                id="signinSubmit"

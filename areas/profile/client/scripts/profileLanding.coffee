@@ -1,6 +1,6 @@
 Template.profileLanding.helpers(
-  firstEmail:(user)->
-    user.emails[0].address
+  firstEmail: ->
+    this.emails[0].address
 )
 
 Template.profileLanding.events(
