@@ -6,3 +6,29 @@ html {
     color: #eee;
     margin: 1rem;
 }
+
+.navbar-nav {
+    margin: 0;
+}
+
+.login-button-list {
+    margin: 0;
+}
+
+.login-button-list li {
+    color: #fff;
+}
+
+.searchChoice {
+    width: 40%;
+    display: inline-block;
+}
+
+.searchChoice a {
+    width: 100%;
+}
+
+.btn-contrast {
+    background: inherit;
+    color: #fff;
+}
