@@ -9,6 +9,20 @@
     {{> projectForm}}
 </template>
 
+<template name="project">
+    <div id="{{id}}">
+        <h2>{{name}}</h2>
+        <p>{{description}}</p>
+        <ul>
+            {{#each users}}
+                <li>
+                    <h3>{{username}}</h3>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+</template>
+
 <template name="projectForm">
     <div class="container">
         {{#if edit}}

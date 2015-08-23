@@ -6,5 +6,9 @@ Meteor.methods(
       description: data.description
       lastUpdated: new Date()
       users: [userId]
+      admins: [userId]
+      owner: userId
+      creator: userId
+      privacyLevel: 'public'
     )
 )
