@@ -4,5 +4,6 @@ Template.profileLanding.helpers(
 )
 
 Template.profileLanding.events(
-
+  'click #sendNotificationButton':(e)->
+    SendOneNotification("TypeB","Today","Juan")
 )

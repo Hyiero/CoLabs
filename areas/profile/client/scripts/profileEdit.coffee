@@ -19,6 +19,7 @@ Template.profileEdit.events
       interests:allTags
     })
 
+
 getConcatTags=()->
   strings=""
   for tag in getCurrentInterests()

@@ -32,3 +32,9 @@ Router.map ->
 
       message: 'Projects Page',
       projects: projects
+  @route 'notificationsLanding',
+    path: '/notifications'
+    data: ->
+      message:'Notifications Page',
+      notifications:()->
+        Notifications.find()

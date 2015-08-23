@@ -1,5 +1,7 @@
 <template name="profileLanding">
     {{>nav}}
+    <br>
+    <br>
     <div class="col-sm-4">
         <div class="col-item">
             {{#with user}}
@@ -40,6 +42,9 @@
             <br>
             {{/with}}
             <a class="btn btn-default" href="{{pathFor 'profileEdit'}}">Edit Profile</a>
+            <h5>
+                <button id="sendNotificationButton" name="sendNotificationButton" >Send Notification</button>
+            </h5>
         </div>
     </div>
 </template>
