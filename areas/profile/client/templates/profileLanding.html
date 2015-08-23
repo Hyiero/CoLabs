@@ -17,27 +17,29 @@
                             <p>Name:{{firstName}}</p>
                         </h5>
                         <h5>
-                            <p>Email:{{emails[0].address}}</p>
+                            <p>Email: {{firstEmail this}}</p>
                         </h5>
                         <h5 class="">
                             <p>Age:{{age}}</p>
                         </h5>
                         <h5 class="">
+                            Current Tags:
+                            <br>
                             <ul>
                                 {{#each interests}}
                                 <li>
-                                      <p>{{this}}</p>
+                                      {{tagButton}}
                                 </li>
                                 {{/each}}
                             </ul>
                         </h5>
-                        <h2>
-                            Debugging crap:{{log}}
-                        </h2>
                     </div>
                 </div>
             </div>
+            <br>
+            <br>
             {{/with}}
+            <a class="btn btn-default" href="{{pathFor 'profileEdit'}}">Edit Profile</a>
         </div>
     </div>
 </template>

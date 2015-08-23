@@ -4,3 +4,8 @@ Meteor.publish('allUsers',()->
 Meteor.publish('allProjects', ()->
   Projects.find()
 )
+Meteor.users.allow({
+  update:(userId)->
+    return !!userId;
+})
+
