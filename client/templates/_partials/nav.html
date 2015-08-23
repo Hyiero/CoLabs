@@ -44,11 +44,8 @@
     <li id="profileLanding"><a href="{{pathFor 'profileLanding'}}">My Profile</a></li>
     <li id="adminLanding"><a href="{{pathFor 'adminLanding'}}">Admin</a></li>
     <li id="search"><a href="{{pathFor 'search'}}">Search</a></li>
-    {{#if currentUser}}
-        {{#if verifiedUser}}
-            {{> verifiedUserNavLinks}}
-        {{/if}}
-    {{/if}}
+    {{> verifiedUserNavLinks}}
+    <!--Need to put the verifiedUserNavLinks in a currentUser and then verifiedUser if statement-->
 </template>
 
 <template name="verifiedUserNavLinks">

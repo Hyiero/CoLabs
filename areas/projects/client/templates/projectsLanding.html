@@ -1,3 +1,17 @@
 <template name="projectsLanding">
-    {{>nav}}
+    {{> nav}}
+    {{> projectForm}}
+</template>
+
+<template name="projectForm">
+    <h1>Projects Page</h1>
+    <div class="container">
+        <form id="projectForm">
+            <input id="projectName" type="text" placeholder="name"/>
+            <br>
+            <textarea id="projectDescription" placeholder="Description">
+            </textarea>
+            <input id="submitProject" type="submit" value="Submit Project">
+        </form>
+    </div>
 </template>
