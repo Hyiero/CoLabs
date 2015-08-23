@@ -3,7 +3,7 @@ Router.map ->
     path: '/'
     data: ->
       message: 'Welcome to CoLabs'
-  @route 'profileShow',
+  @route 'profileLanding',
     path: '/profile'
     data: ->
       message: 'Profile page'
