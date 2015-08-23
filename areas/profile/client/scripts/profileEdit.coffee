@@ -8,18 +8,14 @@ Template.profileEdit.events
     if allTags.length==1 and allTags[0]==""
       allTags=[]
 
-    Meteor.users.update(
-      {_id:id},
-      {$set:
-        {
-          avatar: e.target.avatarPathTextBox.value,
-          firstName: e.target.firstNameTextBox.value,
-          lastName: e.target.lastNameTextBox.value,
-          age: e.target.ageTextBox.value
-          interests:allTags
-        }
-      }
-    )
+    Meteor.call('updateUser',id,userModel=
+    {
+      avatar: e.target.avatarPathTextBox.value,
+      firstName: e.target.firstNameTextBox.value,
+      lastName: e.target.lastNameTextBox.value,
+      age: e.target.ageTextBox.value,
+      interests:allTags
+    })
 
 getConcatTags=()->
   strings=""
