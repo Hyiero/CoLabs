@@ -2,3 +2,26 @@
     display: inline;
     margin-right: 3rem;
 }
+
+.messageButton {
+    display: inline;
+    float: right;
+    vertical-align: middle;
+}
+
+.resultAttributes {
+    float: left;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.attribute {
+    display: block;
+    margin-right: 3rem;
+}
+
+.filterResult {
+    border: solid 1px black;
+    display: block;
+    height: 6rem;
+}

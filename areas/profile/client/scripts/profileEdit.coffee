@@ -16,26 +16,26 @@ Template.profileEdit.events
       firstName: e.target.firstNameTextBox.value,
       lastName: e.target.lastNameTextBox.value,
       age: e.target.ageTextBox.value,
-      interests:allTags
+      tags:allTags
     })
 
 
 getConcatTags=()->
   strings=""
-  for tag in getCurrentInterests()
+  for tag in getCurrentTags()
     strings=strings+" "+tag
   strings.substring(1,strings.length)
 
-getCurrentInterests=()->
-    Session.get("tempInterests")
+getCurrentTags=()->
+    Session.get("tempTags")
 
 Template.profileEdit.helpers
   concatTags:()->
     getConcatTags()
 
-  currentInterests:()->
-    getCurrentInterests()
+  currentTags:()->
+    getCurrentTags()
 
-  saveInterestsToSession:()->
-    Session.set("tempInterests",Meteor.user().interests)
+  saveTagsToSession:()->
+    Session.set("tempTags",Meteor.user().tags)
 

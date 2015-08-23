@@ -48,6 +48,7 @@
         <li id="profileLanding"><a href="{{pathFor 'profileLanding'}}">My Profile</a></li>
         <li id="notificationLanding"><a href="{{pathFor 'notificationsLanding'}}">Notifications</a></li>
     {{/if}}
+    <li id="inboxLanding"><a href="{{pathFor 'inboxLanding'}}">Inbox</a></li>
     <li id="adminLanding"><a href="{{pathFor 'adminLanding'}}">Admin</a></li>
     <li id="search"><a href="{{pathFor 'search'}}">Search</a></li>
     {{#if currentUser}}
@@ -59,7 +60,7 @@
 </template>
 
 <template name="profileNavLink">
-    <li>{{username}}</li>
+    <li>Logged in as {{username}}</li>
 </template>
 
 <template name="verifiedUserNavLinks">
@@ -67,5 +68,7 @@
 </template>
 
 <template name="loginButton">
-    <i class="fa fa-{{this}}"></i>
+    <button class="btn btn-xs btn-contrast">
+        <i class="fa fa-{{this}}"></i>
+    </button>
 </template>

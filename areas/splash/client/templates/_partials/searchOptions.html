@@ -1,8 +1,10 @@
 <template name="searchOptions">
-    <div class="searchChoice">
-        <a class="btn btn-default" href="{{pathFor 'search'}}" id="searchUsers">Search Users</a>
+    <div class="searchChoice btn btn-default">
+        <i class="fa fa-user"></i>
+        <a href="{{pathFor 'search'}}" id="searchUsers">Search Users</a>
     </div>
-    <div class="searchChoice">
-        <a class="btn btn-default" href="{{pathFor 'search'}}" id="searchProjects">Search Projects</a>
+    <div class="searchChoice btn btn-default">
+        <i class="fa fa-flask"></i>
+        <a href="{{pathFor 'search'}}" id="searchProjects">Search Projects</a>
     </div>
 </template>

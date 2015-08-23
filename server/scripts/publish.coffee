@@ -6,7 +6,9 @@ Meteor.publish('allUsers', ->
 Meteor.publish('allProjects', ->
   Projects.find()
 )
-
+Meteor.publish('allMessages', ()->
+  Messages.find()
+)
 Meteor.publish('myProjects', (userId) ->
   if Helpers.isVerifiedUser() and userId
     Projects.find(
