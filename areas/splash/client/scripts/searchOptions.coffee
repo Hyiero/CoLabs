@@ -1,7 +1,7 @@
 Template.splashLanding.events
   "click #searchUsers": (event) ->
-    Session.set "searchFilter", "users"
-    Session.set "search", "users"
+    Session.set "searchFilter", "user"
+    Session.set "search", "user"
   "click #searchProjects": (event) ->
-    Session.set "searchFilter", "projects"
-    Session.set "search", "projects"
+    Session.set "searchFilter", "project"
+    Session.set "search", "project"

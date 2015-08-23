@@ -1,4 +1,13 @@
 <template name="searchFilter">
     <h2>Search Filter</h2>
-    <input type="text" id="searchFilter" name="searchFilter" placeholder="Enter search terms" value="{{tags}}">
+    <div class="filter">
+        <label>Name</label>
+        <input type="text" id="nameSearchFilter" name="nameSearchFilter" placeholder="Enter name" value="{{name}}">
+        <input type="submit" id="nameClearFilter" value="Clear">
+    </div>
+    <div class="filter">
+        <label>Tags</label>
+        <input type="text" id="searchFilter" name="searchFilter" placeholder="Enter search terms" value="{{tags}}">
+        <input type="submit" id="clearFilter" value="Clear">
+    </div>
 </template>
