@@ -16,6 +16,14 @@
     display: inline-block;
 }
 
+<<<<<<< HEAD
+.dropdown-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+=======
 .navbar-collapse > ul {
     display: inline-block;
 }
+>>>>>>> 4354376323ab505db22a3b720bac7a893fad524b
