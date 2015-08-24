@@ -1,8 +1,9 @@
 Meteor.methods(
   addMessage: (to, from, message, timeStamp)->
+    console.log(to)
     Messages.insert(to: to, from: from, message: message, timeStamp: timeStamp)
     ###
-    FIXME: Inserts with wrong structure
+    FIXME: Inserts wrong structure
     Current:
     {
       to: [
@@ -15,7 +16,7 @@ Meteor.methods(
       message: null
       timeStamp: null
     }
-  
+
     Correct:
     {
       to: to

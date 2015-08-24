@@ -1,15 +1,15 @@
 Meteor.subscribe('allUsers')
 Meteor.subscribe('allProjects')
 
-findByUsersTags = (username, tags)->
+findByUsersTags = (name, tags)->
   Meteor.users.find(
-    username: { $regex: "^#{username}.*", $options: "i" }
+    username: { $regex: "^#{name}.*", $options: "i" }
     tags: { $all: tags }
   ).fetch()
 
-findByProjectTags = (username, tags)->
+findByProjectTags = (name, tags)->
   Projects.find(
-    username: { $regex: "^#{username}.*", $options: "i" }
+    username: { $regex: "^#{name}.*", $options: "i" }
     tags: { $all: tags }
   ).fetch()
 
