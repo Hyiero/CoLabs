@@ -1,8 +1,6 @@
 Meteor.subscribe('allMessages')
 
 Template.chat.helpers
-  setupCurrentContactInSession: ->
-    Session.set('currentContact',Meteor.user())
   currentConversation: ->
     test = Messages.messagesWithContact(Meteor.userId(), (Session.get "currentContact")._id)
     currentConversation = test

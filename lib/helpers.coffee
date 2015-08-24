@@ -4,10 +4,12 @@
 }
 
 AnyEmailVerified=(user) ->
+  if user==null or user==undefined
+    return false
   for email in user.emails
     if email.verified
-      true
-  false
+      return true
+  return false
 
 
 OldMethod= () ->

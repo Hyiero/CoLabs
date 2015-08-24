@@ -14,8 +14,9 @@ Template.navLinks.rendered = ->
 
 Template.navLinks.helpers
   verifiedUser: ->
-    console.log(Meteor.userId())
     Helpers.isVerifiedUser(Meteor.userId())
+  currentUser: ->
+    Helpers.isVerifiedUser(Meteor.userId())#TODO: Don't know how to verify if current user (Session variable maybe?)
 
       #Helpers.isVerifiedUser() Add back in when not tired as fuck
 
