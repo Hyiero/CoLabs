@@ -9,13 +9,13 @@ Meteor.publish('allProjects', ->
 Meteor.publish('allMessages', ()->
   Messages.find()
 )
-Meteor.publish('myProjects', (userId) ->
-  if Helpers.isVerifiedUser() and userId
+Meteor.publish('myProjects', (id) ->
+  if id and Helpers.isVerifiedUser(id)
     Projects.find(
-      users: { $in: userId }
+      users: { $in: id }
     )
   else console.warn 'User is not verified.'
 )
 
 Meteor.users.allow
-  update: (userId) -> userId?
+  update: (userId) -> this.userId?

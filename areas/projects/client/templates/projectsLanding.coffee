@@ -11,8 +11,8 @@ Template.projectForm.events
   'click #submitProject': (e) ->
     e.preventDefault()
     data = {
-      name: $('#projectName').val(),
-      description: $('#projectDescription').val()
+      name: $('#projectName').target.val(),
+      description: $('#projectDescription').target.val()
     }
     Meteor.call 'createProject', data, (err, res) ->
       if err console.error err

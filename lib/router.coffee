@@ -24,8 +24,7 @@ Router.map ->
   @route 'projectsLanding',
     path: '/projects'
     data: ->
-      user = Meteor.user()
-      if user then Meteor.subscribe 'myProjects', user._id
+      if Meteor.user() then Meteor.subscribe 'myProjects', Meteor.user
 
       projects = Projects.find().fetch()
       if not projects then Session.set 'editProject', true

@@ -10,22 +10,17 @@ Template.navLinks.rendered = ->
   linkClicked = document.getElementById(routeName)
 
   if linkClicked? then linkClicked.classList.add('active')
-  else console.log 'stop breaking shit, Juan'
+  else console.log 'Nav link has incorrect id (id does not match route name)'
 
 Template.navLinks.helpers
   verifiedUser: ->
-    if Meteor.user()?
-      id=Meteor.user()._id
-    else
-      id=""
-    if Meteor.users.find({'_id':id ,'emails.verified' : true}).count() != 0
-      true
-    else
-      false
+    console.log(Meteor.userId())
+    Helpers.isVerifiedUser(Meteor.userId())
+
       #Helpers.isVerifiedUser() Add back in when not tired as fuck
 
 Template.verifiedUserNavLinks.created = ->
-  if Meteor.user()?
+  if !Meteor.user()?
     $('#projectsLanding').addClass('hidden')
 
 Template.profileNavLink.helpers(
