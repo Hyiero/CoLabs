@@ -5,11 +5,9 @@ Template.searchFilter.events
   "input #nameSearchFilter": (event) ->
     searchVal = $(event.currentTarget).val()
     Session.set "nameSearch", searchVal
-
   "click #clearFilter": (event) ->
     $('#searchFilter').val("")
     Session.set "search", ""
-
   "click #nameClearFilter": (event) ->
     $('#nameSearchFilter').val("")
     Session.set "nameSearch", ""

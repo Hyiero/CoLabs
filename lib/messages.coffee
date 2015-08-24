@@ -3,12 +3,10 @@
 Messages.messagesWithContact = (user, contact)->
   Messages.find(
     $or: [
-      $to: user
-      $from: contact,
-      $to: contact
-      $from: user
+      to: user
+      from: contact,
+      to: contact
+      from: user
     ]
-    $orderby:
-      timeStamp: 1
-  ).fetch()
+  ).fetch().sort( {timeStamp: 1} )
 
