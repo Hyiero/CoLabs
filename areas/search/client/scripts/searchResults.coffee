@@ -20,13 +20,11 @@ Template.searchResults.helpers
     if tags is undefined or tags.length == 0 then tags = ["searchable"]
     else tags = tags.trim().split ' '
     if name is undefined then name = ''
-    tempResults = findByUsersTags(name, tags)
-    findByProjectTags(name, tags).concat(tempResults)
+    findByProjectTags(name, tags).concat findByUsersTags(name, tags)
 
 Template.searchResults.events
   "click #messageContact": (event) ->
     userId = event.target.attributes['value'].value
     user = Meteor.users.findOne({_id:userId})
-    console.log(user)
     Session.set "currentContact", user
 
