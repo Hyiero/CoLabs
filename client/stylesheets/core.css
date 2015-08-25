@@ -12,6 +12,7 @@ html {
 }
 
 .login-button-list {
+    float: right;
     margin: 0;
 }
 

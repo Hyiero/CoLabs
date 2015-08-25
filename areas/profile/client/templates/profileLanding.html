@@ -42,7 +42,10 @@
                             {{/if}}
                             <hr />
 
-                            <h4>Current Tags</h4>
+                            <h4>
+                                <i class="fa fa-tags"></i>
+                                <span class="txt">Current Tags</span>
+                            </h4>
                             {{#if interests}}
                             <ul>
                                 {{#each tags}}
@@ -60,9 +63,20 @@
                 <br>
             {{/with}}
             <a class="btn btn-default" href="{{pathFor 'profileEdit'}}">Edit Profile</a>
-            <h5>
-                <button id="sendNotificationButton" name="sendNotificationButton" >Send Notification</button>
-            </h5>
+            <button id="sendNotificationButton"
+                class="btn btn-default"
+                name="sendNotificationButton">
+                    Send Notification
+            </button>
+            <!-- TODO Resend verification email, only show if not verified -->
+            {{!
+            <h5>Verify</h5>
+            <hr />
+            <p><em>
+                If you've lost your email to verify, you can resend it here.
+                Verified users can create projects, request to be added to a project, and more!
+            </em></p>
+            }}
         </div>
     </div>
 </template>

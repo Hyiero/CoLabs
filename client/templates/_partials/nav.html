@@ -15,26 +15,26 @@
                     {{> navLinks}}
                 </ul>
                 <ul class="login-button-list">
-                    <li>
-                        {{> loginButton 'facebook' }}
-                    </li>
-                    <li>
-                        {{> loginButton 'google' }}
-                    </li>
-                    <li>
-                        {{> loginButton 'twitter' }}
-                    </li>
-                    <li>
-                        {{> loginButton 'linkedin' }}
-                    </li>
-                    <li>
-                        {{> loginButton 'github' }}
-                    </li>
                     {{#if currentUser}}
                         {{> profileNavLink}}
                         {{> signOutButton}}
                     {{else}}
                         {{> signInButton }}
+                        <li>
+                            {{> loginButton 'facebook' }}
+                        </li>
+                        <li>
+                            {{> loginButton 'google' }}
+                        </li>
+                        <li>
+                            {{> loginButton 'twitter' }}
+                        </li>
+                        <li>
+                            {{> loginButton 'linkedin' }}
+                        </li>
+                        <li>
+                            {{> loginButton 'github' }}
+                        </li>
                     {{/if}}
                 </ul>
             </div><!--/.nav-collapse -->
@@ -43,20 +43,34 @@
 </template>
 
 <template name ="navLinks">
-    <li id="splashLanding"><a href="{{pathFor 'splashLanding'}}">Home</a></li>
+    <li id="splashLanding">
+        <a href="{{pathFor 'splashLanding'}}">
+            <i class="fa fa-home"></i>
+            <span class="txt">Home</span>
+        </a>
+    </li>
+    <li id="search">
+        <a href="{{pathFor 'search'}}">
+            <i class="fa fa-search"></i>
+            <span class="txt">Search</span>
+        </a>
+    </li>
+    <li id="profileLanding">
+        <a href="{{pathFor 'profileLanding'}}">
+            <i class="fa fa-user"></i>
+            <span class="txt">Profile</span>
+        </a>
+    </li>
     {{#if verifiedUser}}
-        <li id="profileLanding"><a href="{{pathFor 'profileLanding'}}">My Profile</a></li>
-        <li id="notificationsLanding"><a href="{{pathFor 'notificationsLanding'}}">Notifications</a></li>
-        <li id="inboxLanding"><a href="{{pathFor 'inboxLanding'}}">Inbox</a></li>
-        <li id="adminLanding"><a href="{{pathFor 'adminLanding'}}">Admin</a></li>
+        {{> verifiedUserNavLinks}}
     {{/if}}
-    <li id="search"><a href="{{pathFor 'search'}}">Search</a></li>
-    {{#if currentUser}}
-        {{#if verifiedUser}}
-            {{> verifiedUserNavLinks}}
-        {{/if}}
-    {{/if}}
-    <!--Need to put the verifiedUserNavLinks in a currentUser and then verifiedUser if statement-->
+    <!-- TODO: If admin -->
+    <li id="adminLanding">
+        <a href="{{pathFor 'adminLanding'}}">
+            <i class="fa fa-shield"></i>
+            <span class="txt">Admin</span>
+        </a>
+    </li>
 </template>
 
 <template name="profileNavLink">
@@ -64,7 +78,24 @@
 </template>
 
 <template name="verifiedUserNavLinks">
-    <li id="projectsLanding"><a href="{{pathFor 'projectsLanding'}}">My Projects</a></li>
+    <li id="projectsLanding">
+        <a href="{{pathFor 'projectsLanding'}}">
+            <i class="fa fa-folder"></i>
+            <span class="txt">Projects</span>
+        </a>
+    </li>
+    <li id="inboxLanding">
+        <a href="{{pathFor 'inboxLanding'}}">
+            <i class="fa fa-envelope"></i>
+            <span class="txt">Inbox</span>
+        </a>
+    </li>
+    <li id="notificationsLanding">
+        <a href="{{pathFor 'notificationsLanding'}}">
+            <i class="fa fa-bell"></i>
+            <span class="txt">Notifications</span>
+        </a>
+    </li>
 </template>
 
 <template name="loginButton">

@@ -21,3 +21,37 @@
 .navbar-collapse > ul {
     display: inline-block;
 }
+
+/*
+@media all and (max-width:1200px)  {
+    
+    .navbar-toggle {
+        display: block;
+    }
+    
+    .navbar-header {
+        width: 100% !important;
+    }
+    
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    
+    .navbar-collapse.collapse.in {
+        float: left;
+    }
+
+    .navbar-collapse {
+        overflow-x: visible !important;
+    }
+
+    .navbar-collapse.in {
+      overflow-y: auto !important;
+    }
+
+    .collapse.in {
+      display: block !important;
+    }
+    
+}
+*/

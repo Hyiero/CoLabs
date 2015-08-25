@@ -15,10 +15,6 @@ Template.navLinks.rendered = ->
 Template.navLinks.helpers
   verifiedUser: ->
     Helpers.isVerifiedUser(Meteor.userId())
-  currentUser: ->
-    Helpers.isVerifiedUser(Meteor.userId())#TODO: Don't know how to verify if current user (Session variable maybe?)
-
-      #Helpers.isVerifiedUser() Add back in when not tired as fuck
 
 Template.verifiedUserNavLinks.created = ->
   if !Meteor.user()?
