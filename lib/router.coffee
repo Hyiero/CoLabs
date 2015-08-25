@@ -24,13 +24,14 @@ Router.map ->
   @route 'projectsLanding',
     path: '/projects'
     data: ->
-      if Meteor.user() then Meteor.subscribe 'myProjects', Meteor.user
-
-      projects = Projects.find().fetch()
-      if not projects then Session.set 'editProject', true
-
-      message: 'Projects Page',
+      if Meteor.user() then Meteor.subscribe 'myProjects', Meteor.userId()
+      projects = Projects.find()#Meteor.call 'getMyProjects', Meteor.userId()
+      #if not projects then Session.set 'editProject', true
+      debug:projects.count()
+      message: 'Projects Page'
       projects: projects
+      projectName: Session.get "projectName"
+      projectDescription: Session.get "projectDescription"
 
   @route 'inboxLanding',
   	 path: '/inbox'

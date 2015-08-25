@@ -2,7 +2,7 @@
     {{> nav}}
     <br>
     <br>
-    <h1>Projects</h1>
+    <h1>Current Projects</h1>
     <ul>
         {{#each projects}}
             {{> project }}
@@ -29,20 +29,34 @@
     <div class="container">
         {{#if edit}}
         <form class="projectSubmitForm">
+            <p>This changes will be visible by all project members</p>
             <input id="projectName" type="text" placeholder="Name" value="{{projectName}}"/>
             <br>
             <textarea id="projectDescription" placeholder="Description">
                 {{projectDescription}}
             </textarea>
             <input id="submitProject" type="submit" value="Save Project"/>
+            <button id="goBack" class="fa-backward">
+                <span class="txt">Back</span>
+            </button>
         </form>
         {{else}}
-            <button class="edit">
-                <i class="fa fa-edit"></i>
-                <span class="txt">Edit</span>
+            <button id="addNew">
+                <i class="fa fa-list-ol"></i>
+                <span class="txt">Add New</span>
             </button>
-            <h3 class="project-name">{{projectName}}</h3>
-            <p class="project-description">{{projectDescription}}</p>
+            {{#each projects}}
+                <h4 class="project-name">Name:{{this.name}}</h4>
+                <p class="project-description">Description:{{this.description}}</p>
+                <button class="edit"  value="{{this._id}}">
+                    <i class="fa fa-edit"></i>
+                    <span class="txt">Edit Project</span>
+                </button>
+                <button class="remove" value="{{this._id}}">
+                    <i class="fa fa-remove"></i>
+                    <span class="txt">Remove Me</span>
+                </button>
+            {{/each}}
         {{/if}}
     </div>
 </template>

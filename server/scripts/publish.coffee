@@ -12,7 +12,7 @@ Meteor.publish('allMessages', ()->
 Meteor.publish('myProjects', (id) ->
   if id and Helpers.isVerifiedUser(id)
     Projects.find(
-      users: { $in: id }
+      users: id #this matches when users is an array that contains id, which is what we want
     )
   else console.warn 'User is not verified.'
 )
