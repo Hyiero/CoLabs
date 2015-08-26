@@ -34,10 +34,8 @@ Template.projectForm.events
       userId: Meteor.userId()
     }
     console.log(data)
-    returnedValue = Meteor.call 'removeUserFromProject'
-    console.log("ret:"+returnedValue)
-    returnedValue=Meteor.call 'letsTryThisOne'
-    console.log("ret:"+returnedValue)
+    Meteor.call 'removeUserFromProject', data, (err,data) ->
+        console.log(data)
 
   'click #goBack': (e) ->
     e.preventDefault()

@@ -15,30 +15,31 @@ Meteor.methods(
   'updateProject': (data) ->
     Projects.update(
       {id:data.id},
-      {
-        name:data.name,
-        description:data.description
+      {$set:
+          {
+            name:data.name,
+            description:data.description
+          }
       }
     )
 
-  'removeUserFromProject': () ->
-    1 #fix this, data not going over for some reason
-    #project=Projects.findOne({_id:data.projectId})
+  'removeUserFromProject': (data) ->
+    project=Projects.findOne({_id:data.projectId})
+    userIndex=project.users.indexOf(data.userId)
+    project.users.splice(userIndex,1)
 
-    #project.users.remove(data.userId)
-
-    #Projects.update(
-      #{id:data.projectId},
-      #{
-        #users:project.users
-      #}
-    #)
+    Projects.update(
+      {_id:data.projectId},
+      {$set:
+        {
+         users:project.users
+        }
+      }
+    )
+    Projects.findOne({_id:data.projectId}).users    
 
 
   'getMyProjects':(id) ->
     Projects.find({users:id})
 
-
-  'letsTryThisOne': ()->
-    1
 )
