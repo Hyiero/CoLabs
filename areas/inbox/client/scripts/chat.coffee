@@ -22,10 +22,23 @@ Template.chat.helpers
 
 Template.chat.events
   "click #submitMessage": ->
+    user = Meteor.userId()
+    contact = (Session.get "currentContact")._id
+    pair =
+      user: user
+      contact: contact
     messageModel =
-      to: (Session.get "currentContact")._id
-      from: Meteor.userId()
+      to: contact
+      from: user
       message: $('#messageContent').val()
       timeStamp: new Date()
+    Meteor.call('addContact', pair) unless Messages.findOne(
+      $or: [
+        to: user
+        from: contact,
+        to: contact
+        from: user
+      ]
+    )?
     Meteor.call('addMessage', messageModel)
     $('#messageContent').val("")
