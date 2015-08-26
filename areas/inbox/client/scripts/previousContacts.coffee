@@ -1,9 +1,11 @@
 Template.previousContacts.helpers
   contactList: ->
-    contactIds = Meteor.users.find(
+    contactIds = Meteor.users.findOne(
       _id: Meteor.userId()
-    ).fetch()
-    #get list of users using contactIds
+    ).contacts
+    contactList = (Meteor.users.findOne(
+      _id: contact
+    ) for contact in contactIds)
 
 Template.previousContacts.events
   "click #conversation": ->

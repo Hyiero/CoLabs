@@ -6,11 +6,10 @@ Meteor.methods(
       message: messageModel.message
       timeStamp: messageModel.timeStamp
   addContact: (pair)->
-    contacts = Meteor.users.find(
+    contacts = Meteor.users.findOne(
       _id: pair.user
-    ).fetch().contacts
+    ).contacts
     contacts.unshift pair.contact
-    Meteor.users.update
-      _id: pair.user
+    Meteor.users.update { _id: pair.user },  $set:
       contacts: contacts
 )
