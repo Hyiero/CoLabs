@@ -12,6 +12,7 @@ html {
 }
 
 .login-button-list {
+    float: right;
     margin: 0;
 }
 
@@ -20,6 +21,8 @@ html {
 }
 
 .searchChoice {
+    min-width: 20rem;
+    margin: 2rem;
     width: 40%;
     display: inline-block;
 }

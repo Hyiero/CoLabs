@@ -1,10 +1,20 @@
 Meteor.subscribe('allMessages')
 
+UI.registerHelper 'nameOf', (id)->
+  user = Meteor.users.findOne
+    _id: id
+  user.name
+
 Template.chat.helpers
   currentConversation: ->
-    test = Messages.messagesWithContact(Meteor.userId(), (Session.get "currentContact")._id)
-    console.log(test)
-    currentConversation = test
+    user = Meteor.userId()
+    contact = (Session.get "currentContact")._id
+    to = Messages.messagesWithContact(user, contact)
+    from = Messages.messagesWithContact(contact, user)
+    conv = to.concat(from)
+    conv.sort (a, b)->
+      a.timeStamp - b.timeStamp
+    currentConversation = conv
   currentContactName: ->
     currentContactName = Session.get("currentContact").username
   userName: ->
@@ -12,10 +22,23 @@ Template.chat.helpers
 
 Template.chat.events
   "click #submitMessage": ->
+    user = Meteor.userId()
+    contact = (Session.get "currentContact")._id
+    pair =
+      user: user
+      contact: contact
     messageModel =
-      to: (Session.get "currentContact")._id
-      from: Meteor.userId()
+      to: contact
+      from: user
       message: $('#messageContent').val()
       timeStamp: new Date()
+    Meteor.call('addContact', pair) unless Messages.findOne(
+      $or: [
+        to: user
+        from: contact,
+        to: contact
+        from: user
+      ]
+    )?
     Meteor.call('addMessage', messageModel)
     $('#messageContent').val("")

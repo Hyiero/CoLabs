@@ -72,8 +72,11 @@
                                        value="{{concatTags}}">
                                 <hr />
 
-                                <h4>Current Tags</h4>
-                                <ul>
+                                <h4>
+                                    <i class="fa fa-tags"></i>
+                                    <span class="txt">Current Tags</span>
+                                </h4>
+                                <ul class="tags-list-buttons">
                                     {{#each currentTags}}
                                         <li>
                                             {{>tagButton}}
