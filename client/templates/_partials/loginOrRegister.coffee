@@ -14,7 +14,7 @@ Template.loginOrRegisterModal.events
   'submit form': (event) ->
     isLoginChecked = document.getElementById('loginRadioOption').checked
     event.preventDefault()
-    
+
     if isLoginChecked
       username = event.target.username.value
       password = event.target.password.value
@@ -22,7 +22,6 @@ Template.loginOrRegisterModal.events
       Meteor.loginWithPassword username, password, (err) ->
         if not err then Modal.hide 'loginOrRegisterModal'
         else console.warn 'TODO: Login failed message toast'
-      
       
     else
       username = event.target.username.value
@@ -38,9 +37,14 @@ Template.loginOrRegisterModal.events
         email: email,
         password: password
       }, (err) ->
-        #if err and err.reason is 'Email already exists.' then ...
+        #TODO if err and err.reason is 'Email already exists.' then ...
         if err isnt undefined then alert err.reason #TODO: Use input-box or other ui error
-        else Modal.hide 'loginOrRegisterModal'
+        else
+          Modal.allowMultiple = true
+          Modal.hide 'loginOrRegisterModal'
+          Modal.show 'checkEmailRegistrationLinkModal',
+            title: 'Verification Email Sent'
+            message: 'Please check your email to verify your registration.'
 
 Template.signOutButton.events
   'click': (event) ->

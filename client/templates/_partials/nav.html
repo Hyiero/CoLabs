@@ -8,7 +8,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{pathFor 'splashLanding'}}">CoLabs</a>
+                <a class="navbar-brand" href="{{pathFor 'splashLanding'}}">
+                    <i class="fa fa-flask"></i>
+                    <span class="txt">CoLabs</span>
+                </a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -55,47 +58,45 @@
             <span class="txt">Search</span>
         </a>
     </li>
-    <li id="profileLanding">
-        <a href="{{pathFor 'profileLanding'}}">
-            <i class="fa fa-user"></i>
-            <span class="txt">Profile</span>
-        </a>
-    </li>
-    {{#if verifiedUser}}
-        {{> verifiedUserNavLinks}}
+    {{#if isLoggedIn}}
+        <li id="profileLanding">
+            <a href="{{pathFor 'profileLanding'}}">
+                <i class="fa fa-user"></i>
+                <span class="txt">Profile</span>
+            </a>
+        </li>
+        {{#if verifiedUser}}
+            <li id="projectsLanding">
+                <a href="{{pathFor 'projectsLanding'}}">
+                    <i class="fa fa-folder"></i>
+                    <span class="txt">Projects</span>
+                </a>
+            </li>
+        {{/if}}
+        <li id="inboxLanding">
+            <a href="{{pathFor 'inboxLanding'}}">
+                <i class="fa fa-envelope"></i>
+                <span class="txt">Inbox</span>
+            </a>
+        </li>
+        <li id="notificationsLanding">
+            <a href="{{pathFor 'notificationsLanding'}}">
+                <i class="fa fa-bell"></i>
+                <span class="txt">Notifications</span>
+            </a>
+        </li>
+        <!-- TODO: If admin -->
+        <li id="adminLanding">
+            <a href="{{pathFor 'adminLanding'}}">
+                <i class="fa fa-shield"></i>
+                <span class="txt">Admin</span>
+            </a>
+        </li>
     {{/if}}
-    <!-- TODO: If admin -->
-    <li id="adminLanding">
-        <a href="{{pathFor 'adminLanding'}}">
-            <i class="fa fa-shield"></i>
-            <span class="txt">Admin</span>
-        </a>
-    </li>
 </template>
 
 <template name="profileNavLink">
     <li>Logged in as {{username}}</li>
-</template>
-
-<template name="verifiedUserNavLinks">
-    <li id="projectsLanding">
-        <a href="{{pathFor 'projectsLanding'}}">
-            <i class="fa fa-folder"></i>
-            <span class="txt">Projects</span>
-        </a>
-    </li>
-    <li id="inboxLanding">
-        <a href="{{pathFor 'inboxLanding'}}">
-            <i class="fa fa-envelope"></i>
-            <span class="txt">Inbox</span>
-        </a>
-    </li>
-    <li id="notificationsLanding">
-        <a href="{{pathFor 'notificationsLanding'}}">
-            <i class="fa fa-bell"></i>
-            <span class="txt">Notifications</span>
-        </a>
-    </li>
 </template>
 
 <template name="loginButton">
