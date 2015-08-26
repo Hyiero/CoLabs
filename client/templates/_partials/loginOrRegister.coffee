@@ -42,9 +42,16 @@ Template.loginOrRegisterModal.events
         else
           Modal.allowMultiple = true
           Modal.hide 'loginOrRegisterModal'
-          Modal.show 'checkEmailRegistrationLinkModal',
-            title: 'Verification Email Sent'
-            message: 'Please check your email to verify your registration.'
+          if email isnt ''
+            Modal.show 'checkEmailRegistrationLinkModal',
+              title: 'Verification Email Sent'
+              message: "Please check your email to verify your registration.
+                Until you verify, you will not have the ability to create or participate in projects."
+          else
+            Modal.show 'checkEmailRegistrationLinkModal',
+              title: 'You Cannot Verify Without An Email Address'
+              message: "Please add an email address on your profile page in order to send the verification email.
+                Without verifying, you will not have the ability to create or participate in projects."
 
 Template.signOutButton.events
   'click': (event) ->
