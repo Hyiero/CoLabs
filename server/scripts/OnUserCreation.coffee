@@ -3,7 +3,7 @@
 
 Accounts.onCreateUser (options,user) ->
   user.profile = {}
-  user.projects = {}
+  user.projects = []
   user.notifications={}
   user.avatar=""
   user.age=""

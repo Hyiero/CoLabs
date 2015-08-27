@@ -14,7 +14,9 @@ Meteor.publish('myProjects', (id) ->
     Projects.find(
       users: id #this matches when users is an array that contains id, which is what we want
     )
-  else console.warn 'User is not verified.'
+  else 
+    console.warn 'User is not verified.'
+    []    
 )
 
 Meteor.users.allow

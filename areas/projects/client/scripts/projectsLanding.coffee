@@ -33,9 +33,10 @@ Template.projectForm.events
       projectId: projectId,
       userId: Meteor.userId()
     }
-    console.log(data)
+    console.log Meteor.user().projects.length
     Meteor.call 'removeUserFromProject', data, (err,data) ->
         console.log(data)
+    console.log Meteor.user().projects.length
 
   'click #goBack': (e) ->
     e.preventDefault()

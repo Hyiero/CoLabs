@@ -1,3 +1,32 @@
+
+removeUserFromProject= (data) ->
+    project=Projects.findOne({_id:data.projectId})
+    userIndex=project.users.indexOf(data.userId)
+    project.users.splice(userIndex,1)
+
+    Projects.update(
+      {_id:data.projectId},
+      {$set:
+        {
+         users:project.users
+        }
+      }
+    )
+
+removeProjectFromUser= (data) ->
+    thisUser=Meteor.users.findOne({_id:data.userId})
+    projectIndex=thisUser.projects.indexOf(data.projectId)
+    thisUser.projects.splice(projectIndex,1)
+    
+    Meteor.users.update(
+        {_id:data.userId}
+        {$set:
+         {
+            projects:thisUser.projects
+         }
+        }
+    )
+
 Meteor.methods(
   'createProject': (data) ->
     userId = Meteor.user()._id
@@ -24,22 +53,14 @@ Meteor.methods(
     )
 
   'removeUserFromProject': (data) ->
-    project=Projects.findOne({_id:data.projectId})
-    userIndex=project.users.indexOf(data.userId)
-    project.users.splice(userIndex,1)
-
-    Projects.update(
-      {_id:data.projectId},
-      {$set:
-        {
-         users:project.users
-        }
-      }
-    )
-    Projects.findOne({_id:data.projectId}).users    
+     removeUserFromProject data
+     removeProjectFromUser data  
 
 
   'getMyProjects':(id) ->
     Projects.find({users:id})
 
 )
+
+
+    
