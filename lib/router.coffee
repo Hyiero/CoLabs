@@ -57,7 +57,11 @@ Router.map ->
 
   @route 'inboxLanding',
   	 path: '/inbox'
-
+    onBeforeAction: () ->
+       if Meteor.userId()?
+         this.next()
+       else
+         Router.go('/')
 
   @route 'notificationsLanding',
     path: '/notifications'
