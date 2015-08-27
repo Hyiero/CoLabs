@@ -1,6 +1,12 @@
 Meteor.subscribe('allUsers')
 Meteor.subscribe('allProjects')
 
+UI.registerHelper 'containsUser', (tags)->
+  'user' in tags
+
+UI.registerHelper 'notLoggedInUser', (result)->
+  result._id != Meteor.userId()
+
 findByUsersTags = (username, tags)->
   Meteor.users.find(
     username: { $regex: "^#{username}.*", $options: "i" }

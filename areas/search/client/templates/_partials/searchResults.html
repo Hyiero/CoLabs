@@ -1,6 +1,7 @@
 <template name="searchResults">
     <h3>Search Results</h3>
     {{#each filterResults}}
+        {{#if notLoggedInUser this}}
         <div class="filterResult">
             <ul class="resultAttributes">
             {{#with this}}
@@ -8,7 +9,10 @@
                 <li class="attribute">{{tags}}</li>
             {{/with}}
             </ul>
+            {{#if containsUser tags}}
             <a class="btn btn-default messageButton" href="{{pathFor 'inboxLanding'}}" id="messageContact" value="{{this._id}}">Message</a>
+            {{/if}}
         </div>
+        {{/if}}
     {{/each}}
 </template>
