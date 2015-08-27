@@ -10,7 +10,10 @@
     padding:5px;
     border-bottom:1px solid #ddd;
     margin:0;
-
+}
+.conversation:hover {
+    cursor: pointer;
+    background-color: lightgrey;
 }
 
 .message-wrap

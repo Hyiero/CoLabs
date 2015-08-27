@@ -9,6 +9,7 @@ Accounts.onCreateUser (options,user) ->
   user.age=""
   user.tags=["searchable", "user"]
   user.contacts=[]
+  user.emails=[]
   user.firstName=""
   user.name= user.username
   Meteor.setTimeout ->
