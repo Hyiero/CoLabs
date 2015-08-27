@@ -6,6 +6,9 @@ Template.project.helpers
     Users.find(
       _id: { $in: @users }
     )
+  username: (id)->
+    thisUser=Meteor.users.findOne({_id:id})
+    thisUser.username
 
 Template.projectForm.events
   'click #submitProject': (e) ->

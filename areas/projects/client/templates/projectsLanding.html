@@ -18,8 +18,8 @@
         <p>Last Updated:{{lastUpdated}}</p>
         <ul class="project-user-list">
             <p>Members:
-            {{#each users}}
-                {{username}}
+            {{#each this.users}}
+                {{username this}}
             {{/each}}
             </p>
         </ul>
