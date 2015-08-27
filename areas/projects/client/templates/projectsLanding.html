@@ -13,15 +13,24 @@
 
 <template name="project">
     <div id="{{id}}">
-        <h2>{{name}}</h2>
-        <p>{{description}}</p>
-        <ul>
+        <h2>Name:{{name}}</h2>
+        <p>Description:{{description}}</p>
+        <p>Last Updated:{{lastUpdated}}</p>
+        <ul class="project-user-list">
+            <p>Members:
             {{#each users}}
-                <li>
-                    <h3>{{username}}</h3>
-                </li>
+                {{username}}
             {{/each}}
+            </p>
         </ul>
+        <button class="edit"  value="{{this._id}}">
+            <i class="fa fa-edit"></i>
+            <span class="txt">Edit Project</span>
+        </button>
+        <button class="remove" value="{{this._id}}">
+            <i class="fa fa-remove"></i>
+            <span class="txt">Remove Me</span>
+        </button>
     </div>
 </template>
 
@@ -46,16 +55,9 @@
                 <span class="txt">Add New</span>
             </button>
             {{#each projects}}
-                <h4 class="project-name">Name:{{this.name}}</h4>
-                <p class="project-description">Description:{{this.description}}</p>
-                <button class="edit"  value="{{this._id}}">
-                    <i class="fa fa-edit"></i>
-                    <span class="txt">Edit Project</span>
-                </button>
-                <button class="remove" value="{{this._id}}">
-                    <i class="fa fa-remove"></i>
-                    <span class="txt">Remove Me</span>
-                </button>
+                {{>project}}
+                <br>
+                <br>
             {{/each}}
         {{/if}}
     </div>

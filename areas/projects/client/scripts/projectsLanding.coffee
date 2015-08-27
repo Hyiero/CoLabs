@@ -23,7 +23,7 @@ Template.projectForm.events
     e.preventDefault()
     projectId=e.currentTarget.attributes["value"].value
     project=Projects.findOne({_id:projectId})
-    
+
     Session.set "projectDescription", project.description
     Session.set "projectName" , project.name
     Session.set "projectId" , projectId
