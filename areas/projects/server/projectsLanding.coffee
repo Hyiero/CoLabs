@@ -13,6 +13,20 @@ removeUserFromProject= (data) ->
       }
     )
 
+removeAdminFromProject= (data) ->
+  project=Projects.findOne({_id:data.projectId})
+  userIndex=project.admins.indexOf(data.userId)
+  if userIndex>-1
+    project.admins.splice(userIndex,1)
+    Projects.update(
+      {_id:data.projectId},
+      {$set:
+        {
+          admins:project.admins
+        }
+      }
+    )
+
 removeProjectFromUser= (data) ->
     thisUser=Meteor.users.findOne({_id:data.userId})
     projectIndex=thisUser.projects.indexOf(data.projectId)
@@ -43,7 +57,7 @@ Meteor.methods(
 
   'updateProject': (data) ->
     Projects.update(
-      {id:data.id},
+      {_id:data.id},
       {$set:
           {
             name:data.name,
@@ -54,10 +68,11 @@ Meteor.methods(
 
   'removeUserFromProject': (data) ->
      removeUserFromProject data
-     removeProjectFromUser data  
+     removeProjectFromUser data
+     removeAdminFromProject data
 
 
-  'getMyProjects':(id) ->
+  'getMyProjects': (id) ->
     Projects.find({users:id})
 
 )

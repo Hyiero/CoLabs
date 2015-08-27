@@ -25,7 +25,7 @@ Router.map ->
     path: '/projects'
     data: ->
       if Meteor.user() then Meteor.subscribe 'myProjects', Meteor.userId()
-      projects = Projects.find()#Meteor.call 'getMyProjects', Meteor.userId()
+      projects = Projects.find({users:Meteor.userId()})
       #if not projects then Session.set 'editProject', true
       debug:projects.count()
       message: 'Projects Page'
