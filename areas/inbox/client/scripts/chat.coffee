@@ -6,13 +6,18 @@ UI.registerHelper 'nameOf', (id)->
   user.name
 
 UI.registerHelper 'cleanup', (timeStamp)->
-  # if same day,
-    # Today, HH:MM
-  # else if same year
-    # MMM, DD HH:MM
-  # else
-    # MMM, DD YYYY HH:MM
-  timeStamp
+  now = new Date()
+  now =
+    date: now.toLocaleDateString()
+    time: now.toLocaleTimeString()
+  timeStamp =
+    date: timeStamp.toLocaleDateString()
+    time: timeStamp.toLocaleTimeString()
+  if now.date == timeStamp.date
+    result = "Today, #{timeStamp.time}"
+  else
+    result = "#{timeStamp.date}, #{timeStamp.time}"
+  result
 
 Template.chat.helpers
   currentConversation: ->

@@ -8,9 +8,11 @@ Template.previousContacts.helpers
     ) for contact in contactIds)
 
 Template.previousContacts.events
-  "click #conversation": (event)->
-    console.log("click")
-    contactId = event.target.attributes['value'].value
+  "click .conversation": (event)->
+    $elem = $ event.currentTarget
+    if $elem.hasClass('media-body')
+      $elem = $elem.parent()
+    contactId = $elem.attr('value')
     if contactId != Session.get("currentContact")._id
       contact = Meteor.users.findOne({_id:contactId})
       Session.set "currentContact", contact
