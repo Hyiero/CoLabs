@@ -7,15 +7,15 @@ UI.registerHelper 'containsUser', (tags)->
 UI.registerHelper 'notLoggedInUser', (result)->
   result._id != Meteor.userId()
 
-findByUsersTags = (username, tags)->
+findByUsersTags = (name, tags)->
   Meteor.users.find(
-    username: { $regex: "^#{username}.*", $options: "i" }
+    name: { $regex: "^#{name}.*", $options: "i" }
     tags: { $all: tags }
   ).fetch()
 
-findByProjectTags = (username, tags)->
+findByProjectTags = (name, tags)->
   Projects.find(
-    username: { $regex: "^#{username}.*", $options: "i" }
+    name: { $regex: "^#{name}.*", $options: "i" }
     tags: { $all: tags }
   ).fetch()
 
