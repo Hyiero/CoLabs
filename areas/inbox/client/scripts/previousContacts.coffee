@@ -11,5 +11,6 @@ Template.previousContacts.events
   "click #conversation": (event)->
     console.log("click")
     contactId = event.target.attributes['value'].value
-    contact = Meteor.users.findOne({_id:contactId})
-    Session.set "currentContact", contact
+    if contactId != Session.get("currentContact")._id
+      contact = Meteor.users.findOne({_id:contactId})
+      Session.set "currentContact", contact

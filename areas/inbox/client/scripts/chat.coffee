@@ -5,6 +5,15 @@ UI.registerHelper 'nameOf', (id)->
     _id: id
   user.name
 
+UI.registerHelper 'cleanup', (timeStamp)->
+  # if same day,
+    # Today, HH:MM
+  # else if same year
+    # MMM, DD HH:MM
+  # else
+    # MMM, DD YYYY HH:MM
+  timeStamp
+
 Template.chat.helpers
   currentConversation: ->
     user = Meteor.userId()
