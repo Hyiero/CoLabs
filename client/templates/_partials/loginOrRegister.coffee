@@ -54,5 +54,4 @@ Template.loginOrRegisterModal.events
                 Without verifying, you will not have the ability to create or participate in projects."
 
 Template.signOutButton.events
-  'click': (event) ->
-    Meteor.logout()
+  'click': -> Meteor.logout()

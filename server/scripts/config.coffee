@@ -1,20 +1,21 @@
-Meteor.startup( ->
-  smtp = {
-    username: "colabstest1@gmail.com",
-    password: "kentsucks",
-    server: "smtp.gmail.com",
-    port: 465
-  }
-
-  #Removes all users from Meteor. May be used for testing
-  #Meteor.users.remove({});
-
-  process.env.MAIL_URL = "smtp://"+encodeURIComponent(smtp.username) + ':' + encodeURIComponent(smtp.password) + '@' + encodeURIComponent(smtp.server) + ':' + smtp.port;
-
+Meteor.startup ->
+  
+  smtp = Meteor.settings.smtp
+  (smtp[prop] = encodeURIComponent val) for prop, val of smtp
+  process.env.MAIL_URL = "smtp://#{smtp.username}:#{smtp.password}@#{smtp.server}:#{smtp.port}"
+  
   Accounts.emailTemplates.from = "CoLabs <no-reply@CoLabs.com>"
   Accounts.emailTemplates.siteName = "CoLabs"
-  Accounts.emailTemplates.subject = (user) ->
-    "Confirm Your Email Address"
-  Accounts.emailTemplates.text = (user,url) ->
-    "Click on the following link to verify your email address: #{url}"
-)
+  
+  Accounts.emailTemplates.verifyEmail.subject = (user) ->
+    "Confirm Your Email Address at CoLabs"
+    
+  Accounts.emailTemplates.verifyEmail.text = (user, url) ->
+    "Welcome, #{user.username}!\n
+    \n
+    Clicking on the following link will verify your email address: #{url}.\n
+    \n
+    After verifying, you will unlock the full capabilities of interacting with users and projects!\n
+    \n
+    Sincerely,\n
+    The CoLabs Community\n"
