@@ -4,6 +4,9 @@ Meteor.startup ->
   (smtp[prop] = encodeURIComponent val) for prop, val of smtp
   process.env.MAIL_URL = "smtp://#{smtp.username}:#{smtp.password}@#{smtp.server}:#{smtp.port}"
   
+  Logger.enable()
+  console.info process.env
+  
   Accounts.emailTemplates.from = "CoLabs <no-reply@CoLabs.com>"
   Accounts.emailTemplates.siteName = "CoLabs"
   
