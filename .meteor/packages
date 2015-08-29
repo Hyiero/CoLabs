@@ -21,3 +21,5 @@ react
 less
 twbs:bootstrap
 hillmark:meteor-identicon
+mike:mocha
+practicalmeteor:chai
