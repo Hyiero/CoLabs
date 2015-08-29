@@ -29,7 +29,15 @@ Router.map ->
         Session.set("tags",Meteor.user().tags)
 
   @route 'search',
-    path: '/search'
+    path: '/search/:type?'
+    waitOn: ->
+      if @params.type?
+        switch @params.type
+          when "users" then Meteor.subscribe('allUsers')
+          when "projects" then Meteor.subscribe('allProjects')
+      else
+        Meteor.subscribe('allUsers')
+        Meteor.subscribe('allProjects')
 
   @route 'adminLanding',
     path: '/admin'

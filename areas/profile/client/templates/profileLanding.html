@@ -10,11 +10,11 @@
                         <img src="/images/profile/{{avatar}}" class="img-responsive" alt="a" />
                     </div>
                 {{else}}
+                    <!-- TODO: Identicon as default profile image -->
                     <p><em>You have no profile picture, click 'Edit Profile' to upload one.</em></p>
                 {{/if}}
 
                 <hr />
-
                 <div class="info">
                     <div class="row">
                         <div class="price col-lg-6">
@@ -25,14 +25,46 @@
                             <h4>Email</h4>
                             {{#if firstEmail}}
                                 <p>{{firstEmail}}</p>
+                            {{else}}
+                                <p><em>Click 'Edit Profile' to add your email address.</em></p>
+                            {{/if}}
+                            <hr />
+                            
+                            <h4>Verify</h4>
+                            {{#if isVerifiedUser}}
+                                <p><em>Your email address is verified!</em></p>
+                            {{else}}
+                                {{#if hasEmailSaved}}
+                                    <p><em>
+                                        If you've lost your email to verify, you can resend it here.
+                                        Verified users can create projects, request to be added to a project, and more!
+                                    </em></p>
+                                    <button class="resend">
+                                        <i class="fa fa-share"></i>
+                                        <span class="txt">Resend</span>
+                                    </button>
+                                {{else}}
+                                    <p><em>
+                                        You need to save an email address before you can verify your account.
+                                        Until you verify, you will not have access to project participation features.
+                                    </em></p>
+                                {{/if}}
                             {{/if}}
                             <hr />
 
-                            <h4>Name</h4>
+                            <h4>First Name</h4>
                             {{#if firstName}}
                                 <p>{{firstName}}</p>
                             {{else}}
-                                <p><em>Click 'Edit Profile' to add your name.</em></p>
+                                <p><em>Click 'Edit Profile' to add your first name.</em></p>
+                            {{/if}}
+                            <hr />
+                            
+                            <h4>Last Name</h4>
+                            {{#if lastName}}
+                                <p>{{lastName}}</p>
+                            {{else}}
+                                <p><em>Click 'Edit Profile' to add your last name.</em></p>
                             {{/if}}
                             <hr />
 
@@ -62,23 +94,21 @@
                         </div>
                     </div>
                 </div>
-                <br>
+                
+                <hr />
+                <a class="btn btn-default" href="{{pathFor 'profileEdit'}}">
+                    <i class="fa fa-edit-square"></i>
+                    <span class="txt">Edit Profile</span>
+                </a>
             {{/with}}
-            <a class="btn btn-default" href="{{pathFor 'profileEdit'}}">Edit Profile</a>
+            
+            <!-- This is a test button, TODO REFACTOR REMOVE -->
+            <br />
             <button id="sendNotificationButton"
                 class="btn btn-default"
                 name="sendNotificationButton">
-                    Send Notification
+                    Send Test Notification
             </button>
-            <!-- TODO Resend verification email, only show if not verified -->
-            {{!
-            <h5>Verify</h5>
-            <hr />
-            <p><em>
-                If you've lost your email to verify, you can resend it here.
-                Verified users can create projects, request to be added to a project, and more!
-            </em></p>
-            }}
         </div>
     </div>
 </template>
