@@ -1,7 +1,6 @@
-#Creates a test user and makes sure that he is inserted into the database
 MochaWeb?.testOnly ->
   describe 'client accounts',->
-    it 'should create a User',(done)->
+    it 'Create a test user in database',(done)->
       Accounts.createUser({username:'tester',email:'tester@email.com',password:'test'},
         try
           user = Meteor.users.findOne({username: 'tester'})
@@ -11,7 +10,7 @@ MochaWeb?.testOnly ->
           done()
       )
     #Try and catch is needed when we have errors that might need to be handled or are expected
-    it 'should attempt to remove user from client', (done)->
+    it 'Attempt to remove user from client and receive not permitted error', (done)->
       try
         Meteor.users.remove({username: 'tester'})
         done()
