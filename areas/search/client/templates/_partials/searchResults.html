@@ -9,7 +9,7 @@
                 <li class="attribute">{{tags}}</li>
             {{/with}}
             </ul>
-            {{#if containsUser tags}}
+            {{#if isUser this}}
             <a class="btn btn-default messageButton" href="{{pathFor 'inboxLanding'}}" id="messageContact" value="{{this._id}}">Message</a>
             {{/if}}
         </div>

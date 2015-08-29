@@ -7,7 +7,8 @@ Accounts.onCreateUser (options, user) ->
   user.notifications ?= {}
   user.avatar ?= ""
   user.age ?= ""
-  user.tags ?= ["searchable", "user"]
+  user.tags ?= []
+  user.type ?= "user"
   user.contacts = []
   user.emails ?= []
   user.firstName ?= ""

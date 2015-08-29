@@ -53,7 +53,8 @@ Meteor.methods(
       owner: userId
       creator: userId
       privacyLevel: 'public'
-      tags: ['searchable', 'project']
+      tags: []
+      type: 'project'
     )
 
   'updateProject': (data) ->
