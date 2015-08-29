@@ -40,6 +40,13 @@ Template.projectForm.events
       userId: Meteor.userId()
     }
     Meteor.call 'removeUserFromProject', data
+    
+  'click button.addUsers': (e) ->
+    e.preventDefault()
+    projectId=e.currentTarget.attributes["value"].value
+    Session.set 'selectedProjectId', projectId
+    Router.go '/search/addUserToProjectSearch'
+    
 
   'click #goBack': (e) ->
     e.preventDefault()

@@ -73,3 +73,13 @@ Router.map ->
     data: ->
       message:'Notifications Page',
       notifications: -> Notifications.find()
+
+  @route 'addUserToProjectSearch',
+    path:'/search/addUserToProjectSearch'
+    waitOn: () ->
+      Meteor.subscribe 'thisUser', Meteor.userId()
+    onBeforeAction: () ->
+      if Meteor.userId()? and Helpers.isVerifiedUser(Meteor.userId())
+        this.next()
+      else
+        Router.go('/')

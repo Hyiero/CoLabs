@@ -1,0 +1,16 @@
+<template name="checkBoxUsersSearchResults">
+    <h3>Search Results</h3>
+    {{#each filterResults}}
+        {{#if notLoggedInUser this}}
+        <div class="filterResult">
+            <ul class="resultAttributes">
+            {{#with this}}
+                <li class="attribute">{{name}}</li>
+                <li class="attribute">{{tags}}</li>
+                <input type="checkbox" value="{{_id}}">
+            {{/with}}
+            </ul>           
+        </div>
+        {{/if}}
+    {{/each}}
+</template>
