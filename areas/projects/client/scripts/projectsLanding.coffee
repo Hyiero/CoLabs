@@ -45,7 +45,7 @@ Template.projectForm.events
     e.preventDefault()
     projectId=e.currentTarget.attributes["value"].value
     Session.set 'selectedProjectId', projectId
-    Router.go '/search/addUserToProjectSearch'
+    Router.go '/inviteUsers'
     
 
   'click #goBack': (e) ->

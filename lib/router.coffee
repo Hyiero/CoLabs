@@ -82,8 +82,8 @@ Router.map ->
       message:'Notifications Page',
       notifications: -> Notifications.find()
 
-  @route 'addUserToProjectSearch',
-    path:'/search/addUserToProjectSearch'
+  @route 'inviteUsers',
+    path:'/inviteUsers'
     waitOn: () ->
       Meteor.subscribe 'thisUser', Meteor.userId()
     onBeforeAction: () ->
@@ -91,3 +91,5 @@ Router.map ->
         this.next()
       else
         Router.go('/')
+    data: () ->
+        multipleSelection: 'true'

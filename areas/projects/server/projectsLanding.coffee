@@ -76,6 +76,11 @@ Meteor.methods(
 
   'getMyProjects': (id) ->
     Projects.find({users:id})
+    
+  'inviteUserToProject': (userId,projectId) ->    
+    console.log "InviteUserToProject Not implemented yet"
+    #TODO: send invite here to userId 
+    #about project in Session.get "projectId"
 
 )
 

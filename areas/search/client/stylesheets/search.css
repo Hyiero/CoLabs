@@ -9,6 +9,12 @@
     vertical-align: middle;
 }
 
+.selectedUserCheckbox {
+    display: inline;
+    float: right;
+    vertical-align: bottom;
+}
+
 .resultAttributes {
     float: left;
     display: inline-block;

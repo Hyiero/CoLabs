@@ -12,6 +12,9 @@
             {{#if isUser this}}
             <a class="btn btn-default messageButton" href="{{pathFor 'inboxLanding'}}" id="messageContact" value="{{this._id}}">Message</a>
             {{/if}}
+            {{#if ../multipleSelection}}
+            <input type="checkbox" value="{{_id}}" class="selectedUserCheckbox">
+            {{/if}}
         </div>
         {{/if}}
     {{/each}}
