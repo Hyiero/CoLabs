@@ -11,20 +11,20 @@ MochaWeb?.testOnly ->
       )
 
     it 'Attempt to update his profile info', (done) ->        
-    Meteor.users.update(
+      Meteor.users.update(
         {_id:Meteor.users.findOne({username:'tester'})._id}
         {$set:
             firstName:"test firstName"
             lastName:"test lastName"
             age:30
         }
-      ),
-        try
-          updatedUser=Meteor.users.findOne({username:'tester'})
-          chai.assert.equal updatedUser.firstName, "test firstName"
-          done()
-        catch
-          done()
+      )
+      try
+        updatedUser=Meteor.users.findOne({username:'tester'})
+        chai.assert.equal updatedUser.firstName, "test firstName"
+        done()
+      catch
+        done()
             
     it 'Attempt to remove user from client and receive not permitted error', (done)->
       try
