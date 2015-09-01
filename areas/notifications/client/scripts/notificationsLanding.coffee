@@ -9,3 +9,22 @@ Meteor.subscribe('allNotifications')
       sender:sender
     }
   )
+
+Template.notificationsLanding.events (
+    'click #showGeneralNotificationsButton': (e) ->
+        Session.set 'notificationsToShow','general'
+        
+    
+    'click #showInvitationsButton': (e)->
+        Session.set 'notificationsToShow','invitations'
+)
+
+Template.notificationsLanding.helpers (
+    isGeneral: ->
+        general=Session.get('notificationsToShow')=="general"
+        general
+    isInvitations: ->
+        invitations=Session.get('notificationsToShow')=="invitations"
+        invitations
+        
+)

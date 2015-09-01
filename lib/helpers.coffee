@@ -1,6 +1,17 @@
 @Helpers = {
   isVerifiedUser: (id)->
       AnyEmailVerified(Meteor.users.findOne({_id:id}))
+        
+  GetFormattedInvitations:(list) ->
+    newList=[]
+    for inv in list
+        project=Projects.findOne({_id:inv.project}) 
+        newList.push({
+            projectName:project.name
+            date:inv.date
+            projectDescription:project.description
+            })
+    return newList        
 }
 
 AnyEmailVerified=(user) ->
@@ -10,6 +21,8 @@ AnyEmailVerified=(user) ->
     if email.verified
       return true
   return false
+
+
 
 
 OldMethod= () ->
