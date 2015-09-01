@@ -26,10 +26,10 @@
         <div class="col-item">
             <div>
                 <h5>
-                    <inline class=" col-md-6 " block>
-                        <div class="col-sm-2">Type:   {{type}}</div>
-                        <div class="col-sm-2">Date:   {{date}}</div>
-                        <div class="col-sm-2">Sender: {{sender}}</div>
+                    <inline class=" col-md-12 " block>
+                        <div class="col-sm-4">Type:   {{type}}</div>
+                        <div class="col-sm-4">Date:   {{date}}</div>
+                        <div class="col-sm-4">Sender: {{sender}}</div>
                     </inline>
                 </h5>
             </div>
@@ -40,10 +40,18 @@
 
 <template name="showInvitations">
     {{#each ../invitations}}
-        <inline class=" col-md-6 " block>
-            <div class="col-sm-2">Project: {{projectName}}</div>
-            <div class="col-sm-2">Date:   {{date}}</div>
-            <div class="col-sm-2">Description: {{projectDescription}}</div>
+        <inline class=" col-md-12 " block>
+            <div class="col-sm-3">Project: {{projectName}}</div>
+            <div class="col-sm-3">Date:   {{date}}</div>
+            <div class="col-sm-3">Description: {{projectDescription}}</div>
+            <div class="col-sm-2">
+                <button id="acceptInvitationButton" >
+                    <i class="fa fa-thumbs-o-up"> Accept</i>
+                </button>
+            </div>            
+            <button id="declineInvitationButton">
+                <i class="fa fa-thumbs-o-down"> Decline</i>
+            </button>
         </inline>
     {{/each}}
 </template>

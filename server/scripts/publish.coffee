@@ -6,6 +6,7 @@ Meteor.publish('allUsers', ->
 Meteor.publish('allProjects', ->
   Projects.find()
 )
+
 Meteor.publish('allMessages', ()->
   Messages.find()
 )

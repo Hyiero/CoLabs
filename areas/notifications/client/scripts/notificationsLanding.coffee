@@ -17,7 +17,6 @@ Template.notificationsLanding.events (
     
     'click #showInvitationsButton': (e)->
         Session.set 'notificationsToShow','invitations'
-        Router.go '/notifications'
 )
 
 Template.notificationsLanding.helpers (

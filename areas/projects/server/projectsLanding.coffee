@@ -81,7 +81,7 @@ Meteor.methods(
     Invitations.insert(
         user:userId,
         project:projectId,
-        date: new Date()
+        date: moment().format('MM-DD-YYYY')
         )   
 
 )

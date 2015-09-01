@@ -75,6 +75,7 @@ Router.map ->
     path: '/notifications'
     waitOn: () ->
         Meteor.subscribe 'userInvitations', Meteor.userId()
+        Meteor.subscribe 'allProjects'
     onBeforeAction: () ->
       if Meteor.userId()?
         this.next()
