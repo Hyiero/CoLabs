@@ -6,6 +6,7 @@ Meteor.publish('allUsers', ->
 Meteor.publish('allProjects', ->
   Projects.find()
 )
+
 Meteor.publish('allMessages', ()->
   Messages.find()
 )
@@ -13,6 +14,7 @@ Meteor.publish('allMessages', ()->
 Meteor.publish('thisUser', (id) ->
   Meteor.users.find({_id:id})
 )
+
 Meteor.publish('myProjects', (id) ->
   if id and Helpers.isVerifiedUser(id)
     Projects.find(
@@ -22,6 +24,18 @@ Meteor.publish('myProjects', (id) ->
     console.warn 'User is not verified.'
     []    
 )
+
+Meteor.publish('projectInvitations', (id) ->
+    Invitations.find(
+        project:id
+        )
+    )
+
+Meteor.publish('userInvitations', (id) ->
+    Invitations.find(
+        user:id
+        )
+    )
 
 Meteor.users.allow
   update: (userId) -> this.userId?
