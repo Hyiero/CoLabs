@@ -73,6 +73,8 @@ Router.map ->
 
   @route 'notificationsLanding',
     path: '/notifications'
+    waitOn: () ->
+        Meteor.subscribe 'userInvitations', Meteor.userId()
     onBeforeAction: () ->
       if Meteor.userId()?
         this.next()
@@ -80,7 +82,8 @@ Router.map ->
         Router.go('/')
     data: ->
       message:'Notifications Page',
-      notifications: -> Notifications.find()
+      notifications: -> Notifications.find(),
+      invitations: -> Helpers.GetFormattedInvitations(Invitations.find().fetch())
 
   @route 'inviteUsers',
     path:'/inviteUsers'

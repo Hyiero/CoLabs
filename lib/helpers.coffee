@@ -1,6 +1,20 @@
 @Helpers = {
   isVerifiedUser: (id)->
       AnyEmailVerified(Meteor.users.findOne({_id:id}))
+        
+  GetFormattedInvitations:(list) ->
+    Meteor.subscribe 'allProjects'
+    console.log Projects.find().fetch()
+    newList=[]
+    for inv in list
+        project=Projects.findOne({_id:inv.project})        
+        newList.push({
+            projectName:project.name
+            date:inv.date
+            projectDescription:project.description
+            })
+        console.log newList
+    return newList        
 }
 
 AnyEmailVerified=(user) ->
@@ -10,6 +24,8 @@ AnyEmailVerified=(user) ->
     if email.verified
       return true
   return false
+
+
 
 
 OldMethod= () ->

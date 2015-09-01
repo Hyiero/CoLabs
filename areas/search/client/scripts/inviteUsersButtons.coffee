@@ -5,3 +5,4 @@ Template.inviteUsersButtons.events
             if(checkbox.checked)
                 userId=checkbox.attributes["value"].value
                 Meteor.call 'inviteUserToProject', userId, Session.get("selectedProjectId")
+                SendOneNotification "Project Invitation", moment().format('MM-DD-YYYY'),Session.get("selectedProjectId")

@@ -1,7 +1,27 @@
 <template name="notificationsLanding">
     {{>nav}}
     <br>
-    {{#each notifications}}
+    {{>notificationSelection}}
+    <br>
+    {{#if isGeneral}}
+        {{>showGeneralNotifications notifications}}
+    {{/if}}
+    {{#if isInvitations}}
+        {{>showInvitations invitations}}
+    {{/if}}
+</template>
+
+<template name="notificationSelection">
+    <button id="showGeneralNotificationsButton">
+        <i class="fa fa-flag-o">General</i>
+    </button>
+    <button id="showInvitationsButton">
+        <i class="fa fa-user-plus">Invitations</i>
+    </button>
+</template>
+
+<template name="showGeneralNotifications">
+    {{#each ../notifications}}
     <div class="col-sm-12">
         <div class="col-item">
             <div>
@@ -15,5 +35,15 @@
             </div>
         </div>
     </div>
+    {{/each}}
+</template>
+
+<template name="showInvitations">
+    {{#each ../invitations}}
+        <inline class=" col-md-6 " block>
+            <div class="col-sm-2">Project: {{projectName}}</div>
+            <div class="col-sm-2">Date:   {{date}}</div>
+            <div class="col-sm-2">Description: {{projectDescription}}</div>
+        </inline>
     {{/each}}
 </template>
