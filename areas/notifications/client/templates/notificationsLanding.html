@@ -4,24 +4,24 @@
     {{>notificationSelection}}
     <br>
     {{#if isGeneral}}
-        {{>showGeneralNotifications notifications}}
+        {{>showGeneralNotifications notifications=notifications}}
     {{/if}}
     {{#if isInvitations}}
-        {{>showInvitations invitations}}
+        {{>showInvitations invitations=invitations}}
     {{/if}}
 </template>
 
 <template name="notificationSelection">
     <button id="showGeneralNotificationsButton">
-        <i class="fa fa-flag-o">General</i>
+        <i class="fa fa-flag-o"> General</i>
     </button>
     <button id="showInvitationsButton">
-        <i class="fa fa-user-plus">Invitations</i>
+        <i class="fa fa-user-plus"> Invitations</i>
     </button>
 </template>
 
 <template name="showGeneralNotifications">
-    {{#each ../notifications}}
+    {{#each notifications}}
     <div class="col-sm-12">
         <div class="col-item">
             <div>
@@ -39,17 +39,17 @@
 </template>
 
 <template name="showInvitations">
-    {{#each ../invitations}}
+    {{#each invitations}}
         <inline class=" col-md-12 " block>
             <div class="col-sm-3">Project: {{projectName}}</div>
             <div class="col-sm-3">Date:   {{date}}</div>
             <div class="col-sm-3">Description: {{projectDescription}}</div>
             <div class="col-sm-2">
-                <button id="acceptInvitationButton" >
+                <button id="acceptInvitationButton" projectId="{{projectId}}" invitationId="{{invitationId}}">
                     <i class="fa fa-thumbs-o-up"> Accept</i>
                 </button>
             </div>            
-            <button id="declineInvitationButton">
+            <button id="declineInvitationButton" invitationId="{{invitationId}}">
                 <i class="fa fa-thumbs-o-down"> Decline</i>
             </button>
         </inline>

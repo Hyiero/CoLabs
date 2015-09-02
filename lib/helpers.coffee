@@ -7,6 +7,8 @@
     for inv in list
         project=Projects.findOne({_id:inv.project}) 
         newList.push({
+            projectId:project._id
+            invitationId:inv._id
             projectName:project.name
             date:inv.date
             projectDescription:project.description

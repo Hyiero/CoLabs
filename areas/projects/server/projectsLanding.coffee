@@ -47,7 +47,7 @@ Meteor.methods(
     Projects.insert(
       name: data.name,
       description: data.description
-      lastUpdated: new Date()
+      lastUpdated: new Date().toLocaleString()
       users: [userId]
       admins: [userId]
       owner: userId
@@ -81,8 +81,26 @@ Meteor.methods(
     Invitations.insert(
         user:userId,
         project:projectId,
-        date: moment().format('MM-DD-YYYY')
+        date: new Date().toLocaleString()
         )   
+  
+  'addUserToProject': (userId,projectId) ->
+     project=Projects.findOne({_id:projectId})
+     if project??
+        currentUsers=project.users
+        currentUsers.push(userId)
+        updated=Projects.update(
+            {_id:projectId},
+            {$set:
+                 {
+                    users:currentUsers
+                 }
+            }
+        )
+        updated
+    
+  'removeInvitation':(id)->
+     Invitations.remove({_id:id})
 
 )
 
