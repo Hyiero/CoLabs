@@ -25,6 +25,16 @@ MochaWeb?.testOnly ->
         done()
       catch
         done()
+    
+    it 'Attempt to send notification from user', (done) ->
+        SendOneNotification("testType","Today","Juan")
+        try
+          newNotification=Notifications.findOne({type:"testType"})
+          chai.assert.equal newNotification.sender "Juan"
+          Notifications.remove({type:"testType"})
+          done()
+        catch
+          done()
             
     it 'Attempt to remove user from client and receive not permitted error', (done)->
       try
