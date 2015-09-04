@@ -35,7 +35,8 @@ MochaWeb?.testOnly ->
           done()
         catch
           done()
-            
+
+    #Try and catch is needed when we have errors that might need to be handled or are expected
     it 'Attempt to remove user from client and receive not permitted error', (done)->
       try
         Meteor.users.remove({username: 'tester'})
