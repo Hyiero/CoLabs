@@ -12,8 +12,6 @@ if Meteor.isClient then Meteor.startup -> $ ->
   window.toast = (new ->
     _ = @
     
-    console.log 'Appending...'
-    
     htmlList = ->
       if $('#toast-list').length is 0
         $(document.body).append '<div id="toast-list">'
@@ -83,7 +81,6 @@ if Meteor.isClient then Meteor.startup -> $ ->
           else newToasts.push toast
         
         $htmlList = htmlList()
-        #$toasts = $htmlList.children()
         for t in newToasts
           _.index++
           ind = new Number _.index
@@ -93,7 +90,6 @@ if Meteor.isClient then Meteor.startup -> $ ->
           $toastHtml = $ toastHtml
           $htmlList.append $toastHtml unless not toastHtml
           $toastHtml.hide().fadeIn(100).show()
-          console.log toastHtml
           
           setTimeout (->
             _.paused = true
@@ -104,15 +100,7 @@ if Meteor.isClient then Meteor.startup -> $ ->
             ), 500
           ), duration
           
-          console.log t:t
-          
-        ###htmlToasts.each (elem, ind) ->
-          $elem = $ elem
-          toast = _.list.filter (t) -> t.ind equals $elem.data('ind')
-          if toast.duration > new Date - toast.time
-            _.queue -> $(elem).fadeOut().after
-        ###
-    setInterval _.update, 100
-    _    
+    setInterval _.update, 10
+    _
   )
   

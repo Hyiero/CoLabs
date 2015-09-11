@@ -22,7 +22,6 @@
                         {{> profileNavLink}}
                         {{> signOutButton}}
                     {{else}}
-                        {{> signInButton }}
                         <li>
                             {{> loginButton 'facebook' }}
                         </li>
@@ -37,6 +36,9 @@
                         </li>
                         <li>
                             {{> loginButton 'github' }}
+                        </li>
+                        <li>
+                            {{> signInButton }}
                         </li>
                     {{/if}}
                 </ul>
