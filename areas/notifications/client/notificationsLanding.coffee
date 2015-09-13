@@ -1,7 +1,7 @@
 Meteor.subscribe "allNotifications"
 
 @SendOneNotification=(type,date,sender)->
-  console.log(type+","+date+","+sender)
+  console.log "Sending one Notification:" + type+","+date+","+sender
   Meteor.call "sendNotification",
     type:type,
     date:date,

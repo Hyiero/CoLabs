@@ -74,7 +74,7 @@ Router.map ->
 
   @route 'inbox', {
     path: '/inbox'
-    onBeforeAction: redirectIfNotVerified
+    onBeforeAction: redirectIfNoUser
   }
   
   @route 'notifications', {
@@ -82,7 +82,7 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe 'userInvitations', Meteor.userId()
       Meteor.subscribe 'allProjects'
-    onBeforeAction: redirectIfNotVerified
+    onBeforeAction: redirectIfNoUser
     data: ->
       message:'Notifications Page',
       notifications: -> Notifications.find(),
