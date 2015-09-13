@@ -21,7 +21,8 @@ Template.loginOrRegisterModal.events
       
       Meteor.loginWithPassword username, password, (err) ->
         if not err then Modal.hide 'loginOrRegisterModal'
-        else console.warn 'TODO: Login failed message toast'
+        else toast.warning '<i class="fa fa-warning" /> Warning!',
+          'Username or Password is invalid.'
       
     else
       username = event.target.username.value

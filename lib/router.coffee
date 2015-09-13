@@ -1,3 +1,13 @@
+Router.configure {
+#layoutTemplate: 'Main'
+#loadingTemplate: 'Loading'
+#notFoundTemplate: 'NotFound'
+  load: ->
+    $('html, body').animate scrollTop: 0
+    this.next()
+#waitOn: -> Meteor.subscribe('recordSetThatYouNeedNoMatterWhat')
+}
+
 Router.map ->
   @route 'splashLanding',
     path: '/'

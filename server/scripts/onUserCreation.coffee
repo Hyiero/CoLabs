@@ -17,8 +17,11 @@ Accounts.onCreateUser (options, user) ->
   Logger.enable()
   console.info user
   
-  #TODO: Better, more predictable solution?
-  Meteor.setTimeout (->
-    Accounts.sendVerificationEmail user._id unless !user.emails.length
-    ), 5000
+  checkIfReady = () ->
+    Meteor.setTimeout (->
+      if user.emails.length > 0
+        Accounts.sendVerificationEmail user._id
+      else checkIfReady()
+    ), 100
+  checkIfReady()
   user

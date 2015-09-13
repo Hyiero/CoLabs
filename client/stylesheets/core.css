@@ -22,6 +22,7 @@ html {
 
 .searchChoice {
     min-width: 20rem;
+    max-width: 100rem;
     margin: 2rem;
     width: 40%;
     display: inline-block;

@@ -8,7 +8,7 @@ If the alert stack is the height of the window,
   the overflowing alert should be removed
 ###
 
-if Meteor.isClient then Meteor.startup -> $ ->
+if Meteor.isClient then Meteor.startup ->
   window.toast = (new ->
     _ = @
     
@@ -89,16 +89,16 @@ if Meteor.isClient then Meteor.startup -> $ ->
           t.ind = ind
           $toastHtml = $ toastHtml
           $htmlList.append $toastHtml unless not toastHtml
-          $toastHtml.hide().fadeIn(100).show()
+          $toastHtml.css(opacity:0).animate opacity:1, 400
           
           setTimeout (->
             _.paused = true
-            htmlList().children("[data-ind=#{ind}]").fadeOut 500
+            htmlList().children("[data-ind=#{ind}]").fadeOut 800
             setTimeout (->
               htmlList().children("[data-ind=#{ind}]").remove()
               _.paused = false
-            ), 500
-          ), duration
+            ), 800
+          ), duration + 400
           
     setInterval _.update, 10
     _
