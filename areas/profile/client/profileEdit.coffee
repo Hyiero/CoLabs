@@ -18,7 +18,7 @@ Template.profileEdit.events
         age: e.target.ageTextBox.value
         tags: allTags
       }, (err) ->
-        if err? then toast.error 'Error!',
+        if err? then toast.danger 'Error!',
           'Email address is already taken.'
 
 
@@ -28,6 +28,11 @@ getConcatTags = ->
 getCurrentTags = -> Session.get "tempTags"
 
 Template.profileEdit.helpers
+  user: -> Meteor.user()
+  email: ->
+    user = Meteor.user()
+    console.log user
+    ( ( user?.emails?.filter (e) -> e.verified )?.map (e) -> e.address )[0]
   concatTags:-> getConcatTags()
   currentTags:-> getCurrentTags()
   saveTagsToSession:-> Session.set("tempTags",Meteor.user().tags)

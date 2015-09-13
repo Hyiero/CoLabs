@@ -20,6 +20,8 @@ UI.registerHelper "cleanup", (timeStamp)->
   result
 
 Template.chat.helpers
+  contactSelected: ->
+    Session.get("currentContact")?
   currentConversation: ->
     user = Meteor.userId()
     contact = (Session.get "currentContact")._id

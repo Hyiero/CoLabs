@@ -13,6 +13,6 @@ Template.previousContacts.events
     if $elem.hasClass "media-body"
       $elem = $elem.parent()
     contactId = $elem.attr "value"
-    if contactId != Session.get("currentContact")._id
+    if contactId != Session.get("currentContact")?._id
       contact = Meteor.users.findOne _id:contactId
       Session.set "currentContact", contact
