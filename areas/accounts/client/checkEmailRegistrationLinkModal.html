@@ -1,0 +1,28 @@
+<template name="genericModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                    <i class="fa fa-close"></i>
+                </button>
+
+                <div class="modal-header">
+                    <h4 class="modal-title">{{title}}</h4>
+                </div>
+                
+                <div class="modal-body">
+                    {{message}}
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary col-xs-12 col-sm-12" data-dismiss="modal">
+                        <i class="fa fa-check"></i>
+                        <span class="txt">Ok</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>

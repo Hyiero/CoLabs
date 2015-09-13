@@ -12,7 +12,7 @@ process.env.METEOR_SETTINGS = {
 
 if Meteor.settings and
   Meteor.settings.env and
-  Meteor.settings.type isnt 'development'
+  Meteor.settings.env.type isnt 'development'
     console.log Meteor.settings
     {port, rootUrl, mongoUrl, bindIp} = Meteor.settings.env
     process.env.PORT = port

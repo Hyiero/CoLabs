@@ -19,8 +19,6 @@ pauli:accounts-linkedin
 logger
 react
 less
-twbs:bootstrap
 hillmark:meteor-identicon
 mike:mocha
 practicalmeteor:chai
-momentjs:moment
