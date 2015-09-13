@@ -78,11 +78,12 @@ Meteor.methods(
     Projects.find({users:id})
     
   'inviteUserToProject': (userId,projectId) -> 
-    Invitations.insert(
-        user:userId,
-        project:projectId,
-        date: moment().format('MM-DD-YYYY')
-        )   
+    if userId?? and projectId??
+        Invitations.insert(
+            user:userId,
+            project:projectId,
+            date: moment().format('MM-DD-YYYY')
+            )   
 
 )
 

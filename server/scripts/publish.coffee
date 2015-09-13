@@ -25,17 +25,21 @@ Meteor.publish('myProjects', (id) ->
     []    
 )
 
+Meteor.publish('allInvitations', ->
+    Invitations.find()
+)
+
 Meteor.publish('projectInvitations', (id) ->
     Invitations.find(
         project:id
-        )
     )
+)
 
 Meteor.publish('userInvitations', (id) ->
     Invitations.find(
         user:id
-        )
     )
+)
 
 Meteor.users.allow
   update: (userId) -> this.userId?

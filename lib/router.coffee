@@ -30,7 +30,7 @@ Router.map ->
 
   @route 'search',
     path: '/search/:type?'
-    waitOn: ->
+    waitOn: -> 
       if @params.type?
         switch @params.type
           when "users" then Meteor.subscribe('allUsers')
@@ -88,7 +88,8 @@ Router.map ->
 
   @route 'inviteUsers',
     path:'/inviteUsers'
-    waitOn: () ->
+    waitOn: () ->               
+      Meteor.subscribe('allInvitations')
       Meteor.subscribe 'thisUser', Meteor.userId()
     onBeforeAction: () ->
       if Meteor.userId()? and Helpers.isVerifiedUser(Meteor.userId())

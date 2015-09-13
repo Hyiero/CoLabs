@@ -4,4 +4,9 @@ Template.inviteUsersButtons.events
         for checkbox in selectedCheckboxes
             if(checkbox.checked)
                 userId=checkbox.attributes["value"].value
-                Meteor.call 'inviteUserToProject', userId, Session.get("selectedProjectId")
+                invited=Helpers.IsUserInvitedToProject(userId,Session.get("selectedProjectId"))
+                user=Meteor.users.findOne({_id:userId})
+                if invited is "false"
+                    Meteor.call 'inviteUserToProject', userId, Session.get("selectedProjectId")
+                else
+                    Modal.show 'userAlreadyInvitedModal',{user:user.name}
