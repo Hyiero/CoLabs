@@ -1,0 +1,59 @@
+<template name="search">
+    {{> nav }}
+    
+    {{> searchFilter }}
+    {{> searchTypeSelectors }}
+    {{> searchResults }}
+</template>
+
+<template name="searchFilter">
+    <h2>Search Filter</h2>
+    <div class="filter">
+        <label>Name</label>
+        <input type="text" id="nameSearchFilter" name="nameSearchFilter" placeholder="Enter name" value="{{name}}">
+        <input type="submit" id="nameClearFilter" value="Clear">
+    </div>
+    <div class="filter">
+        <label>Tags</label>
+        <input type="text" id="searchFilter" name="searchFilter" placeholder="Enter search terms" value="{{tags}}">
+        <input type="submit" id="clearFilter" value="Clear">
+    </div>    
+</template>
+
+<template name="searchTypeSelectors">
+    <div class="filter">
+            <label>Type</label>
+            <input class="typeSelector" type="radio" name="type" value="users">Users
+            <input class="typeSelector" type="radio" name="type" value="projects">Projects
+            <input class="typeSelector" type="radio" name="type" value="both">Both
+        </div>
+</template>
+
+<template name="searchResults">
+    <h3>Search Results</h3>
+    {{#each filterResults}}
+        {{#if notLoggedInUser this}}
+        <div class="filterResult">
+            <ul class="resultAttributes">
+            {{#with this}}
+                <li class="attribute">{{name}}</li>
+                <li class="attribute">{{tags}}</li>
+            {{/with}}
+            </ul>
+            {{#if isUser this}}
+            <a class="btn btn-default messageButton" href="{{pathFor 'inbox'}}" id="messageContact" value="{{this._id}}">Message</a>
+            {{/if}}
+            {{#if ../multipleSelection}}
+            <input type="checkbox" value="{{_id}}" class="selectedUserCheckbox">
+            {{/if}}
+        </div>
+        {{/if}}
+    {{/each}}
+</template>
+
+<template name="inviteUsersButtons">
+    <button id="inviteUsersToProject" >
+        <i class="fa fa-user-plus"></i>
+        <span class="txt">Invite Selected Users</span>
+    </button>
+</template>

@@ -2,6 +2,10 @@ html {
     font-size: 62.5%;
 }
 
+body {
+    padding: 50px;
+}
+
 .login-or-register .login-other-options * {
     color: #eee;
     margin: 1rem;

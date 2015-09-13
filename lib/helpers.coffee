@@ -1,34 +1,20 @@
-@Helpers = {
-  isVerifiedUser: (id)->
-      AnyEmailVerified(Meteor.users.findOne({_id:id}))
+anyEmailVerified = (user) ->
+  user? and user.emails? and
+  	( user.emails.filter (e) -> e.verified ).length > 0
+
+@CoLabs.isVerifiedUser = (id) ->
+  anyEmailVerified Meteor.users.findOne _id:id
         
-  GetFormattedInvitations:(list) ->
-    newList=[]
-    for inv in list
-        project=Projects.findOne({_id:inv.project}) 
-        newList.push({
-            projectId:project._id
-            invitationId:inv._id
-            projectName:project.name
-            date:inv.date
-            projectDescription:project.description
-            })
-    return newList        
-}
-
-AnyEmailVerified=(user) ->
-  if user==null or user==undefined
-    return false
-  for email in user.emails
-    if email.verified
-      return true
-  return false
-
-
-
-
-OldMethod= () ->
-  if Meteor.users.find({'_id': Meteor.user()._id,'emails.verified' : true}).count() != 0
-   true
-  else
-   false
+@CoLabs.formatInvitations = (list) ->
+  newList = []
+  for inv in list
+    proj = Projects.findOne _id: inv.project
+      
+    newList.push
+      projectName: proj.name
+      projectDescription: proj.description
+      projectId: proj._id
+      invitationId: inv._id
+      date: inv.date
+    
+  newList

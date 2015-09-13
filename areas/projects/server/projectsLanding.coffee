@@ -41,7 +41,7 @@ removeProjectFromUser= (data) ->
         }
     )
 
-Meteor.methods(
+CoLabs.methods(
   'createProject': (data) ->
     userId = Meteor.user()._id
     Projects.insert(
