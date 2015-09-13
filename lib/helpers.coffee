@@ -3,7 +3,7 @@ anyEmailVerified = (user) ->
   	( user.emails.filter (e) -> e.verified ).length > 0
 
 @CoLabs.isVerifiedUser = (id) ->
-  anyEmailVerified Meteor.users.findOne _id:id
+  anyEmailVerified Meteor.user()
         
 @CoLabs.formatInvitations = (list) ->
   newList = []

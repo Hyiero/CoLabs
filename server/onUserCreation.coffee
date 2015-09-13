@@ -9,7 +9,7 @@ Accounts.onCreateUser (options, user) ->
   user.age ?= ""
   user.tags ?= []
   user.type ?= "user"
-  user.contacts = []
+  user.contacts ?= []
   user.emails ?= []
   user.firstName ?= ""
   user.name ?= user.username
@@ -23,10 +23,10 @@ Accounts.onCreateUser (options, user) ->
   checkIfReady = ->
     last = Meteor.setTimeout (->
       if user.emails.length > 0
-        console.info 'Sending verification email.'
+        console.info "Sending verification email."
         Accounts.sendVerificationEmail user._id
       else
-        console.info 'Checking if ready for verification email'
+        console.info "Checking if ready for verification email"
         checkIfReady()
     ), 1000
   
