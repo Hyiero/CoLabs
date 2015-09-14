@@ -11,6 +11,12 @@
     </button>
     
     <h2>Application Logs</h2>
+    {{> enableLogs }}
     {{> logs }}
     
+</template>
+
+<template name="enableLogs">
+    <label for="toggleLogs">Enable Log Persistence</label>
+    <input type="checkbox" id="toggleLogs" checked="{{isEnabled}}"/>
 </template>

@@ -2,9 +2,9 @@ Router.configure
   load: ->
     $('html, body').animate scrollTop: 0
     this.next()
-  #layoutTemplate: 'Main'
-  #loadingTemplate: 'Loading'
-  #notFoundTemplate: 'NotFound'
+  landingTemplate: "splash"
+  loadingTemplate: "loading"
+  notFoundTemplate: "notFound"
   #waitOn: -> Meteor.subscribe('recordSetThatYouNeedNoMatterWhat')
 
 redirectIfNoUser = ->
@@ -39,14 +39,11 @@ Router.map ->
   
   @route 'search', {
     path: '/search/:type?'
-    waitOn: ->
+    data: ->
       if @params.type?
-        switch @params.type
-          when "users" then Meteor.subscribe('allUsers')
-          when "projects" then Meteor.subscribe('allProjects')
+        Session.set 'searchType', @params.type
       else
-        Meteor.subscribe('allUsers')
-        Meteor.subscribe('allProjects')
+        Session.set 'searchType', null
   }
   
   @route 'admin', {
@@ -59,8 +56,6 @@ Router.map ->
   
   @route 'projects', {
     path: '/projects'
-    waitOn: ->
-      Meteor.subscribe 'myProjects', Meteor.userId()
     onBeforeAction: redirectIfNotVerified
     data: ->
       projects = Projects.find users:Meteor.userId()

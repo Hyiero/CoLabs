@@ -6,12 +6,13 @@ CoLabs.methods = (obj) ->
   Meteor.methods obj
 
 CoLabs.methods
-  updateUser: (id, updateObject) ->
+  updateUser: (obj) ->
+    id = this.userId
     user = Meteor.users.findOne(_id: id)
     email = user.emails[0]
     
-    if not email or email.address isnt updateObject.email
-      emails = [address: updateObject.email, verified: false]
+    if not email or email.address isnt obj.email
+      emails = [address: obj.email, verified: false]
     
     Logger.enable()
     console.info user
@@ -19,11 +20,12 @@ CoLabs.methods
     result = Meteor.users.update _id: id,
       $set: {
           emails: emails or user.emails
-          avatar: updateObject.avatar
-          firstName: updateObject.firstName
-          lastName: updateObject.lastName
-          age: updateObject.age
-          tags: updateObject.tags
+          avatar: obj.avatar
+          firstName: obj.firstName
+          lastName: obj.lastName
+          age: obj.age
+          tags: obj.tags
+          identiconHex: obj.identiconHex
         },
         -> console.info Meteor.users.findOne(_id: id)
     !result? or false

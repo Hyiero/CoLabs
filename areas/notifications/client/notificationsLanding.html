@@ -12,11 +12,11 @@
 </template>
 
 <template name="notificationSelection">
-    <button class="btn" id="showGeneralNotificationsButton">
+    <button class="btn btn-info" id="showGeneralNotificationsButton">
         <i class="fa fa-flag-o"></i>
         <span class="txt">General</span>
     </button>
-    <button class="btn" id="showInvitationsButton">
+    <button class="btn btn-success" id="showInvitationsButton">
         <i class="fa fa-user-plus"></i>
         <span class="txt">Invitations</span>
     </button>
@@ -42,12 +42,12 @@
             <div class="col-sm-3">Date: {{date}}</div>
             <div class="col-sm-3">Description: {{projectDescription}}</div>
             <div class="col-sm-2">
-                <button class="btn" id="acceptInvitationButton" projectId="{{projectId}}" invitationId="{{invitationId}}">
+                <button class="btn btn-default" id="acceptInvitationButton" projectId="{{projectId}}" invitationId="{{invitationId}}">
                     <i class="fa fa-thumbs-o-up"></i>
                     <span class="txt">Accept</span>
                 </button>
             </div>            
-            <button id="declineInvitationButton" invitationId="{{invitationId}}">
+            <button class="btn btn-default" id="declineInvitationButton" invitationId="{{invitationId}}">
                 <i class="fa fa-thumbs-o-down"></i>
                 <span class="txt">Decline</span>
             </button>

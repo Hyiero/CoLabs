@@ -1,3 +1,6 @@
+Template.projects.onCreated ->
+  @subscribe 'myProjects'
+
 Template.projects.helpers
   projects: Projects.find().fetch()
 

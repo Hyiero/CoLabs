@@ -1,6 +1,5 @@
 <template name="search">
     {{> nav }}
-    
     {{> searchFilter }}
     {{> searchTypeSelectors }}
     {{> searchResults }}
@@ -8,25 +7,36 @@
 
 <template name="searchFilter">
     <h2>Search Filter</h2>
-    <div class="filter">
-        <label>Name</label>
-        <input type="text" id="nameSearchFilter" name="nameSearchFilter" placeholder="Enter name" value="{{name}}">
-        <input type="submit" id="nameClearFilter" value="Clear">
+    <div class="filter form-group btn-group">
+        <label for="nameSearchFilter">Name</label>
+        <input type="text" class="form-control" id="nameSearchFilter" name="nameSearchFilter" placeholder="Enter name" value="{{name}}">
+        <i class="search-clear fa fa-close"></i>
     </div>
-    <div class="filter">
-        <label>Tags</label>
-        <input type="text" id="searchFilter" name="searchFilter" placeholder="Enter search terms" value="{{tags}}">
-        <input type="submit" id="clearFilter" value="Clear">
+    <div class="filter form-group btn-group">
+        <label for="searchFilter">Tags</label>
+        <input type="text" class="form-control" id="searchFilter" name="searchFilter" placeholder="Enter search terms" value="{{tags}}">
+        <i class="search-clear fa fa-close"></i>
     </div>    
 </template>
 
 <template name="searchTypeSelectors">
-    <div class="filter">
-            <label>Type</label>
-            <input class="typeSelector" type="radio" name="type" value="users">Users
-            <input class="typeSelector" type="radio" name="type" value="projects">Projects
-            <input class="typeSelector" type="radio" name="type" value="both">Both
-        </div>
+    <div class="filter form-group btn-group">
+        <label for="type" data-toggle="buttons">
+            <span class="txt">Type</span>
+            <label class="btn btn-default {{isUsersActive}}">
+                <input class="typeSelector" type="radio" name="type" value="users" checked="{{isUsers}}">
+                <span class="txt">Users</span>
+            </label>
+            <label class="btn btn-default {{isProjectsActive}}">
+                <input class="typeSelector" type="radio" name="type" value="projects" checked="{{isProjects}}">
+                <span class="txt">Projects</span>
+            </label>
+            <label class="btn btn-default {{isBothActive}}">
+                <input class="typeSelector" type="radio" name="type" value="both" checked="{{isBoth}}">
+                <span class="txt">Both</span>
+            </label>
+        </label>
+    </div>
 </template>
 
 <template name="searchResults">

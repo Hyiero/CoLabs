@@ -5,7 +5,7 @@ Accounts.onCreateUser (options, user) ->
   user.profile ?= {}
   user.projects ?= []
   user.notifications ?= {}
-  user.identiconHex ?= CoLabs.encodeAsHexMd5 user.username
+  user.identiconHex ?= CoLabs.encodeAsHexMd5(user.username.concat Date.now().toString())
   user.avatar ?= ""
   user.age ?= ""
   user.tags ?= []

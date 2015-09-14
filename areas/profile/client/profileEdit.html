@@ -12,15 +12,11 @@
                             <div class="price col-md-12">
 
                                 <h4>Avatar</h4>
+                                {{>avatar userId=_id}}
                                 <p><input type="text" name="avatarPathTextBox" class="at_avatarPathTextBox" value="{{avatar}}"/></p>
-                                {{#if avatar}}
-                                    <div class="photo">
-                                        <img src="/images/profile/{{avatar}}" class="img-responsive" alt="a" />
-                                    </div>
-                                {{else}}
-                                    <p><em>Click 'Upload Image' to choose a custom avatar.</em></p>
-                                {{/if}}
                                 <button id="uploadImageButton" class="at_uploadImageButton">Upload Image</button>
+                                <span class="txt">or</span>
+                                <button id="regenButton" class="at_regenButton">Regenerate Identicon</button>
                                 <hr />
 
                                 <h4>Email</h4>

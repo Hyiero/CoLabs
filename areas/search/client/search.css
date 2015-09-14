@@ -1,3 +1,13 @@
+.search-clear {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 20%;
+    margin: auto;
+    font-size: 12pt;
+    cursor: pointer;
+    color: #ccc;
+}
+
 .filter {
     display: inline;
     margin-right: 3rem;
