@@ -12,7 +12,7 @@ CoLabs.methods
     email = user.emails[0]
     
     if not email or email.address isnt obj.email
-      emails = [address: obj.email, verified: false]
+      emails = [address: obj.email or false, verified: false]
     
     Logger.enable()
     console.info user

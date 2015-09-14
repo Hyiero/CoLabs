@@ -1,13 +1,21 @@
 <template name="notifications">
-    {{>nav}}
-    <br>
-    {{>notificationSelection}}
-    <br>
+    {{> nav }}
+    <br />
+    {{> notificationSelection }}
+    
+    <!-- This is a test button, TODO REFACTOR REMOVE -->
+    <button id="sendNotificationButton"
+        class="btn btn-default"
+        name="sendNotificationButton">
+            Send Test Notification
+    </button>
+    
+    <br />
     {{#if isGeneral}}
-        {{>showGeneralNotifications notifications=notifications}}
+        {{> showGeneralNotifications notifications=notifications }}
     {{/if}}
     {{#if isInvitations}}
-        {{>showInvitations invitations=invitations}}
+        {{> showInvitations invitations=invitations }}
     {{/if}}
 </template>
 

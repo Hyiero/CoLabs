@@ -22,6 +22,10 @@
     display: inline-block;
 }
 
+.navbar-avatar {
+    display: inline-block;
+}
+
 /*
 @media all and (max-width:1200px)  {
     

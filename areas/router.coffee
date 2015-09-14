@@ -54,6 +54,12 @@ Router.map ->
       this.next()
   }
   
+  # TEMPORARY ROUTE
+  @route 'loading', {
+    path: '/loading'
+  }
+  # TEMPORARY ROUTE
+  
   @route 'projects', {
     path: '/projects'
     onBeforeAction: redirectIfNotVerified

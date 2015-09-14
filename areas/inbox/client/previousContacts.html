@@ -4,7 +4,7 @@
         {{#each contactList}}
         <div class="media conversation" value="{{this._id}}">
             <a class="pull-left" href="#">
-                {{>avatar userId=this._id}}
+                {{> avatar userId=this._id size="sm"}}
             </a>
             <div class="media-body">
                 <h5 class="media-heading">{{this.name}}</h5>

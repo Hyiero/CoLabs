@@ -40,3 +40,13 @@ body {
     background: inherit;
     color: #fff;
 }
+
+.fa-checkbox.fa-checkbox {
+    margin: 0 auto;
+    padding: 1.85rem;
+    margin-left: -0.3rem;
+}
+
+.fa-checkbox .fa {
+    top: 0.7rem;
+}

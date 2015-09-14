@@ -97,6 +97,7 @@ Template.searchResults.helpers
 
 Template.searchResults.events
   "click #messageContact": (event) ->
-    userId = event.target.attributes["value"].value
+    console.log $(event.currentTarget).data('user-id')
+    userId = $(event.currentTarget).data('user-id')
     user = Meteor.users.findOne({_id:userId})
     Session.set "currentContact", user

@@ -1,7 +1,8 @@
 Template.inviteUsersButtons.events 
-  "click #inviteUsersToProject": (event) ->
-    selectedCheckboxes = $ ".selectedUserCheckbox"
-    for checkbox in selectedCheckboxes
-      if checkbox.checked
-        userId = checkbox.attributes["value"].value
-        Meteor.call "inviteUserToProject", userId, Session.get "selectedProjectId"
+  "click #inviteUsersToProject": ->
+    $('.checkbox').each (val, ind) ->
+      $box = $ val
+      if $box.data 'is-enabled'
+        userId = $box.data 'id'
+        Meteor.call "inviteUserToProject",
+          userId, Session.get "selectedProjectId"

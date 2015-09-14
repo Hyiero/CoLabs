@@ -98,6 +98,9 @@
 </template>
 
 <template name="profileNavLink">
+    <div class="navbar-avatar">
+        {{> avatar userId=userId size="xs" }}
+    </div>
     <li>Logged in as {{username}}</li>
 </template>
 

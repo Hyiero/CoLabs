@@ -1,9 +1,9 @@
 <template name="avatar">
-    <div class="photo">
+    <div class="photo {{size}}">
     {{#if avatar}}
         <img src="/images/profile/{{avatar}}" class="img-responsive" alt="a" />
     {{else}}
-        <img width="100px" height="100px" class="img-responsive identicon" src="{{identicon identiconHex}}" />
+        <img class="img-responsive identicon" src="{{identicon identiconHex}}" />
     {{/if}}
     </div>
 </template>
