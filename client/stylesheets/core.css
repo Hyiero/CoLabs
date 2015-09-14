@@ -4,6 +4,7 @@ html {
 
 body {
     padding: 50px;
+    margin-top: 3rem;
 }
 
 .login-or-register .login-other-options * {
@@ -21,6 +22,7 @@ body {
 }
 
 .login-button-list li {
+    margin: 1rem;
     color: #fff;
 }
 

@@ -83,6 +83,7 @@
 
     <section class="col-xs-12 col-sm-6 col-md-12">
         {{#each filterResults}}
+        {{#if notLoggedInUser this}}
     		<article class="search-result row">
     			<div class="col-xs-12 col-sm-12 col-md-3">
     				{{> avatar userId=_id size="md" }}
@@ -127,6 +128,7 @@
     			</div>
     			<span class="clearfix borda"></span>
     		</article>
+    	{{/if}}
 		{{/each}}
 	</section>
 </template>
