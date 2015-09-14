@@ -12,11 +12,8 @@ Meteor.publish 'thisUser', (id) ->
   Meteor.users.find _id:id
 
 Meteor.publish 'myProjects', (id) ->
-  if id and CoLabs.isVerifiedUser id
-    Projects.find users:id
-  else 
-    console.warn 'User is not verified.'
-    []
+  if id then Projects.find users:id
+  else []
 
 Meteor.publish 'projectInvitations', (id) ->
     Invitations.find project:id

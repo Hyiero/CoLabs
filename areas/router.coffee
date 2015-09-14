@@ -59,11 +59,10 @@ Router.map ->
   
   @route 'projects', {
     path: '/projects'
-    waitOn: () ->
-      Meteor.subscribe 'thisUser', Meteor.userId()
+    waitOn: ->
+      Meteor.subscribe 'myProjects', Meteor.userId()
     onBeforeAction: redirectIfNotVerified
     data: ->
-      if Meteor.user() then Meteor.subscribe 'myProjects', Meteor.userId()
       projects = Projects.find users:Meteor.userId()
       # if not projects then Session.set 'editProject', true
       debug: projects.count()
@@ -83,7 +82,7 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe 'userInvitations', Meteor.userId()
       Meteor.subscribe 'allProjects'
-    onBeforeAction: redirectIfNotVerified
+    onBeforeAction: redirectIfNoUser
     data: ->
       message:'Notifications Page',
       notifications: -> Notifications.find(),

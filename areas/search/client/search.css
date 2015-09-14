@@ -35,3 +35,8 @@
 #typeSelector {
     display: inline;
 }
+
+.photo {
+    width: 4rem;
+    height: 4rem;
+}

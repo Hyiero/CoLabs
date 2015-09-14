@@ -23,15 +23,15 @@
             {{/each}}
             </p>
         </ul>
-        <button class="edit"  value="{{this._id}}">
+        <button class="btn btn-warning edit"  value="{{this._id}}">
             <i class="fa fa-edit"></i>
             <span class="txt">Edit Project</span>
         </button>
-        <button class="remove" value="{{this._id}}">
+        <button class="btn btn-danger remove" value="{{this._id}}">
             <i class="fa fa-remove"></i>
             <span class="txt">Remove Me</span>
         </button>
-        <button class="addUsers" value="{{this._id}}">
+        <button class="btn btn-info addUsers" value="{{this._id}}">
             <i class="fa fa-user"></i>
             <span class="txt">Add Users</span>
         </button>
@@ -54,9 +54,10 @@
             </button>
         </form>
         {{else}}
-            <button id="addNew">
-                <i class="fa fa-list-ol"></i>
+            <button class="btn btn-success" id="addNew">
+                <i class="fa fa-plus"></i>
                 <span class="txt">Add New</span>
+                <!-- TODO: Popup form to create new -->
             </button>
             {{#each projects}}
                 {{>project}}

@@ -36,6 +36,7 @@
         <div class="filterResult">
             <ul class="resultAttributes">
             {{#with this}}
+                <li class="attribute">{{>avatar userId=_id}}</li>
                 <li class="attribute">{{name}}</li>
                 <li class="attribute">{{tags}}</li>
             {{/with}}
