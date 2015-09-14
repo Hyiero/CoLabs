@@ -10,7 +10,8 @@
                         <img src="/images/profile/{{avatar}}" class="img-responsive" alt="a" />
                     </div>
                 {{else}}
-                    <!-- TODO: Identicon as default profile image -->
+                    <img width="100px" height="100px" class="img-responsive identicon" src="{{identicon identiconHex}}" />
+                    <br />
                     <p><em>You have no profile picture, click 'Edit Profile' to upload one.</em></p>
                 {{/if}}
 

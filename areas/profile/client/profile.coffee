@@ -1,5 +1,4 @@
 Template.profile.helpers
-
   firstEmail: ->
     email = this.emails[0]
     if email then email.address else ''

@@ -1,6 +1,5 @@
 anyEmailVerified = (user) ->
-  user? and user.emails? and
-  	( user.emails.filter (e) -> e.verified ).length > 0
+  ( user?.emails?.filter (e) -> e.verified )?.length > 0
 
 @CoLabs.isVerifiedUser = (id) ->
   anyEmailVerified Meteor.user()
@@ -18,3 +17,6 @@ anyEmailVerified = (user) ->
       date: inv.date
     
   newList
+
+@CoLabs.encodeAsHexMd5 = (text) ->
+  CryptoJS.MD5(text).toString()

@@ -54,6 +54,7 @@ Router.map ->
     onBeforeAction: ->
       # TODO: Redirect if not admin
       console.warn 'TODO: Redirect if not admin'
+      this.next()
   }
   
   @route 'projects', {
@@ -74,7 +75,7 @@ Router.map ->
 
   @route 'inbox', {
     path: '/inbox'
-    onBeforeAction: redirectIfNotVerified
+    onBeforeAction: redirectIfNoUser
   }
   
   @route 'notifications', {

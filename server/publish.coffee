@@ -1,41 +1,28 @@
 
-Meteor.publish('allUsers', ->
+Meteor.publish 'allUsers', ->
   Meteor.users.find()
-)
 
-Meteor.publish('allProjects', ->
+Meteor.publish 'allProjects', ->
   Projects.find()
-)
 
-Meteor.publish('allMessages', ()->
+Meteor.publish 'allMessages', ->
   Messages.find()
-)
 
-Meteor.publish('thisUser', (id) ->
-  Meteor.users.find({_id:id})
-)
+Meteor.publish 'thisUser', (id) ->
+  Meteor.users.find _id:id
 
-Meteor.publish('myProjects', (id) ->
-  if id and CoLabs.isVerifiedUser(id)
-    Projects.find(
-      users: id #this matches when users is an array that contains id, which is what we want
-    )
+Meteor.publish 'myProjects', (id) ->
+  if id and CoLabs.isVerifiedUser id
+    Projects.find users:id
   else 
     console.warn 'User is not verified.'
-    []    
-)
+    []
 
-Meteor.publish('projectInvitations', (id) ->
-    Invitations.find(
-        project:id
-        )
-    )
+Meteor.publish 'projectInvitations', (id) ->
+    Invitations.find project:id
 
-Meteor.publish('userInvitations', (id) ->
-    Invitations.find(
-        user:id
-        )
-    )
+Meteor.publish 'userInvitations', (id) ->
+    Invitations.find user:id
 
 Meteor.users.allow
   update: (userId) -> this.userId?
