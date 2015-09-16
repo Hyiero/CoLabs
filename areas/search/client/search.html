@@ -23,6 +23,7 @@
     <div class="filter form-group btn-group">
         <label for="type" data-toggle="buttons">
             <span class="txt">Type</span>
+            <br />
             <label class="btn btn-default {{isUsersActive}}">
                 <input class="typeSelector" type="radio" name="type" value="users" checked="{{isUsers}}">
                 <i class="fa fa-user"></i>
@@ -161,7 +162,7 @@
         			    <!-- TODO: Read description/projects, etc -->
         				<h3><a href="#">{{firstName}} {{lastName}}</a></h3>
         				<p>{{description}}</p>
-                        {{#if isUser this}}
+                        {{#if isLoggedIn}}
                             <a class="btn btn-default messageButton"
                                 href="{{pathFor 'inbox'}}" id="messageContact"
                                 data-user-id="{{this._id}}">

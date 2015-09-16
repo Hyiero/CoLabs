@@ -85,6 +85,7 @@ findByProjectTags = (name, tags)->
 Template.searchResults.helpers
   tags: -> if this.tags? then (this.tags).join ', '
   time: -> (new Date this.createdAt).toLocaleTimeString()
+  isLoggedIn: -> Meteor.user()?
   isInviteSearch: -> this.type is 'invite'
   filterResults: ->
     tags = Session.get "tagSearch"

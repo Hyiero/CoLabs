@@ -34,6 +34,9 @@ Template.profileEdit.events
       id = user._id
       hash = CoLabs.encodeAsHexMd5 user.name + Date.now()
       Session.set 'identiconHex', hash
+
+  "click #resetAvatar": (e) ->
+    Session.set 'identiconHex', this.identiconHex
       
   "click .js-btn-back": (e) ->
     Router.go '/profile'
