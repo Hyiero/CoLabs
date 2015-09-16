@@ -5,15 +5,7 @@
     <div class="col-sm-4">
         <div class="col-item">
             {{#with user}}
-                {{#if avatar}}
-                    <div class="photo">
-                        <img src="/images/profile/{{avatar}}" class="img-responsive" alt="a" />
-                    </div>
-                {{else}}
-                    <!-- TODO: Identicon as default profile image -->
-                    <p><em>You have no profile picture, click 'Edit Profile' to upload one.</em></p>
-                {{/if}}
-
+                {{> avatar userId=_id size="lg"}}
                 <hr />
                 <div class="info">
                     <div class="row">
@@ -39,7 +31,7 @@
                                         If you've lost your email to verify, you can resend it here.
                                         Verified users can create projects, request to be added to a project, and more!
                                     </em></p>
-                                    <button class="resend">
+                                    <button class="resend btn btn-warning">
                                         <i class="fa fa-share"></i>
                                         <span class="txt">Resend</span>
                                     </button>
@@ -96,19 +88,11 @@
                 </div>
                 
                 <hr />
-                <a class="btn btn-default" href="{{pathFor 'profileEdit'}}">
-                    <i class="fa fa-edit-square"></i>
+                <a class="btn btn-info" href="{{pathFor 'profileEdit'}}">
+                    <i class="fa fa-edit"></i>
                     <span class="txt">Edit Profile</span>
                 </a>
             {{/with}}
-            
-            <!-- This is a test button, TODO REFACTOR REMOVE -->
-            <br />
-            <button id="sendNotificationButton"
-                class="btn btn-default"
-                name="sendNotificationButton">
-                    Send Test Notification
-            </button>
         </div>
     </div>
 </template>

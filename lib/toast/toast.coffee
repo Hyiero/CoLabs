@@ -50,7 +50,7 @@ if Meteor.isClient then Meteor.startup ->
       else (args...) ->
         attributes = ''
         htmlString = ''
-        if not args[0].toUpperCase?
+        if not args[0]?.toUpperCase?
           for name, val of args[0]
             attributes += " #{name}=\"#{val}\""
           for text in args.slice 1

@@ -50,7 +50,11 @@ Logger = class
   eachMethod (method) ->
     custom[method] = (args...) -> log method, args...
 
+  _.isEnabled = false
   setMethods = (useCustom) ->
+    if useCustom? then _.isEnabled = true
+    else _.isEnabled = false
+    
     methods = if useCustom then custom else copy
     for logger of copy
       if copy.hasOwnProperty(logger)

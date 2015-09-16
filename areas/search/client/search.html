@@ -1,6 +1,5 @@
 <template name="search">
     {{> nav }}
-    
     {{> searchFilter }}
     {{> searchTypeSelectors }}
     {{> searchResults }}
@@ -8,52 +7,128 @@
 
 <template name="searchFilter">
     <h2>Search Filter</h2>
-    <div class="filter">
-        <label>Name</label>
-        <input type="text" id="nameSearchFilter" name="nameSearchFilter" placeholder="Enter name" value="{{name}}">
-        <input type="submit" id="nameClearFilter" value="Clear">
+    <div class="filter form-group btn-group">
+        <label for="nameSearchFilter">Name</label>
+        <input type="text" class="form-control" id="nameSearchFilter" name="nameSearchFilter" placeholder="Enter name" value="{{name}}">
+        <i class="search-clear fa fa-close"></i>
     </div>
-    <div class="filter">
-        <label>Tags</label>
-        <input type="text" id="searchFilter" name="searchFilter" placeholder="Enter search terms" value="{{tags}}">
-        <input type="submit" id="clearFilter" value="Clear">
+    <div class="filter form-group btn-group">
+        <label for="searchFilter">Tags</label>
+        <input type="text" class="form-control" id="searchFilter" name="searchFilter" placeholder="Enter search terms" value="{{tags}}">
+        <i class="search-clear fa fa-close"></i>
     </div>    
 </template>
 
 <template name="searchTypeSelectors">
-    <div class="filter">
-            <label>Type</label>
-            <input class="typeSelector" type="radio" name="type" value="users">Users
-            <input class="typeSelector" type="radio" name="type" value="projects">Projects
-            <input class="typeSelector" type="radio" name="type" value="both">Both
-        </div>
+    <div class="filter form-group btn-group">
+        <label for="type" data-toggle="buttons">
+            <span class="txt">Type</span>
+            <label class="btn btn-default {{isUsersActive}}">
+                <input class="typeSelector" type="radio" name="type" value="users" checked="{{isUsers}}">
+                <i class="fa fa-user"></i>
+                <span class="txt">Users</span>
+            </label>
+            <label class="btn btn-default {{isProjectsActive}}">
+                <input class="typeSelector" type="radio" name="type" value="projects" checked="{{isProjects}}">
+                <i class="fa fa-folder"></i>
+                <span class="txt">Projects</span>
+            </label>
+            <label class="btn btn-default {{isBothActive}}">
+                <input class="typeSelector" type="radio" name="type" value="both" checked="{{isBoth}}">
+                <i class="fa fa-refresh"></i>
+                <span class="txt">Both</span>
+            </label>
+        </label>
+    </div>
 </template>
 
-<template name="searchResults">
+<template name="searchResults-OLD">
+    <!-- TODO REMOVE -->
     <h3>Search Results</h3>
     {{#each filterResults}}
         {{#if notLoggedInUser this}}
         <div class="filterResult">
-            <ul class="resultAttributes">
-            {{#with this}}
-                <li class="attribute">{{name}}</li>
-                <li class="attribute">{{tags}}</li>
-            {{/with}}
-            </ul>
-            {{#if isUser this}}
-            <a class="btn btn-default messageButton" href="{{pathFor 'inbox'}}" id="messageContact" value="{{this._id}}">Message</a>
-            {{/if}}
+            {{>avatar userId=_id size="sm"}}
+            <div class="btn-group">
+                <label for="name">Name</label>
+                <span class="name">{{name}}</span>
+            </div>
+            <div class="btn-group">
+                <label for="tags">Tags</label>
+                <span class="tags">{{tags}}</span>
+            </div>
             {{#if ../multipleSelection}}
-            <input type="checkbox" value="{{_id}}" class="selectedUserCheckbox">
+                <span class="search-checkbox-wrapper">
+                    {{> searchActionCheckbox this}}
+                </span>
+            {{/if}}
+            {{#if isUser this}}
+                <a class="btn btn-default messageButton"
+                    href="{{pathFor 'inbox'}}" id="messageContact"
+                    data-user-id="{{this._id}}">
+                        <i class="fa fa-send"></i>
+                        <span class="txt">Message</span>
+                </a>
             {{/if}}
         </div>
         {{/if}}
     {{/each}}
 </template>
 
-<template name="inviteUsersButtons">
-    <button id="inviteUsersToProject" >
-        <i class="fa fa-user-plus"></i>
-        <span class="txt">Invite Selected Users</span>
-    </button>
+<template name="searchResults">
+    <hgroup class="mb20">
+		<h1>Search Results</h1>
+		<h2 class="lead"><strong class="text-danger">3</strong> results were found for the search for <strong class="text-danger">Lorem</strong></h2>								
+	</hgroup>
+
+    <section class="col-xs-12 col-sm-6 col-md-12">
+        {{#each filterResults}}
+        {{#if notLoggedInUser this}}
+    		<article class="search-result row">
+    			<div class="col-xs-12 col-sm-12 col-md-3">
+    				{{> avatar userId=_id size="md" }}
+    			</div>
+    			<div class="col-xs-12 col-sm-12 col-md-2">
+    				<ul class="meta-search">
+    				    <li>
+    					    <i class="fa fa-user"></i>
+    					    <span>{{name}}</span>
+    					</li>
+    					<li>
+    					    <i class="fa fa-calendar"></i>
+    					    <span>{{date}}</span>
+    					</li>
+    					<li>
+    					    <i class="fa fa-time"></i>
+    					    <span>{{time}}</span>
+    					</li>
+    					<li>
+    					    <i class="fa fa-tags"></i>
+    					    <span>{{tags}}</span>
+    					</li>
+    				</ul>
+    			</div>
+    			<div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+    			    <!-- TODO: Read description/projects, etc -->
+    				<h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+    				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+                    {{#if ../multipleSelection}}
+                        <span class="search-checkbox-wrapper">
+                            {{> searchActionCheckbox this}}
+                        </span>
+                    {{/if}}
+                    {{#if isUser this}}
+                        <a class="btn btn-default messageButton"
+                            href="{{pathFor 'inbox'}}" id="messageContact"
+                            data-user-id="{{this._id}}">
+                                <i class="fa fa-send"></i>
+                                <span class="txt">Message</span>
+                        </a>
+                    {{/if}}
+    			</div>
+    			<span class="clearfix borda"></span>
+    		</article>
+    	{{/if}}
+		{{/each}}
+	</section>
 </template>

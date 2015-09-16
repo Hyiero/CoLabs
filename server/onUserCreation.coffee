@@ -5,6 +5,7 @@ Accounts.onCreateUser (options, user) ->
   user.profile ?= {}
   user.projects ?= []
   user.notifications ?= {}
+  user.identiconHex ?= CoLabs.encodeAsHexMd5(user.username.concat Date.now().toString())
   user.avatar ?= ""
   user.age ?= ""
   user.tags ?= []
@@ -14,20 +15,14 @@ Accounts.onCreateUser (options, user) ->
   user.firstName ?= ""
   user.name ?= user.username
   
-  #Logger.enable()
-  #console.info user
-  
   Logger.enable()
+  console.info user
   
   last = null
   checkIfReady = ->
     last = Meteor.setTimeout (->
-      if user.emails.length > 0
-        console.info "Sending verification email."
-        Accounts.sendVerificationEmail user._id
-      else
-        console.info "Checking if ready for verification email"
-        checkIfReady()
+      if user.emails.length > 0 then Accounts.sendVerificationEmail user._id
+      else checkIfReady()
     ), 1000
   
   Meteor.setTimeout checkIfReady, 1000

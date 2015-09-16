@@ -4,6 +4,7 @@ html {
 
 body {
     padding: 50px;
+    margin-top: 3rem;
 }
 
 .login-or-register .login-other-options * {
@@ -21,6 +22,7 @@ body {
 }
 
 .login-button-list li {
+    margin: 1rem;
     color: #fff;
 }
 
@@ -39,4 +41,14 @@ body {
 .btn-contrast {
     background: inherit;
     color: #fff;
+}
+
+.fa-checkbox.fa-checkbox {
+    margin: 0 auto;
+    padding: 1.85rem;
+    margin-left: -0.3rem;
+}
+
+.fa-checkbox .fa {
+    top: 0.7rem;
 }

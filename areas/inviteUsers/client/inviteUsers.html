@@ -1,7 +1,13 @@
 <template name="inviteUsers">
     {{> nav }}
-    
     {{> searchFilter }}
     {{> inviteUsersButtons }}
     {{> searchResults }}
+</template>
+
+<template name="inviteUsersButtons">
+    <button class="btn btn-primary pull-right" id="inviteUsersToProject">
+        <i class="fa fa-user-plus"></i>
+        <span class="txt">Invite Selected Users</span>
+    </button>
 </template>

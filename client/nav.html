@@ -88,7 +88,7 @@
             </a>
         </li>
         <!-- TODO: If admin -->
-        <li>
+        <li id="admin">
             <a href="{{pathFor 'admin'}}">
                 <i class="fa fa-shield"></i>
                 <span class="txt">Admin</span>
@@ -98,6 +98,9 @@
 </template>
 
 <template name="profileNavLink">
+    <div class="navbar-avatar">
+        {{> avatar userId=userId size="xs" }}
+    </div>
     <li>Logged in as {{username}}</li>
 </template>
 

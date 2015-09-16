@@ -1,3 +1,7 @@
+Template.search.onCreated ->
+  @subscribe 'allUsers'
+  @subscribe 'allProjects'
+
 Template.searchFilter.events
   "input #searchFilter": (event) ->
     searchVal = $(event.currentTarget).val()
@@ -12,6 +16,8 @@ Template.searchFilter.events
     console.log("click")
     $("#nameSearchFilter").val("")
     Session.set "nameSearch", ""
+  "click .search-clear": (event) ->
+    $(event.currentTarget).prev().val ''
 
 Template.searchFilter.helpers
   tags: ->
@@ -26,6 +32,14 @@ Template.searchFilter.helpers
       type = "both"
       Session.set "typeSearch", type
     type
+
+Template.searchTypeSelectors.helpers
+  isUsers: -> 'users' is Session.get 'searchType'
+  isProjects: -> 'projects' is Session.get 'searchType'
+  isBoth: -> null is Session.get 'searchType'
+  isUsersActive: -> if 'users' is Session.get 'searchType' then 'active'
+  isProjectsActive: -> if 'projects' is Session.get 'searchType' then 'active'
+  isBothActive: -> if null is Session.get 'searchType' then 'active'
 
 Template.searchTypeSelectors.events
   "change .typeSelector": (event) ->
@@ -83,6 +97,7 @@ Template.searchResults.helpers
 
 Template.searchResults.events
   "click #messageContact": (event) ->
-    userId = event.target.attributes["value"].value
+    console.log $(event.currentTarget).data('user-id')
+    userId = $(event.currentTarget).data('user-id')
     user = Meteor.users.findOne({_id:userId})
     Session.set "currentContact", user

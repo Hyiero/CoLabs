@@ -1,0 +1,30 @@
+.photo {
+    width: 50%;
+    display: block;
+    height: auto;
+    margin: 0 auto 2rem;
+}
+
+.photo.xs {
+    width: 3rem;
+    height: 2rem;
+    display: inline-block;
+    margin: 0;
+}
+
+.photo.sm {
+    width: 6rem;
+    height: 6rem;
+    display: inline-block;
+    margin: 0;
+}
+
+.photo.md {
+    width: 10rem;
+    height: 10rem;
+}
+
+.photo.lg {
+    width: 15rem;
+    height: 15rem;
+}

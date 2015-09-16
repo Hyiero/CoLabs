@@ -20,3 +20,5 @@ Template.profileNavLink.helpers
   username: ->
     user = Meteor.user()
     if user then user.username else false
+  userId: ->
+    Meteor.userId()

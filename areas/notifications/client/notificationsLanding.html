@@ -1,22 +1,32 @@
 <template name="notifications">
-    {{>nav}}
-    <br>
-    {{>notificationSelection}}
-    <br>
+    {{> nav }}
+    <br />
+    {{> notificationSelection }}
+    
+    <!-- This is a test button, TODO REFACTOR REMOVE -->
+    <button id="sendNotificationButton"
+        class="btn btn-default"
+        name="sendNotificationButton">
+            Send Test Notification
+    </button>
+    
+    <br />
     {{#if isGeneral}}
-        {{>showGeneralNotifications notifications=notifications}}
+        {{> showGeneralNotifications notifications=notifications }}
     {{/if}}
     {{#if isInvitations}}
-        {{>showInvitations invitations=invitations}}
+        {{> showInvitations invitations=invitations }}
     {{/if}}
 </template>
 
 <template name="notificationSelection">
-    <button id="showGeneralNotificationsButton">
-        <i class="fa fa-flag-o"> General</i>
+    <button class="btn btn-info" id="showGeneralNotificationsButton">
+        <i class="fa fa-flag-o"></i>
+        <span class="txt">General</span>
     </button>
-    <button id="showInvitationsButton">
-        <i class="fa fa-user-plus"> Invitations</i>
+    <button class="btn btn-success" id="showInvitationsButton">
+        <i class="fa fa-user-plus"></i>
+        <span class="txt">Invitations</span>
     </button>
 </template>
 
@@ -24,17 +34,12 @@
     {{#each notifications}}
     <div class="col-sm-12">
         <div class="col-item">
-            <div>
-                <h5>
-                    <inline class=" col-md-12 " block>
-                        <div class="col-sm-4">Type:   {{type}}</div>
-                        <div class="col-sm-4">Date:   {{date}}</div>
-                        <div class="col-sm-4">Sender: {{sender}}</div>
-                    </inline>
-                </h5>
-            </div>
+            <div class="col-sm-4">Type: {{type}}</div>
+            <div class="col-sm-4">Date: {{date}}</div>
+            <div class="col-sm-4">Sender: {{sender}}</div>
         </div>
     </div>
+    <hr />
     {{/each}}
 </template>
 
@@ -42,15 +47,17 @@
     {{#each invitations}}
         <inline class=" col-md-12 " block>
             <div class="col-sm-3">Project: {{projectName}}</div>
-            <div class="col-sm-3">Date:   {{date}}</div>
+            <div class="col-sm-3">Date: {{date}}</div>
             <div class="col-sm-3">Description: {{projectDescription}}</div>
             <div class="col-sm-2">
-                <button id="acceptInvitationButton" projectId="{{projectId}}" invitationId="{{invitationId}}">
-                    <i class="fa fa-thumbs-o-up"> Accept</i>
+                <button class="btn btn-default" id="acceptInvitationButton" projectId="{{projectId}}" invitationId="{{invitationId}}">
+                    <i class="fa fa-thumbs-o-up"></i>
+                    <span class="txt">Accept</span>
                 </button>
             </div>            
-            <button id="declineInvitationButton" invitationId="{{invitationId}}">
-                <i class="fa fa-thumbs-o-down"> Decline</i>
+            <button class="btn btn-default" id="declineInvitationButton" invitationId="{{invitationId}}">
+                <i class="fa fa-thumbs-o-down"></i>
+                <span class="txt">Decline</span>
             </button>
         </inline>
     {{/each}}

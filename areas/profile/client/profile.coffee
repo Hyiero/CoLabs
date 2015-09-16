@@ -1,11 +1,13 @@
 Template.profile.helpers
-
   firstEmail: ->
     email = this.emails[0]
     if email then email.address else ''
-    
+  firstVerifiedEmail: ->
+    email = (this.emails?.filter (e) -> e.verified)[0]
+    if email then email.address else ''
   isVerifiedUser:-> CoLabs.isVerifiedUser Meteor.userId()
-  hasEmailSaved:-> this.emails[0]?
+  hasEmailSaved:-> this.emails?.length > 0
+  hasVerifiedEmail:-> (this.emails[0]?.filter (e) -> e.verified).length > 0
 
 Template.profile.events
   'click #sendNotificationButton': (e) ->

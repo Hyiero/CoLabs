@@ -12,49 +12,53 @@
                             <div class="price col-md-12">
 
                                 <h4>Avatar</h4>
-                                <p><input type="text" name="avatarPathTextBox" class="at_avatarPathTextBox" value="{{avatar}}"/></p>
-                                {{#if avatar}}
-                                    <div class="photo">
-                                        <img src="/images/profile/{{avatar}}" class="img-responsive" alt="a" />
-                                    </div>
-                                {{else}}
-                                    <p><em>Click 'Upload Image' to choose a custom avatar.</em></p>
-                                {{/if}}
-                                <button id="uploadImageButton" class="at_uploadImageButton">Upload Image</button>
+                                {{> avatar userId=_id temp=identiconHex size="md" }}
+                                <input type="hidden" name="avatarPathTextBox" value="{{identiconHex}}"/>
+                                <button id="uploadImageButton" class="at_uploadImageButton btn btn-success">
+                                    <i class="fa fa-upload"></i>
+                                    <span class="txt">Upload Image</span>
+                                </button>
+                                <span class="txt">or</span>
+                                <button id="regenButton" class="at_regenButton btn btn-info" type="button">
+                                    <i class="fa fa-random"></i>
+                                    <span class="txt">Preview Identicon</span>
+                                </button>
                                 <hr />
 
-                                <h4>Email</h4>
-                                <p><input type="text"
+                                <div class="form-group">
+                                    <label for="emailTextBox">Email</label>
+                                    <input type="text"
                                           name="emailTextBox"
-                                          class="at_firstNameTextBox"
-                                          placeholder="What's your email address?"
-                                          value="{{email}}"/></p>
-                                <hr />
-
-                                <h4>First Name</h4>
-                                <p><input type="text"
+                                          class="form-control at_firstNameTextBox"
+                                          placeholder="example@example.com..."
+                                          value="{{email}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="firstNameTextBox">First Name</label>
+                                    <input type="text"
                                           name="firstNameTextBox"
-                                          class="at_firstNameTextBox"
+                                          class="form-control at_firstNameTextBox"
                                           placeholder="What's your name again?"
-                                          value="{{firstName}}"/></p>
-                                <hr />
-
-                                <h4>Last Name</h4>
-                                <input type="text"
+                                          value="{{firstName}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastNameTextBox">Last Name</label>
+                                    <input type="text"
                                        name="lastNameTextBox"
-                                       class="at_lastNameTextBox"
+                                       class="form-control at_lastNameTextBox"
                                        placeholder="What's your last name?"
                                        value="{{lastName}}"/>
-                                <hr />
-
-                                <h4>Age</h4>
-                                <input type="text"
+                                </div>
+                                <div class="form-group">
+                                    <label for="ageTextBox">Age</label>
+                                    <input type="text"
                                        name="ageTextBox"
-                                       class="at_ageTextBox"
+                                       class="form-control at_ageTextBox"
                                        placeholder="What's your age again?"
                                        value="{{age}}"/>
-                                <hr />
+                                </div>
 
+                                <hr />
                                 <h4>Skills & Interests</h4>
                                 <div class="help help-text">
                                     <p><em>
@@ -72,14 +76,14 @@
                                     </em></p>
                                 </div>
                                 <br />
-                                <h5>Add Tags</h5>
-                                <input type="text"
+                                <div class="form-group">
+                                    <label for="tagTextBox">Add Tags</label>
+                                    <input type="text"
                                        name="tagTextBox"
-                                       class="at_tagTextBox"
+                                       class="form-control at_tagTextBox"
                                        placeholder="Got skills?"
                                        value="{{concatTags}}">
-                                <hr />
-
+                                </div>
                                 <h4>
                                     <i class="fa fa-tags"></i>
                                     <span class="txt">Current Tags</span>
@@ -95,7 +99,18 @@
                         </div>
                     </div>
                 {{/with}}
-                <input type="submit" id="submitProfileEditButton" class="at_submitProfileEditButton">
+                <hr />
+                <div class="btn-group">
+                    <button type="cancel" class="js-btn-back btn btn-default at_submitProfileEditButton">
+                        <i class="fa fa-hand-o-left"></i>
+                        <span class="txt">Back</span>
+                    </button>
+                    <button type="submit" id="submitProfileEditButton"
+                        class="btn btn-primary at_submitProfileEditButton">
+                            <i class="fa fa-save"></i>
+                            <span class="txt">Save Changes</span>
+                    </button>
+                </div>
             </div>
         </div>
     </form>
