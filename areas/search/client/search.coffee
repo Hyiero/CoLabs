@@ -83,6 +83,7 @@ findByProjectTags = (name, tags)->
     ).fetch()
 
 Template.searchResults.helpers
+  isInviteSearch: -> this.type is 'invite'
   filterResults: ->
     tags = Session.get "tagSearch"
     name = Session.get "nameSearch"
@@ -99,5 +100,7 @@ Template.searchResults.events
   "click #messageContact": (event) ->
     console.log $(event.currentTarget).data('user-id')
     userId = $(event.currentTarget).data('user-id')
-    user = Meteor.users.findOne({_id:userId})
-    Session.set "currentContact", user
+    Session.set "currentContact", userId
+    
+UI.registerHelper "dateOf", (timestamp)->
+  timestamp.toLocaleDateString()

@@ -10,6 +10,9 @@ Meteor.publish 'allMessages', ->
 
 Meteor.publish 'thisUser', (id) ->
   Meteor.users.find _id:id
+  
+Meteor.publish 'thisUserByName', (username) ->
+  Meteor.users.find username:username
 
 Meteor.publish 'myProjects', ->
   Logger.enable()

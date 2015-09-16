@@ -1,12 +1,25 @@
 @CoLabs = {}
 CoLabs.methodNames = []
 CoLabs.methods = (obj) ->
-  for name,v of obj
+  wrapFn = (fn) -> (args...) ->
+    try
+      return fn args...
+    catch err
+      wasDisabled = not Logger.isEnabled
+      Logger.enable()
+      console.error err
+      if wasDisabled then Logger.disable()
+      throw err
+      
+  for name,fn of obj
     CoLabs.methodNames.push name
-  Meteor.methods obj
+    method = {}
+    method[name] = wrapFn fn
+    Meteor.methods method
 
 CoLabs.methods
   updateUser: (obj) ->
+    console.info "this.userId":this.userId
     id = this.userId
     user = Meteor.users.findOne(_id: id)
     email = user.emails[0]
@@ -14,20 +27,15 @@ CoLabs.methods
     if not email or email.address isnt obj.email
       emails = [address: obj.email or false, verified: false]
     
-    Logger.enable()
-    console.info user
-    
-    result = Meteor.users.update _id: id,
-      $set: {
-          emails: emails or user.emails
-          avatar: obj.avatar
-          firstName: obj.firstName
-          lastName: obj.lastName
-          age: obj.age
-          tags: obj.tags
-          identiconHex: obj.identiconHex
-        },
-        -> console.info Meteor.users.findOne(_id: id)
+    result = Meteor.users.update { _id: id }, $set:
+      emails: emails or user.emails
+      avatar: obj.avatar
+      firstName: obj.firstName
+      lastName: obj.lastName
+      description: obj.description
+      age: obj.age
+      tags: obj.tags
+      identiconHex: obj.identiconHex
     !result? or false
 
   updateName: (id,newName) ->

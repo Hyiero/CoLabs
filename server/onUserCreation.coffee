@@ -14,6 +14,7 @@ Accounts.onCreateUser (options, user) ->
   user.emails ?= []
   user.firstName ?= ""
   user.name ?= user.username
+  user.description ?= ""
   
   Logger.enable()
   console.info user
