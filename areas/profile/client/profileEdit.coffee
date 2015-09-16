@@ -36,7 +36,7 @@ Template.profileEdit.events
       Session.set 'identiconHex', hash
 
   "click #resetAvatar": (e) ->
-    Session.set 'identiconHex', this.identiconHex
+    Session.set 'identiconHex', this.avatar or this.identiconHex
       
   "click .js-btn-back": (e) ->
     Router.go '/profile'
@@ -61,3 +61,4 @@ Template.profileEdit.helpers
   currentTags:-> getCurrentTags()
   saveTagsToSession:-> Session.set("tempTags",Meteor.user()?.tags)
   identiconHex: -> Session.get 'identiconHex' or this.identiconHex
+  avatar: -> this.avatar or Session.get 'identiconHex' or this.identiconHex

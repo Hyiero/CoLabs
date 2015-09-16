@@ -34,7 +34,7 @@ CoLabs.methods
     
     result = Meteor.users.update { _id: id }, $set:
       emails: emails or user.emails
-      avatar: obj.avatar
+      avatar: obj.avatar or obj.identiconHex
       firstName: obj.firstName
       lastName: obj.lastName
       description: obj.description
