@@ -3,7 +3,7 @@ Template.register.events
     event.preventDefault()
     $elem = $(event.currentTarget)
 
-    Logger.enable()
+    #Logger.enable()
     console.info
       user: $elem.find('#login-username').val()
       email: $elem.find('#login-email').val()

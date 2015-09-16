@@ -14,7 +14,7 @@
 
                                 <div class="form-group">
                                     <h4>Avatar</h4>
-                                    {{>avatar userId=_id size="lg"}}
+                                    {{> avatar userId=_id temp=identiconHex size="md" }}
                                     
                                     <input type="hidden"
                                         name="avatarPathTextBox"
@@ -31,8 +31,8 @@
                                     <button id="regenButton"
                                         class="form-control at_regenButton btn btn-info"
                                         type="button">
-                                        <i class="fa fa-shuffle"></i>
-                                        <span class="txt">Regenerate Identicon</span>
+                                        <i class="fa fa-random"></i>
+                                        <span class="txt">Preview Identicon</span>
                                     </button>
                                 </div>
                                 
@@ -90,6 +90,7 @@
                                            value="{{age}}"/>
                                 </div>
                                     
+                                <hr />
                                 
                                 <div class="form-group">
                                     <h4>Skills & Interests</h4>
@@ -134,7 +135,17 @@
                         </div>
                     </div>
                 {{/with}}
-                <input type="submit" id="submitProfileEditButton" class="at_submitProfileEditButton">
+                <div class="btn-group">
+                    <button type="button" class="js-btn-back btn btn-default at_submitProfileEditButton">
+                        <i class="fa fa-hand-o-left"></i>
+                        <span class="txt">Back</span>
+                    </button>
+                    <button type="submit" id="submitProfileEditButton"
+                        class="btn btn-primary at_submitProfileEditButton">
+                            <i class="fa fa-save"></i>
+                            <span class="txt">Save Changes</span>
+                    </button>
+                </div>
                 <!--<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#removeUserModal">Delete Account</button>-->
             </div>
         </div>

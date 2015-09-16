@@ -83,6 +83,8 @@ findByProjectTags = (name, tags)->
     ).fetch()
 
 Template.searchResults.helpers
+  tags: -> if this.tags? then (this.tags).join ', '
+  time: -> (new Date this.createdAt).toLocaleTimeString()
   isInviteSearch: -> this.type is 'invite'
   filterResults: ->
     tags = Session.get "tagSearch"

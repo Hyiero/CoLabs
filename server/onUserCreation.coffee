@@ -16,7 +16,7 @@ Accounts.onCreateUser (options, user) ->
   user.name ?= user.username
   user.description ?= ""
   
-  Logger.enable()
+  #Logger.enable()
   console.info user
   
   last = null

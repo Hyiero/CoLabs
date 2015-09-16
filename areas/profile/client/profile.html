@@ -5,7 +5,7 @@
     <div class="col-sm-4">
         <div class="col-item">
             {{#with user}}
-                {{>avatar userId=_id}}
+                {{> avatar userId=_id size="lg"}}
                 <hr />
                 <div class="info">
                     <div class="row">
@@ -92,19 +92,11 @@
                 </div>
                 
                 <hr />
-                <a class="btn btn-default" href="{{pathFor 'profileEdit'}}">
-                    <i class="fa fa-edit-square"></i>
+                <a class="btn btn-info" href="{{pathFor 'profileEdit'}}">
+                    <i class="fa fa-edit"></i>
                     <span class="txt">Edit Profile</span>
                 </a>
             {{/with}}
-            
-            <!-- This is a test button, TODO REFACTOR REMOVE -->
-            <br />
-            <button id="sendNotificationButton"
-                class="btn btn-default"
-                name="sendNotificationButton">
-                    Send Test Notification
-            </button>
         </div>
     </div>
 </template>

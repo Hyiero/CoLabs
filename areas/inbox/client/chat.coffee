@@ -20,8 +20,7 @@ UI.registerHelper "cleanup", (timeStamp)->
   result
 
 Template.chat.helpers
-  contactExists: ->
-    contactId = Session.get("currentContact")
+  contactExists: (contactId)->
     contact = Meteor.users.findOne { _id: contactId }
     contactExists = contact?
   contactSelected: ->
@@ -54,9 +53,8 @@ Template.chat.events
       from: user
       message: $("#messageContent").val()
       timeStamp: new Date()
-    Meteor.call("addContact", pair) unless Messages.findOne(
-      to: contact
-      from: user
-    )?
+    unless Messages.findOne({ to: contact, from: user })?
+      Meteor.call("addContact", pair)
+      SendOneNotification("message", Date.now(), contact)
     Meteor.call "addMessage", messageModel
     $("#messageContent").val ""

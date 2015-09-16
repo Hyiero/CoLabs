@@ -15,7 +15,7 @@ Meteor.publish 'thisUserByName', (username) ->
   Meteor.users.find username:username
 
 Meteor.publish 'myProjects', ->
-  Logger.enable()
+  #Logger.enable()
   console.log this.userId
   if this.userId then Projects.find users:this.userId
   else []

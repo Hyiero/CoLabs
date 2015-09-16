@@ -1,9 +1,12 @@
 @CoLabs = {}
 CoLabs.methodNames = []
 CoLabs.methods = (obj) ->
+  Meteor.methods obj
+  ###
+  that = this
   wrapFn = (fn) -> (args...) ->
     try
-      return fn args...
+      return fn.apply that args...
     catch err
       wasDisabled = not Logger.isEnabled
       Logger.enable()
@@ -16,16 +19,18 @@ CoLabs.methods = (obj) ->
     method = {}
     method[name] = wrapFn fn
     Meteor.methods method
+  ###
 
 CoLabs.methods
   updateUser: (obj) ->
-    console.info "this.userId":this.userId
+    console.info "thisuserId":this.userId
     id = this.userId
-    user = Meteor.users.findOne(_id: id)
-    email = user.emails[0]
+    user = Meteor.users.findOne _id:id
+    email = user?.emails[0]
     
+    console.log email:email
     if not email or email.address isnt obj.email
-      emails = [address: obj.email or false, verified: false]
+      emails = [address: obj.email or null, verified: false]
     
     result = Meteor.users.update { _id: id }, $set:
       emails: emails or user.emails
@@ -43,6 +48,6 @@ CoLabs.methods
       $set: { name: newName }
     
   sendVerificationEmail: (userId) ->
-    Logger.enable()
+    #Logger.enable()
     console.info userId
     if Meteor.isServer then Accounts.sendVerificationEmail userId
