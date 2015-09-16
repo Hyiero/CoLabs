@@ -20,7 +20,7 @@ Router.map ->
   @route 'splash', {
     path: '/'
   }
-  
+
   @route 'profile', {
     path: '/profile'
     onBeforeAction: redirectIfNoUser
@@ -58,12 +58,13 @@ Router.map ->
   
   @route 'projects', {
     path: '/projects'
-    waitOn: () ->
-      Meteor.subscribe 'thisUser', Meteor.userId()
+    waitOn: () -> [
+      (Meteor.subscribe 'thisUser', Meteor.user()._id),
+      (Meteor.subscribe 'myProjects', Meteor.user()._id)
+    ]
     onBeforeAction: redirectIfNotVerified
     data: ->
-      if Meteor.user() then Meteor.subscribe 'myProjects', Meteor.userId()
-      projects = Projects.find users:Meteor.userId()
+      projects = Projects.find users:Meteor.user()._id
       # if not projects then Session.set 'editProject', true
       debug: projects.count()
       message: "Projects Page"
@@ -92,7 +93,10 @@ Router.map ->
   
   @route 'inviteUsers', {
     path:'/inviteUsers'
-    waitOn: ->  Meteor.subscribe 'thisUser', Meteor.userId()
+    waitOn: ->  [
+      (Meteor.subscribe 'thisUser', Meteor.userId()),
+      (Meteor.subscribe 'allInvitations' )
+      ]
     onBeforeAction: redirectIfNotVerified
     data: -> multipleSelection: 'true'
   }

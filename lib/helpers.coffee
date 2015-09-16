@@ -3,14 +3,13 @@ anyEmailVerified = (user) ->
   	( user.emails.filter (e) -> e.verified ).length > 0
 
 @CoLabs.isVerifiedUser = (id) ->
-  anyEmailVerified Meteor.user()
+  user=Meteor.users.findOne(_id:id)
+  anyEmailVerified user
 
-@CoLabs.IsUserInvitedToProject = (userId,projectId) ->
+@CoLabs.IsUserInvitedToProject = (user,project) ->
   Meteor.subscribe 'allInvitations'
-  console.log Invitations.find().fetch()
-  for inv in Invitations
-    console.log inv.user+","+userId+","+inv.project+","+projectId
-    if inv.project == projectId and inv.user == userId then "true"
+  for inv in Invitations.find().fetch()
+    if inv.project == project and inv.user == user then return "true"
   "false"
         
 @CoLabs.formatInvitations = (list) ->

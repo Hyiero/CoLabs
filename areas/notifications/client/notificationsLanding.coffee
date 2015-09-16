@@ -17,8 +17,9 @@ Template.notifications.events
   "click #acceptInvitationButton": (e)->
     projectId=e.currentTarget.attributes["projectId"].value
     invId=e.currentTarget.attributes["invitationId"].value
-    Meteor.call "addUserToProject",Meteor.userId(),projectId, (data)->
-      if data??
+    Meteor.call "addUserToProject",Meteor.userId(),projectId, (err,data)->
+      console.log data
+      if data?
         Meteor.call "removeInvitation",invId
         SendOneNotification "Invitation Accepted",new Date().toLocaleString(),
           Meteor.userId()

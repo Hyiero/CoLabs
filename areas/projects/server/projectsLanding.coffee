@@ -77,14 +77,17 @@ CoLabs.methods(
   'getMyProjects': (id) ->
     Projects.find({users:id})
     
-  'inviteUserToProject': (userId,projectId) -> 
-    if userId?? and projectId??
-        Invitations.insert(
-            user:userId,
-            project:projectId,
-        date: new Date().toLocaleString()
-        )   
-  
+  'inviteUserToProject': (_userId,projectId) ->
+    if _userId? and projectId?
+      Invitations.insert(
+        user:_userId,
+        project:projectId,
+        date:new Date().toLocaleString()
+      )
+      true
+    else
+      false
+
   'addUserToProject': (userId,projectId) ->
      project=Projects.findOne({_id:projectId})
      if project??
