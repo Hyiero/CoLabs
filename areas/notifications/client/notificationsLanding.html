@@ -15,10 +15,7 @@
         {{> showGeneralNotifications notifications=notifications }}
     {{/if}}
     {{#if isInvitations}}
-        {{> showInvitations invitations=notifications }}
-    {{/if}}
-    {{#if isMessages}}
-        {{> showMessages messages=notifications }}
+        {{> showInvitations invitations=invitations }}
     {{/if}}
 </template>
 
@@ -30,10 +27,6 @@
     <button class="btn btn-success" id="showInvitationsButton">
         <i class="fa fa-user-plus"></i>
         <span class="txt">Invitations</span>
-    </button>
-    <button class="btn btn-warning" id="showMessagesButton">
-        <i class="fa fa-envelope-square"></i>
-        <span class="txt">Messages</span>
     </button>
 </template>
 
@@ -54,26 +47,6 @@
     {{#each invitations}}
         <inline class=" col-md-12 " block>
             <div class="col-sm-3">Project: {{projectName}}</div>
-            <div class="col-sm-3">Date: {{date}}</div>
-            <div class="col-sm-3">Description: {{projectDescription}}</div>
-            <div class="col-sm-2">
-                <button class="btn btn-default" id="acceptInvitationButton" projectId="{{projectId}}" invitationId="{{invitationId}}">
-                    <i class="fa fa-thumbs-o-up"></i>
-                    <span class="txt">Accept</span>
-                </button>
-            </div>            
-            <button class="btn btn-default" id="declineInvitationButton" invitationId="{{invitationId}}">
-                <i class="fa fa-thumbs-o-down"></i>
-                <span class="txt">Decline</span>
-            </button>
-        </inline>
-    {{/each}}
-</template>
-
-<template name="showMessages">
-    {{#each messages}}
-        <inline class=" col-md-12 " block>
-            <div class="col-sm-3">From: {{from}}</div>
             <div class="col-sm-3">Date: {{date}}</div>
             <div class="col-sm-3">Description: {{projectDescription}}</div>
             <div class="col-sm-2">

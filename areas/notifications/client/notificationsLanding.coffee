@@ -13,9 +13,6 @@ Template.notifications.events
     
   "click #showInvitationsButton": (e)->
     Session.set "notificationsToShow","invitations"
-    
-  "click #showMessagesButton": (e)->
-    Session.set "notificationsToShow","messages"
         
   "click #acceptInvitationButton": (e)->
     projectId=e.currentTarget.attributes["projectId"].value
@@ -34,11 +31,7 @@ Template.notifications.events
       Meteor.userId()
 
 Template.notifications.helpers
-  notifications: ->
-    notifications = Notifications.find({ type: Session.get("notificationsToShow") }).fetch()
   isGeneral: ->
     general = Session.get("notificationsToShow") == "general"
   isInvitations: ->
     invitations = Session.get("notificationsToShow") == "invitations"
-  isMessages: ->
-    messages = Session.get("notificationsToShow") == "messages"
