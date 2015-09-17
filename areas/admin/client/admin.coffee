@@ -3,8 +3,7 @@ Template.admin.events
     console.log(eval($('[name=command]').val()))
 
 Template.enableLogs.onCreated = ->
-  Logger.enable()
-  Session.set 'logEnabled', true
+  Session.set 'logEnabled', Logger.isEnabled?
 
 Template.enableLogs.helpers
   isEnabled: -> Session.get 'logEnabled'

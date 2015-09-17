@@ -1,5 +1,6 @@
 <template name="profileEdit">
     {{>nav}}
+    {{>removeModal}}
     <br>
     <br>
     <form id="editProfileForm">
@@ -11,97 +12,137 @@
                         <div class="row">
                             <div class="price col-md-12">
 
-                                <h4>Avatar</h4>
-                                {{> avatar userId=_id temp=identiconHex size="md" }}
-                                <input type="hidden" name="avatarPathTextBox" value="{{identiconHex}}"/>
-                                <button id="uploadImageButton" class="at_uploadImageButton btn btn-success">
-                                    <i class="fa fa-upload"></i>
-                                    <span class="txt">Upload Image</span>
-                                </button>
-                                <span class="txt">or</span>
-                                <button id="regenButton" class="at_regenButton btn btn-info" type="button">
-                                    <i class="fa fa-random"></i>
-                                    <span class="txt">Preview Identicon</span>
-                                </button>
-                                <hr />
-
                                 <div class="form-group">
-                                    <label for="emailTextBox">Email</label>
+                                    <h4>Avatar</h4>
+                                    {{> userAvatar userId=_id temp=identiconHex size="lg" }}
+                                    
+                                    <input type="hidden"
+                                        name="avatarPathTextBox"
+                                        class=" form-control at_avatarPathTextBox"
+                                        value="{{avatar}}"/>
+                                        
+                                    <!-- TODO: Pending file server
+                                    <button
+                                        id="uploadImageButton"
+                                        class="form-control at_uploadImageButton btn btn-success"
+                                        >Upload Image</button>
+                                    -->
+                                    <button id="regenButton"
+                                        class="form-control at_regenButton btn btn-info"
+                                        type="button">
+                                        <i class="fa fa-random"></i>
+                                        <span class="txt">Preview Identicon</span>
+                                    </button>
+
+                                    <button id="resetAvatar"
+                                            class="form-control at_regenButton btn btn-default"
+                                            type="button">
+                                        <i class="fa fa-refresh"></i>
+                                        <span class="txt">Reset Avatar</span>
+                                    </button>
+                                </div>
+                                
+                                <hr />
+                                
+                                <div class="form-group">
+                                    <h4>Summary</h4>
+                                    <textarea name="descriptionTextBox"
+                                          class="form-control at_descriptionTextBox"
+                                          placeholder="Describe yourself."
+                                          >{{description}}</textarea>
+                                </div>
+                                
+                                <hr />
+                                
+                                <div class="form-group">
+                                    <h4>Email</h4>
                                     <input type="text"
                                           name="emailTextBox"
                                           class="form-control at_firstNameTextBox"
-                                          placeholder="example@example.com..."
+                                          placeholder="What's your email address?"
                                           value="{{email}}"/>
                                 </div>
+                                
+                                <hr />
+                                
                                 <div class="form-group">
-                                    <label for="firstNameTextBox">First Name</label>
+                                    <h4>First Name</h4>
                                     <input type="text"
                                           name="firstNameTextBox"
                                           class="form-control at_firstNameTextBox"
                                           placeholder="What's your name again?"
                                           value="{{firstName}}"/>
                                 </div>
+                                
+                                <hr />
+                                
                                 <div class="form-group">
-                                    <label for="lastNameTextBox">Last Name</label>
+                                    <h4>Last Name</h4>
                                     <input type="text"
                                        name="lastNameTextBox"
                                        class="form-control at_lastNameTextBox"
                                        placeholder="What's your last name?"
                                        value="{{lastName}}"/>
                                 </div>
-                                <div class="form-group">
-                                    <label for="ageTextBox">Age</label>
-                                    <input type="text"
-                                       name="ageTextBox"
-                                       class="form-control at_ageTextBox"
-                                       placeholder="What's your age again?"
-                                       value="{{age}}"/>
-                                </div>
-
+                                
                                 <hr />
-                                <h4>Skills & Interests</h4>
-                                <div class="help help-text">
-                                    <p><em>
-                                        Enter some skills or creative interests you
-                                        have so others can find you for their projects!
-                                    </em></p>
-                                    <p><em>
-                                        Remember, too many might make you come off as
-                                        a jack-of-all-trades and master-of-none.
-                                    </em></p>
-                                    <p><em>
-                                        Eventually, others will be able to privately rate the
-                                        relevance of the skill after working with you,
-                                        so try not to change them too often either!
-                                    </em></p>
-                                </div>
-                                <br />
+
                                 <div class="form-group">
-                                    <label for="tagTextBox">Add Tags</label>
+                                    <h4>Age</h4>
                                     <input type="text"
-                                       name="tagTextBox"
-                                       class="form-control at_tagTextBox"
-                                       placeholder="Got skills?"
-                                       value="{{concatTags}}">
+                                           name="ageTextBox"
+                                           class="form-control at_ageTextBox"
+                                           placeholder="What's your age again?"
+                                           value="{{age}}"/>
                                 </div>
-                                <h4>
-                                    <i class="fa fa-tags"></i>
-                                    <span class="txt">Current Tags</span>
-                                </h4>
-                                <ul class="tags-list-buttons">
-                                    {{#each currentTags}}
-                                        <li>
-                                            {{>tagButton}}
-                                        </li>
-                                    {{/each}}
-                                </ul>
+                                    
+                                <hr />
+                                
+                                <div class="form-group">
+                                    <h4>Skills & Interests</h4>
+                                    <div class="help help-text">
+                                        <p><em>
+                                            Enter some skills or creative interests you
+                                            have so others can find you for their projects!
+                                        </em></p>
+                                        <p><em>
+                                            Remember, too many might make you come off as
+                                            a jack-of-all-trades and master-of-none.
+                                        </em></p>
+                                        <p><em>
+                                            Eventually, others will be able to privately rate the
+                                            relevance of the skill after working with you,
+                                            so try not to change them too often either!
+                                        </em></p>
+                                    </div>
+                                    <br />
+                                    <h5>Add Tags</h5>
+                                    <input type="text"
+                                           name="tagTextBox"
+                                           class="form-control at_tagTextBox"
+                                           placeholder="Got skills?"
+                                           value="{{concatTags}}">
+                                    <hr />
+    
+                                    <h4>
+                                        <i class="fa fa-tags"></i>
+                                        <span class="txt">Current Tags</span>
+                                    </h4>
+                                    <ul class="tags-list-buttons">
+                                        {{#each currentTags}}
+                                            <li>
+                                                {{>tagButton}}
+                                            </li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 {{/with}}
-                <hr />
                 <div class="btn-group">
-                    <button type="cancel" class="js-btn-back btn btn-default at_submitProfileEditButton">
+                    <button type="button" class="js-btn-back btn btn-default at_submitProfileEditButton">
                         <i class="fa fa-hand-o-left"></i>
                         <span class="txt">Back</span>
                     </button>
@@ -111,7 +152,31 @@
                             <span class="txt">Save Changes</span>
                     </button>
                 </div>
+                <!--<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#removeUserModal">Delete Account</button>-->
             </div>
         </div>
     </form>
+</template>
+
+<template name="removeModal">
+    <div id="removeUserModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+        
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">X</button>
+                <h4 class="modal-title">Are you sure?</h4>
+            </div>
+            <div class="modal-body">
+                <p>You are about to delete your account. FOREVER.</p>
+                <p>Are you sure you still want to go through with this horrific deed?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="removeUserButton" type="button" class="btn btn-success">Yes, do it!</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">NO! Get me out of here!</button>
+            </div>
+        </div>
+        
+        </div>
+    </div>
 </template>

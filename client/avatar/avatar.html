@@ -1,9 +1,15 @@
-<template name="avatar">
+<template name="userAvatar">
     <div class="photo {{size}}">
     {{#if avatar}}
         <img src="/images/profile/{{avatar}}" class="img-responsive" alt="a" />
     {{else}}
         <img class="img-responsive identicon" src="{{identicon identiconHex}}" />
     {{/if}}
+    </div>
+</template>
+
+<template name="deletedAvatar">
+    <div class="photo {{size}}">
+        <img class="img-responsive identicon" src="{{identicon '458106a271577313c2ac9f093fddfe74'}}" />
     </div>
 </template>

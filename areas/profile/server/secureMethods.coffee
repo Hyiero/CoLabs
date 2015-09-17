@@ -1,2 +1,4 @@
-Users.InsertOne = (newUser) ->
-  Meteor.users.insert newUser
+CoLabs.methods
+    removeUser: (userId)->
+        Meteor.users.remove { _id: userId }
+        Notifications.remove { sender: userId }

@@ -31,10 +31,16 @@ Router.map ->
     path:'/profile/edit'
     onBeforeAction: redirectIfNoUser
     data:->
-      message: 'Profile edit page'
       user: Meteor.user()
-      setSession:()->
-        Session.set("tags",Meteor.user().tags)
+      setSession:->
+        Session.set "tags", Meteor.user().tags
+  }
+  
+  @route 'otherProfile', {
+    path: '/:username/profile'
+    data:->
+      username = this.params.username
+      user: Meteor.users.findOne username:username
   }
   
   @route 'search', {
@@ -46,6 +52,10 @@ Router.map ->
         Session.set 'searchType', null
   }
   
+  @route 'loading', {
+    path: '/loading'
+  }
+  
   @route 'admin', {
     path: '/admin'
     onBeforeAction: ->
@@ -53,12 +63,6 @@ Router.map ->
       console.warn 'TODO: Redirect if not admin'
       this.next()
   }
-  
-  # TEMPORARY ROUTE
-  @route 'loading', {
-    path: '/loading'
-  }
-  # TEMPORARY ROUTE
   
   @route 'projects', {
     path: '/projects'
@@ -102,5 +106,5 @@ Router.map ->
       (Meteor.subscribe 'allInvitations' )
       ]
     onBeforeAction: redirectIfNotVerified
-    data: -> multipleSelection: 'true'
+    #data: -> Meteor.users.find().fetch()
   }

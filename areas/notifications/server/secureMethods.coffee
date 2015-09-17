@@ -1,8 +1,6 @@
 Meteor.publish 'allNotifications', ->
   Notifications.find()
 
-Logger.enable()
-
 CoLabs.methods
   sendNotification: (notificationModel)->
     Notifications.insert

@@ -20,11 +20,14 @@ UI.registerHelper "cleanup", (timeStamp)->
   result
 
 Template.chat.helpers
+  contactExists: (contactId)->
+    contact = Meteor.users.findOne { _id: contactId }
+    contactExists = contact?
   contactSelected: ->
     Session.get("currentContact")?
   currentConversation: ->
     user = Meteor.userId()
-    contact = (Session.get "currentContact")._id
+    contact = Session.get "currentContact"
     to = Messages.messagesWithContact(user, contact)
     from = Messages.messagesWithContact(contact, user)
     conv = to.concat(from)
@@ -32,14 +35,16 @@ Template.chat.helpers
       a.timeStamp - b.timeStamp
     currentConversation = conv
   currentContactName: ->
-    currentContactName = Session.get("currentContact").username
+    contactId = Session.get "currentContact"
+    contact = Meteor.users.findOne { _id: contactId }
+    currentContactName = contact?.username or "Deleted User"
   userName: ->
     userName = Meteor.user().username
 
 Template.chat.events
   "click #submitMessage": ->
     user = Meteor.userId()
-    contact = (Session.get "currentContact")._id
+    contact = (Session.get "currentContact")
     pair =
       user: user
       contact: contact
@@ -48,13 +53,8 @@ Template.chat.events
       from: user
       message: $("#messageContent").val()
       timeStamp: new Date()
-    Meteor.call("addContact", pair) unless Messages.findOne(
-      $or: [
-        to: user
-        from: contact,
-        to: contact
-        from: user
-      ]
-    )?
+    unless Messages.findOne({ to: contact, from: user })?
+      Meteor.call("addContact", pair)
+      SendOneNotification("message", Date.now(), contact)
     Meteor.call "addMessage", messageModel
     $("#messageContent").val ""

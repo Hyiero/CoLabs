@@ -13,11 +13,22 @@
                         <div class="msg-wrap">
                             <div class="media msg ">
                                 <a class="pull-left" href="#">
-                                    {{>avatar userId=from size="xs"}}
+                                    {{#if contactExists from}}
+                                        {{> userAvatar userId=from size="xs"}}
+                                    {{else}}
+                                        {{>deletedAvatar size="xs"}}
+                                    {{/if}}
                                 </a>
                                 <div class="media-body">
                                     <small class="pull-right time"><i class="fa fa-clock-o"></i> {{cleanup timeStamp}}</small>
-                                    <h5 class="media-heading">{{nameOf from}}</h5>
+                                    <h5 class="media-heading">
+                                    {{#if contactExists from}}
+                                        {{nameOf from}}
+                                    {{else}}
+                                        <i class="fa fa-warning"></i>
+                                        <em>Deleted User</em>
+                                    {{/if}}
+                                    </h5>
                                     <small class="col-lg-10">{{message}}</small>
                                 </div>
                             </div>

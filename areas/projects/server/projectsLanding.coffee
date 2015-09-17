@@ -47,6 +47,7 @@ CoLabs.methods(
     Projects.insert(
       name: data.name,
       description: data.description
+      createdAt: Date.now()
       lastUpdated: new Date().toLocaleString()
       users: [userId]
       admins: [userId]

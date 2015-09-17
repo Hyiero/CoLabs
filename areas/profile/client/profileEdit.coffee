@@ -1,3 +1,6 @@
+Template.profileEdit.onCreated = ->
+  Session.set 'identiconHex', false
+
 Template.profileEdit.events
   "submit form": (e) ->
     e.preventDefault()
@@ -14,6 +17,7 @@ Template.profileEdit.events
       avatar: e.target.avatarPathTextBox.value or this.identiconHex
       firstName: e.target.firstNameTextBox.value
       lastName: e.target.lastNameTextBox.value
+      description: e.target.descriptionTextBox.value
       age: e.target.ageTextBox.value
       tags: allTags
       identiconHex: Session.get 'identiconHex' or this.identiconHex
@@ -30,9 +34,11 @@ Template.profileEdit.events
       id = user._id
       hash = CoLabs.encodeAsHexMd5 user.name + Date.now()
       Session.set 'identiconHex', hash
+
+  "click #resetAvatar": (e) ->
+    Session.set 'identiconHex', this.avatar or this.identiconHex
       
   "click .js-btn-back": (e) ->
-    e.preventDefault()
     Router.go '/profile'
       
 getConcatTags = -> getCurrentTags()?.join " "
@@ -42,9 +48,17 @@ Template.profileEdit.helpers
   user: -> Meteor.user()
   email: ->
     user = Meteor.user()
-    #console.log user
-    ( ( user?.emails?.filter (e) -> e.verified )?.map (e) -> e.address )[0]
+    if user? and user.emails? and user.emails.length > 0
+      
+      # Gets first verified email
+      emails = user.emails.filter (e) -> e.verified
+      if emails.length > 0 then email = emails[0].address
+      
+      # Gets first email
+      else email = user.emails[0].address
+    
   concatTags:-> getConcatTags()
   currentTags:-> getCurrentTags()
   saveTagsToSession:-> Session.set("tempTags",Meteor.user()?.tags)
   identiconHex: -> Session.get 'identiconHex' or this.identiconHex
+  avatar: -> this.avatar or Session.get 'identiconHex' or this.identiconHex
