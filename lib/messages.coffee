@@ -5,3 +5,9 @@ Messages.messagesWithContact = (user, contact)->
     to: user
     from: contact
   ).fetch()
+
+Messages.newMessages = (user)->
+  Messages.find(
+    to: user
+    read: false
+  ).fetch()
