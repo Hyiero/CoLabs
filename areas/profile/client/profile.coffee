@@ -8,6 +8,7 @@ Template.profile.helpers
   isVerifiedUser:-> CoLabs.isVerifiedUser Meteor.userId()
   hasEmailSaved:-> this.emails?.length > 0
   hasVerifiedEmail:-> (this.emails[0]?.filter (e) -> e.verified).length > 0
+  interests:-> this.tags?
 
 Template.profile.events
   'click #sendNotificationButton': (e) ->

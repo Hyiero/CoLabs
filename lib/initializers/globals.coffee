@@ -26,7 +26,6 @@ CoLabs.methods
     console.info "thisuserId":this.userId
     id = this.userId
     user = Meteor.users.findOne _id:id
-
     emails = if obj.email isnt "" then [address: obj.email, verified: false] else []
     
     result = Meteor.users.update { _id: id }, $set:

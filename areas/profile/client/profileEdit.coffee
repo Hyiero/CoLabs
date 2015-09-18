@@ -1,5 +1,6 @@
 Template.profileEdit.onCreated = ->
-  Session.set 'identiconHex', false
+  console.info this.identiconHex
+  Session.set 'identiconHex', this.identiconHex
 
 Template.profileEdit.events
   "submit form": (e) ->
@@ -22,8 +23,10 @@ Template.profileEdit.events
       tags: allTags
       identiconHex: Session.get 'identiconHex' or this.identiconHex
     }, (err, res) ->
-      if err? then toast.danger 'Error!',
-        'Email address is already taken.'
+      if err?
+        toast.danger 'Error!',
+          err.reason or 'Email address is already taken.'
+        console.error err
       else toast.success 'Success!',
         "You're profile was updated."
         

@@ -17,7 +17,8 @@ Template.searchFilter.events
     $("#nameSearchFilter").val("")
     Session.set "nameSearch", ""
   "click .search-clear": (event) ->
-    $(event.currentTarget).prev().val ''
+    $(event.currentTarget).prev().val('').trigger('input')
+    
 
 Template.searchFilter.helpers
   tags: ->
@@ -87,6 +88,8 @@ Template.searchResults.helpers
   time: -> (new Date this.createdAt).toLocaleTimeString()
   isLoggedIn: -> Meteor.user()?
   isInviteSearch: -> this.type is 'invite'
+  filterInput: ->
+    filterInput = "#{Session.get("nameSearch")} | #{Session.get("tagSearch")}"
   filterResults: ->
     tags = Session.get "tagSearch"
     name = Session.get "nameSearch"

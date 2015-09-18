@@ -17,7 +17,7 @@ Accounts.onCreateUser (options, user) ->
   user.description ?= ""
   
   #Logger.enable()
-  console.info user
+  #console.info user
   
   last = null
   checkIfReady = ->

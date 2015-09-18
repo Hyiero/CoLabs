@@ -5,6 +5,10 @@
     margin: 0 auto 2rem;
 }
 
+.photo:hover {
+    cursor: pointer;
+}
+
 .photo.xs {
     width: 3rem;
     height: 2rem;

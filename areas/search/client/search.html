@@ -128,7 +128,7 @@
     
         <hgroup class="mb20">
     		<h1>Search Results</h1>
-    		<h2 class="lead"><strong class="text-danger">3</strong> results were found for the search for <strong class="text-danger">Lorem</strong></h2>								
+    		<h2 class="lead"><strong class="text-danger">3</strong> results were found for the search for <strong class="text-danger">{{filterInput}}</strong></h2>								
     	</hgroup>
     
         <section class="col-xs-12 col-sm-6 col-md-12">
@@ -149,7 +149,7 @@
         					    <span>{{dateOf createdAt}}</span>
         					</li>
         					<li>
-        					    <i class="fa fa-clock-o"></i>
+        					    <i class="fa fa-clock-o" title="Created Time"></i>
         					    <span>{{time}}</span>
         					</li>
         					<li>
@@ -160,8 +160,10 @@
         			</div>
         			<div class="col-xs-12 col-sm-12 col-md-7 excerpet">
         			    <!-- TODO: Read description/projects, etc -->
-        				<h3><a href="#">{{firstName}} {{lastName}}</a></h3>
-        				<p>{{description}}</p>
+        				<h3><a href="/{{username}}/profile">{{firstName}} {{lastName}}</a></h3>
+        				{{#if description}}
+        				    <p>{{description}}</p>
+        				{{/if}}
                         {{#if isLoggedIn}}
                             <a class="btn btn-default messageButton"
                                 href="{{pathFor 'inbox'}}" id="messageContact"
