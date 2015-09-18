@@ -52,3 +52,7 @@ body {
 .fa-checkbox .fa {
     top: 0.7rem;
 }
+
+p {
+    word-break: break-word;
+}

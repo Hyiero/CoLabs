@@ -98,10 +98,12 @@
 </template>
 
 <template name="profileNavLink">
-    <div class="navbar-avatar">
-        {{> userAvatar userId=userId size="xs" }}
-    </div>
-    <li>Logged in as {{username}}</li>
+    <li>
+        <div class="navbar-avatar">
+            {{> userAvatar userId=userId size="xs" }}
+        </div>
+        <span class="txt">Logged in as {{username}}</span>
+    </li>
 </template>
 
 <template name="loginButton">
