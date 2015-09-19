@@ -60,7 +60,7 @@
     <div class="conversation-wrap col-lg-3">
         {{#each contactList}}
             {{#if contactExists contact}}
-                <div class="media conversation" value="{{contact}}">
+                <div class="media conversation" data-id="{{contact}}">
                     <a class="pull-left" href="#">
                         {{> userAvatar userId=contact size="sm"}}
                     </a>
@@ -68,9 +68,10 @@
                         <h5 class="media-heading">{{nameOf contact}}</h5>
                         <small>{{contact}}</small>
                     </div>
+                    {{>favoriteContact id=contact}}
                 </div>
             {{else}}
-                <div class="media conversation" value="{{contact}}">
+                <div class="media conversation" data-id="{{contact}}">
                     <a class="pull-left" href="#">
                         {{>deletedAvatar size="sm"}}
                     </a>
@@ -82,4 +83,15 @@
             {{/if}}
         {{/each}}
     </div>
+</template>
+
+<template name="favoriteContact">
+    <button id="favorite" class="btn btn-info" type="button" data-id="{{id}}">
+        {{#if isFavorite id}}
+            <i class="fa fa-star"></i>
+        {{else}}
+            <i class="fa fa-star-o"></i>
+        {{/if}}
+        <span class="txt">Favorite</span>
+    </button>
 </template>

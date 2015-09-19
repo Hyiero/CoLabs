@@ -1,79 +1,71 @@
 Meteor.subscribe "allMessages"
 
-UI.registerHelper "nameOf", (id)->
-  user = Meteor.users.findOne
-    _id: id
-  user.name
+userExists = (id)-> Meteor.users.findOne(id)?
+
+getPair = ()->
+  user: Meteor.userId()
+  contact: Session.get "currentContact"
+
+splitTimeStamp = (timeStamp)->
+  date: timeStamp.toLocaleDateString()
+  time: timeStamp.toLocaleTimeString()
+
+UI.registerHelper "nameOf", (id)-> Meteor.users.findOne(id).name
 
 UI.registerHelper "cleanup", (timeStamp)->
-  now = new Date()
-  now =
-    date: now.toLocaleDateString()
-    time: now.toLocaleTimeString()
-  timeStamp =
-    date: timeStamp.toLocaleDateString()
-    time: timeStamp.toLocaleTimeString()
-  if now.date == timeStamp.date
-    result = "Today, #{timeStamp.time}"
-  else
-    result = "#{timeStamp.date}, #{timeStamp.time}"
-  result
+  today = (new Date()).toLocaleDateString()
+  {date, time} = splitTimeStamp timeStamp
+  if date is today then "Today, #{time}" else "#{date}, #{time}"
 
 Template.chat.helpers
-  contactExists: (contactId)->
-    contact = Meteor.users.findOne { _id: contactId }
-    contactExists = contact?
-  contactSelected: ->
-    Session.get("currentContact")?
-  currentConversation: ->
-    user = Meteor.userId()
-    contact = Session.get "currentContact"
-    pair =
-      user: user
-      contact: contact
-    to = Messages.messagesWithContact(user, contact)
-    from = Messages.messagesWithContact(contact, user)
+  contactExists: (contactId)-> userExists contactId
+  contactSelected: ()-> Session.get("currentContact")?
+  currentConversation: ()->
+    pair = getPair()
+    {user, contact} = pair
+    Meteor.call "readMessages", pair
+    to = Messages.messagesWithContact user, contact
+    from = Messages.messagesWithContact contact, user
     conv = to.concat(from)
     conv.sort (a, b)->
       a.timeStamp - b.timeStamp
-    Meteor.call "readMessages", pair
-    currentConversation = conv
-  currentContactName: ->
+  currentContactName: ()->
     contactId = Session.get "currentContact"
-    contact = Meteor.users.findOne { _id: contactId }
-    currentContactName = contact?.username or "Deleted User"
-  userName: ->
-    userName = Meteor.user().username
+    contact = Meteor.users.findOne contactId
+    contact?.username or "Deleted User"
+  userName: ()-> Meteor.user().username
 
 Template.chat.events
-  "click #submitMessage": ->
-    user = Meteor.userId()
-    contact = (Session.get "currentContact")
-    pair =
-      user: user
-      contact: contact
+  "click #submitMessage": ()->
+    pair = getPair()
+    {user, contact} = pair
     messageModel =
       to: contact
       from: user
       message: $("#messageContent").val()
       timeStamp: new Date()
-    Meteor.call("addContact", pair) unless Messages.findOne({ to: contact, from: user })?
+    Meteor.call("addContact", pair) unless Messages.findOne(to: contact, from: user)?
     Meteor.call "addMessage", messageModel
     $("#messageContent").val ""
 
 Template.previousContacts.helpers
-  contactList: ->
-    contactIds = Meteor.users.findOne(
-      _id: Meteor.userId()
-    ).contacts
-  contactExists: (contactId)->
-    contact = Meteor.users.findOne { _id: contactId }
-    contactExists = contact?
+  contactList: ()-> Meteor.user().contacts.sort (a, b)-> b.favorite - a.favorite
+  contactExists: (contactId)-> userExists contactId
 
 Template.previousContacts.events
   "click .conversation": (event)->
     $elem = $ event.currentTarget
-    if $elem.hasClass "media-body"
-      $elem = $elem.parent()
-    contactId = $elem.attr "value"
-    Session.set "currentContact", contactId
+    if $elem.hasClass "media-body" then $elem = $elem.parent()
+    Session.set "currentContact", $elem.data "id"
+
+Template.favoriteContact.helpers
+  isFavorite: (contactId)->
+    contacts = Meteor.user().contacts
+    for contact in contacts
+      if contact.contact is contactId
+        return contact.favorite
+
+Template.favoriteContact.events
+  "click #favorite": (event)->
+    $elem = $ event.currentTarget
+    Meteor.call "toggleContact", {user: Meteor.userId(), contact: $elem.data "id"}
