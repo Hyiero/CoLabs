@@ -11,6 +11,7 @@ Accounts.onCreateUser (options, user) ->
   user.tags ?= []
   user.type ?= "user"
   user.contacts ?= []
+  user.conversations ?= []
   user.emails ?= []
   user.firstName ?= ""
   user.name ?= user.username

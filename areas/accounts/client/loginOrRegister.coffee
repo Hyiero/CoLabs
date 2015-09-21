@@ -59,4 +59,6 @@ Template.loginOrRegisterModal.events
                 10000
 
 Template.signOutButton.events
-  "click": -> Meteor.logout()
+  "click": ->
+    Session.keys = {}
+    Meteor.logout()

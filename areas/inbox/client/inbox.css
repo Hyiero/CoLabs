@@ -16,6 +16,10 @@
     background-color: lightgrey;
 }
 
+.favoriteButton {
+    float: right;
+}
+
 .message-wrap
 {
     box-shadow: 0 0 3px #ddd;

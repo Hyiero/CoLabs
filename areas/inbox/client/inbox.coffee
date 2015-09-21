@@ -10,12 +10,36 @@ splitTimeStamp = (timeStamp)->
   date: timeStamp.toLocaleDateString()
   time: timeStamp.toLocaleTimeString()
 
-UI.registerHelper "nameOf", (id)-> Meteor.users.findOne(id).name
-
-UI.registerHelper "cleanup", (timeStamp)->
+clean = (timeStamp)->
   today = (new Date()).toLocaleDateString()
   {date, time} = splitTimeStamp timeStamp
   if date is today then "Today, #{time}" else "#{date}, #{time}"
+
+inbound = (id)-> Meteor.userId() is Messages.findOne(id).to
+
+favorite = (id)->
+  contacts = Meteor.user().contacts
+  for contact in contacts
+    return contact.favorite if id is contact.contact
+  false
+
+UI.registerHelper "nameOf", (id)-> Meteor.users.findOne(id).name
+
+UI.registerHelper "timeOf", (id)-> clean Messages.findOne(id).timeStamp
+
+UI.registerHelper "preview", (id)->
+  message = Messages.findOne(id).message
+  message = message.slice(0, 50) + "..." unless message.length < 50
+  message
+
+UI.registerHelper "favorite", (id)-> favorite id
+
+UI.registerHelper "inbound", (id)-> inbound id
+
+UI.registerHelper "unread", (id)-> not Messages.findOne(id).read
+
+UI.registerHelper "cleanup", (timeStamp)->
+  clean(timeStamp)
 
 Template.chat.helpers
   contactExists: (contactId)-> userExists contactId
@@ -24,11 +48,8 @@ Template.chat.helpers
     pair = getPair()
     {user, contact} = pair
     Meteor.call "readMessages", pair
-    to = Messages.messagesWithContact user, contact
-    from = Messages.messagesWithContact contact, user
-    conv = to.concat(from)
-    conv.sort (a, b)->
-      a.timeStamp - b.timeStamp
+    conv = Messages.messagesBetween user, contact
+    conv.sort (a, b)-> a.timeStamp - b.timeStamp
   currentContactName: ()->
     contactId = Session.get "currentContact"
     contact = Meteor.users.findOne contactId
@@ -49,7 +70,9 @@ Template.chat.events
     $("#messageContent").val ""
 
 Template.previousContacts.helpers
-  contactList: ()-> Meteor.user().contacts.sort (a, b)-> b.favorite - a.favorite
+  contactList: ()->
+    contacts = Meteor.user().contacts
+    contacts.sort (a, b)-> b.favorite - a.favorite
   contactExists: (contactId)-> userExists contactId
 
 Template.previousContacts.events
@@ -60,12 +83,50 @@ Template.previousContacts.events
 
 Template.favoriteContact.helpers
   isFavorite: (contactId)->
-    contacts = Meteor.user().contacts
-    for contact in contacts
-      if contact.contact is contactId
-        return contact.favorite
+    for contact in Meteor.user().contacts
+      if contact.contact is contactId then return contact.favorite
 
 Template.favoriteContact.events
   "click #favorite": (event)->
+    Meteor.call "toggleContact",
+      user: Meteor.userId()
+      contact: $(event.currentTarget).data "id"
+
+messageSort = (value)->
+  if value? then Session.set 'messageSort', value else Session.get 'messageSort'
+
+Template.messageList.created = ()-> messageSort 'time' unless messageSort()?
+
+Template.messageList.helpers
+  isTime: ()-> messageSort() is 'time'
+  isUnread: ()-> messageSort() is 'unread'
+  isInbound: ()-> messageSort() is 'inbound'
+  isFavorite: ()-> messageSort() is 'favorite'
+  isTimeActive: ()-> if messageSort() is 'time' then 'active'
+  isUnreadActive: ()-> if messageSort() is 'unread' then 'active'
+  isInboundActive: ()-> if messageSort() is 'inbound' then 'active'
+  isFavoriteActive: ()-> if messageSort() is 'favorite' then 'active'
+  conversationList: ()->
+    conversations = Meteor.user().conversations
+    switch messageSort()
+      when 'time'
+        conversations.sort (a, b)->
+          Messages.findOne(b.message).timeStamp - Messages.findOne(a.message).timeStamp
+      when 'unread'
+        conversations.sort (a, b)->
+          #TODO: Check if inbound before getting read status
+          Messages.findOne(a.message).read - Messages.findOne(b.message).read
+      when 'inbound'
+        conversations.sort (a, b)-> inbound(b.message) - inbound(a.message)
+      when 'favorite'
+        conversations.sort (a, b)-> favorite(b.contact) - favorite(a.contact)
+    conversations
+
+Template.messageList.events
+  "change .sortSelector": (event)->
     $elem = $ event.currentTarget
-    Meteor.call "toggleContact", {user: Meteor.userId(), contact: $elem.data "id"}
+    messageSort $elem.val() if $elem.is(":checked")
+  "click .conversation": (event)->
+    $elem = $ event.currentTarget
+    unless $elem.hasClass "media" then $elem = $elem.parent()
+    Session.set "currentContact", $elem.data "id"

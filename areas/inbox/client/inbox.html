@@ -2,6 +2,7 @@
     {{> nav }}
     {{> chat }}
     {{> previousContacts }}
+    {{> messageList }}
 </template>
 
 <template name="chat">
@@ -15,31 +16,29 @@
             <div class="row">
                 <div class="message-wrap col-lg-8">
                     {{#each currentConversation}}
-                        {{#with this}}
-                            <div class="msg-wrap">
-                                <div class="media msg ">
-                                    <a class="pull-left" href="#">
+                        <div class="msg-wrap">
+                            <div class="media msg ">
+                                <a class="pull-left" href="#">
+                                    {{#if contactExists from}}
+                                        {{> userAvatar userId=from size="xs"}}
+                                    {{else}}
+                                        {{>deletedAvatar size="xs"}}
+                                    {{/if}}
+                                </a>
+                                <div class="media-body">
+                                    <small class="pull-right time"><i class="fa fa-clock-o"></i> {{cleanup timeStamp}}</small>
+                                    <h5 class="media-heading">
                                         {{#if contactExists from}}
-                                            {{> userAvatar userId=from size="xs"}}
+                                            {{nameOf from}}
                                         {{else}}
-                                            {{>deletedAvatar size="xs"}}
+                                            <i class="fa fa-warning"></i>
+                                            <em>Deleted User</em>
                                         {{/if}}
-                                    </a>
-                                    <div class="media-body">
-                                        <small class="pull-right time"><i class="fa fa-clock-o"></i> {{cleanup timeStamp}}</small>
-                                        <h5 class="media-heading">
-                                            {{#if contactExists from}}
-                                                {{nameOf from}}
-                                            {{else}}
-                                                <i class="fa fa-warning"></i>
-                                                <em>Deleted User</em>
-                                            {{/if}}
-                                        </h5>
-                                        <small class="col-lg-10">{{message}}</small>
-                                    </div>
+                                    </h5>
+                                    <small class="col-lg-10">{{message}}</small>
                                 </div>
                             </div>
-                        {{/with}}
+                        </div>
                     {{/each}}
                     <div class="send-wrap ">
                         <textarea id="messageContent" class="form-control send-message" rows="3" placeholder="Write a reply..."></textarea>
@@ -94,4 +93,54 @@
         {{/if}}
         <span class="txt">Favorite</span>
     </button>
+</template>
+
+<template name="messageList">
+    <h2>Conversation List</h2>
+    <div class="filter form-group btn-group">
+        <label for="type" data-toggle="buttons">
+            <span class="txt">Sort By:</span>
+            <br />
+            <label class="btn btn-default {{isTimeActive}}">
+                <input class="sortSelector" type="radio" name="type" value="time" checked="{{isTime}}">
+                <i class="fa fa-clock-o"></i>
+                <span class="txt">Chronological</span>
+            </label>
+            <label class="btn btn-default {{isUnreadActive}}">
+                <input class="sortSelector" type="radio" name="type" value="unread" checked="{{isUnread}}">
+                <i class="fa fa-envelope-o"></i>
+                <span class="txt">Unread/Read</span>
+            </label>
+            <label class="btn btn-default {{isInboundActive}}">
+                <input class="sortSelector" type="radio" name="type" value="inbound" checked="{{isInbound}}">
+                <i class="fa fa-download"></i>
+                <span class="txt">Inbound/Outbound</span>
+            </label>
+            <label class="btn btn-default {{isFavoriteActive}}">
+                <input class="sortSelector" type="radio" name="type" value="favorite" checked="{{isFavorite}}">
+                <i class="fa fa-star-o"></i>
+                <span class="txt">Favorite/Non</span>
+            </label>
+        </label>
+    </div>
+    <div class="conversation-wrap">
+        {{#each conversationList}}
+            <div class="media conversation" data-id="{{contact}}">
+                <span class="txt">{{nameOf contact}}</span>
+                {{#if favorite contact}}
+                    <i class="fa fa-star-o"></i>
+                {{/if}}
+                <span class="txt">{{preview message}}</span>
+                {{#if inbound message}}
+                    <i class="fa fa-download"></i>
+                    {{#if unread message}}
+                        <i class="fa fa-envelope-o"></i>
+                    {{/if}}
+                {{else}}
+                    <i class="fa fa-upload"></i>
+                {{/if}}
+                <small class="pull-right time"><i class="fa fa-clock-o"></i> {{timeOf message}}</small>
+            </div>
+        {{/each}}
+    </div>
 </template>
