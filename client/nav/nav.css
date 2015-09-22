@@ -8,8 +8,31 @@
     margin: 1.5rem;
 }
 
-.navbar-fixed-top li {
-    display: block;
+
+
+.pointer {
+    cursor: pointer;
+}
+
+.navbar-toggle .icon-bar:hover {
+    color: #ddd;
+}
+
+
+
+.profile-nav-display {
+    float: left;
+    margin-left: 1rem;
+}
+
+.profile-nav-display .txt {
+    position: relative;
+    top: -1rem;
+    color: #fff;
+}
+
+.txt-username {
+    margin-left: 3.4rem;
 }
 
 .dropdown-menu {
@@ -24,6 +47,32 @@
 
 .navbar-avatar {
     display: inline-block;
+}
+
+.navbar-fixed-top li {
+    display: inline-block;
+    width: auto;
+}
+
+.navbar-fixed-top li i {
+    font-size: initial;
+}
+
+@media all and (max-width:1200px) {
+    .navbar-fixed-top li {
+        display: inline-block;
+        width: 40vw;
+    }
+    
+    .navbar-fixed-top li i {
+        font-size: 4vw;
+    }
+    
+    .nav a .txt {
+        position: absolute;
+        top: 25%;
+        margin-left: 5%;
+    }
 }
 
 /*

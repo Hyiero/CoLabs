@@ -12,36 +12,42 @@
                     <i class="fa fa-flask"></i>
                     <span class="txt">CoLabs</span>
                 </a>
+                {{#if currentUser}}
+                    {{> profileNavDisplay}}
+                {{/if}}
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     {{> navLinks}}
-                </ul>
-                <ul class="login-button-list">
                     {{#if currentUser}}
-                        {{> profileNavLink}}
-                        {{> signOutButton}}
-                    {{else}}
                         <li>
-                            {{> loginButton 'facebook' }}
-                        </li>
-                        <li>
-                            {{> loginButton 'google' }}
-                        </li>
-                        <li>
-                            {{> loginButton 'twitter' }}
-                        </li>
-                        <li>
-                            {{> loginButton 'linkedin' }}
-                        </li>
-                        <li>
-                            {{> loginButton 'github' }}
-                        </li>
-                        <li>
-                            {{> signInButton }}
+                            {{> signOutButton}}
                         </li>
                     {{/if}}
                 </ul>
+                {{#unless currentUser}}
+                    <br />
+                    <ul class="login-button-list">
+                        <li>
+                            {{> signInButton }}
+                        </li>
+                        <li>
+                            {{> loginButton 'Facebook' }}
+                        </li>
+                        <li>
+                            {{> loginButton 'Google' }}
+                        </li>
+                        <li>
+                            {{> loginButton 'Twitter' }}
+                        </li>
+                        <li>
+                            {{> loginButton 'LinkedIn' }}
+                        </li>
+                        <li>
+                            {{> loginButton 'GitHub' }}
+                        </li>
+                    </ul>
+                {{/unless}}
             </div><!--/.nav-collapse -->
         </div>
     </nav>
@@ -98,17 +104,19 @@
     {{/if}}
 </template>
 
-<template name="profileNavLink">
-    <li>
+<template name="profileNavDisplay">
+    <div class="profile-nav-display">
         <div class="navbar-avatar">
             {{> userAvatar userId=userId size="xs" }}
         </div>
-        <span class="txt">Logged in as {{username}}</span>
-    </li>
+        <span class="txt">Logged in as</span>
+        <div class="txt txt-username">{{username}}</div>
+    </div>
 </template>
 
 <template name="loginButton">
     <button class="btn btn-xs btn-contrast">
-        <i class="fa fa-{{this}}"></i>
+        <i class="fa fa-{{lowerCase}}"></i>
+        <span class="txt">{{this}}</span>
     </button>
 </template>

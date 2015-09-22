@@ -885,8 +885,13 @@
   font-size: 13px;
   font-weight: 300;
 
+  .navbar-toggle .icon-bar {
+    transition: box-shadow .3s;
+  }
+
   .navbar-toggle:hover .icon-bar {
-    background-color: #b3b3b3;
+    background-color: #ddd;
+    box-shadow: 0 0 1rem 0 #fff;
   }
 
   &-collapse {
