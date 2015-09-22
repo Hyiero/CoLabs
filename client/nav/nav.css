@@ -58,6 +58,10 @@
     font-size: initial;
 }
 
+.nav {
+    float: right;
+}
+
 @media all and (max-width:1200px) {
     .navbar-fixed-top li {
         display: inline-block;

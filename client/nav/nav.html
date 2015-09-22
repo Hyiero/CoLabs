@@ -23,11 +23,7 @@
                         <li>
                             {{> signOutButton}}
                         </li>
-                    {{/if}}
-                </ul>
-                {{#unless currentUser}}
-                    <br />
-                    <ul class="login-button-list">
+                    {{else}}
                         <li>
                             {{> signInButton }}
                         </li>
@@ -46,8 +42,8 @@
                         <li>
                             {{> loginButton 'GitHub' }}
                         </li>
-                    </ul>
-                {{/unless}}
+                    {{/if}}
+                </ul>
             </div><!--/.nav-collapse -->
         </div>
     </nav>
@@ -85,7 +81,9 @@
             <a href="{{pathFor 'inbox'}}">
                 <i class="fa fa-envelope"></i>
                 <span class="txt">Inbox</span>
-                <div class="badge">{{numNewMessages}}</div>
+                {{#if numNewMessages}}
+                    <div class="badge">{{numNewMessages}}</div>
+                {{/if}}
             </a>
         </li>
         <li id="notifications">
@@ -115,8 +113,8 @@
 </template>
 
 <template name="loginButton">
-    <button class="btn btn-xs btn-contrast">
+    <a type="button" class="pointer">
         <i class="fa fa-{{lowerCase}}"></i>
         <span class="txt">{{this}}</span>
-    </button>
+    </a>
 </template>
