@@ -73,6 +73,12 @@
         top: 25%;
         margin-left: 5%;
     }
+    
+    .nav a .badge {
+        position: absolute;
+        bottom: 5%;
+        left: 1%;
+    }
 }
 
 /*
