@@ -92,13 +92,14 @@
                 <span class="txt">Notifications</span>
             </a>
         </li>
-        <!-- TODO: If admin -->
-        <li id="admin">
-            <a href="{{pathFor 'admin'}}">
-                <i class="fa fa-shield"></i>
-                <span class="txt">Admin</span>
-            </a>
-        </li>
+        {{#if isAdmin}}
+            <li id="admin">
+                <a href="{{pathFor 'admin'}}">
+                    <i class="fa fa-shield"></i>
+                    <span class="txt">Admin</span>
+                </a>
+            </li>
+        {{/if}}
     {{/if}}
 </template>
 

@@ -16,6 +16,11 @@ redirectIfNotVerified = ->
     this.next()
   else Router.go('/')
 
+redirectIfNotAdmin = ->
+  if Meteor.userId()? and CoLabs.isAdmin Meteor.userId()
+    this.next()
+  else Router.go '/'
+
 Router.map ->
   @route 'splash', {
     path: '/'
@@ -58,10 +63,12 @@ Router.map ->
   
   @route 'admin', {
     path: '/admin'
-    onBeforeAction: ->
-      # TODO: Redirect if not admin
-      console.warn 'TODO: Redirect if not admin'
-      this.next()
+    onBeforeAction: redirectIfNotAdmin
+  }
+
+  @route 'adminPower', {
+    path: '/admin/power'
+    onBeforeAction: redirectIfNotAdmin
   }
   
   @route 'projects', {

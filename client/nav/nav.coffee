@@ -17,6 +17,7 @@ Template.navLinks.rendered = ->
 Template.navLinks.helpers
   isLoggedIn: -> Meteor.user()?
   isVerifiedUser: -> CoLabs.isVerifiedUser Meteor.userId()
+  isAdmin: -> CoLabs.isAdmin Meteor.userId()
   numNewMessages: -> Messages.newMessages(Meteor.userId()).length
 
 Template.profileNavDisplay.helpers
