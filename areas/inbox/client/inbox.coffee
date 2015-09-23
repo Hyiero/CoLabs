@@ -38,11 +38,11 @@ UI.registerHelper "inbound", (id)-> inbound id
 
 UI.registerHelper "unread", (id)-> not Messages.findOne(id).read
 
-UI.registerHelper "cleanup", (timeStamp)->
-  clean(timeStamp)
+UI.registerHelper "cleanup", (timeStamp)-> clean(timeStamp)
+
+UI.registerHelper "contactExists", (id)-> userExists id
 
 Template.chat.helpers
-  contactExists: (contactId)-> userExists contactId
   contactSelected: ()-> Session.get("currentContact")?
   currentConversation: ()->
     pair = getPair()
