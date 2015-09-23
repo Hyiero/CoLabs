@@ -42,6 +42,8 @@ UI.registerHelper "cleanup", (timeStamp)-> clean(timeStamp)
 
 UI.registerHelper "contactExists", (id)-> userExists id
 
+UI.registerHelper "contactNameExists", (name)-> userExists Meteor.users.findOne(username:name)._id
+
 Template.chat.helpers
   contactSelected: ()-> Session.get("currentContact")?
   currentConversation: ()->

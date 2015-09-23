@@ -40,10 +40,12 @@
                             </div>
                         </div>
                     {{/each}}
-                    <div class="send-wrap ">
-                        <textarea id="messageContent" class="form-control send-message" rows="3" placeholder="Write a reply..."></textarea>
-                        <input type="submit" id="submitMessage" value="Submit">
-                    </div>
+                    {{#if contactNameExists currentContactName}}
+                        <div class="send-wrap ">
+                            <textarea id="messageContent" class="form-control send-message" rows="3" placeholder="Write a reply..."></textarea>
+                            <input type="submit" id="submitMessage" value="Submit">
+                        </div>
+                    {{/if}}
                 </div>
             </div>
         {{else}}
