@@ -2,8 +2,8 @@ html {
     font-size: 62.5%;
 }
 
-body {
-    padding: 50px;
+.main {
+    padding: 5rem;
     margin-top: 3rem;
 }
 

@@ -1,14 +1,15 @@
 <template name="projects">
     {{> nav}}
-    <br>
-    <br>
-    <h1>Current Projects</h1>
-    <ul>
-        {{#each projects}}
-            {{> project }}
-        {{/each}}
-    </ul>
-    {{> projectForm}}
+    
+    <div class="main">
+        <h1>Current Projects</h1>
+        <ul>
+            {{#each projects}}
+                {{> project }}
+            {{/each}}
+        </ul>
+        {{> projectForm}}
+    </div>
 </template>
 
 <template name="project">

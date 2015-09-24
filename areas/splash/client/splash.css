@@ -1,3 +1,64 @@
 .searchChoice {
     display: inline;
 }
+
+.splash-background {
+    background-image: url(https://s3.amazonaws.com/StartupStockPhotos/20140808_StartupStockPhotos/64.jpg);
+}
+
+.splash-background i {
+    display: block;
+    font-size: 6rem;
+}
+
+.translucent {
+    background-color: rgba(0,0,0,0.66);
+}
+
+/* background setup */
+.background {
+    background-repeat: no-repeat;
+    /* custom background-position */
+    background-position: 50% 50%;
+}
+
+/* fullscreen setup */
+html, body {
+    /* give this to all tags from html to .fullscreen */
+    height: 100%;
+}
+
+.content-a {
+    width: 100%;
+    min-height: 100%;
+}
+
+.not-fullscreen,
+.not-fullscreen .content-a,
+.fullscreen.not-overflow,
+.fullscreen.not-overflow .content-a {
+    height: 100%;
+    overflow: hidden;
+}
+
+/* content centering styles */
+.content-a {
+    display: table;
+}
+
+.content-b {
+    display: table-cell;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    color: #fff;
+    padding: 6rem 4rem;
+}
+
+.left-justify {
+    text-align: left;
+}
+
+.left-justify p {
+    font-size: 110%;
+}

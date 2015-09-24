@@ -1,6 +1,42 @@
 <template name="splash">
     {{> nav }}
     
+    <section class="fullscreen parallax background splash-background"
+        data-img-width="4928" data-img-height="3264" data-diff="400">
+        <div class="content-a translucent">
+            <div class="content-b">
+                <h1>Welcome to CoLabs.</h1>
+                
+                <hr />
+                
+                <div class="left-justify">
+                    <h2>About the CoLabs Community</h2>
+                    <p>CoLabs is a place for cooperative collaboration.</p>
+                    <p>If you have an idea for something, but know you can't do it alone, this is the place for you.</p>
+                    <p>Create a project based on your idea and then simply invite others with similar interests or let them find you and ask to join!</p>
+                    <p>The CoLabs Community aims to equip you and your team with the basic tools to turn abstract ideas into actionable designs.</p>
+                </div>
+                
+                <hr />
+                
+                <h3>Alright Already, Let's Get Started!</h3>
+                <button class="searchChoice btn btn-info" value="projects">
+                    <i class="fa fa-folder"></i>
+                    Find Projects
+                </button>
+                <button class="searchChoice btn btn-info" value="users">
+                    <i class="fa fa-user"></i>
+                    Find Users
+                </button>
+            </div>
+        </div>
+    </section>
+</template>
+
+
+<template name="splash-OLD">
+    {{> nav }}
+    
     <h1>Welcome to CoLabs!</h1>
     <div class="searchChoice btn btn-default" value="users">
         <i class="fa fa-user"></i>
