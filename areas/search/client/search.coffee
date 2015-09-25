@@ -13,7 +13,6 @@ Template.searchFilter.events
     $("#searchFilter").val("")
     Session.set "tagSearch", ""
   "click #nameClearFilter": (event) ->
-    console.log("click")
     $("#nameSearchFilter").val("")
     Session.set "nameSearch", ""
   "click .search-clear": (event) ->
@@ -21,12 +20,8 @@ Template.searchFilter.events
     
 
 Template.searchFilter.helpers
-  tags: ->
-    tags = Session.get "tagSearch"
-    tags ?= ""
-  name: ->
-    name = Session.get "nameSearch"
-    name ?= ""
+  tags: -> Session.get("tagSearch") ? ""
+  name: -> Session.get("nameSearch") ? ""
   type: ->
     type = Session.get "typeSearch"
     unless type?
@@ -55,14 +50,12 @@ Template.searchTypeSelectors.events
       else
         Router.go("search")
 
-UI.registerHelper "isUser", (result)->
-  result.type == "user"
+UI.registerHelper "isUser", (result)-> result.type is "user"
 
-UI.registerHelper "notLoggedInUser", (result)->
-  result._id != Meteor.userId()
+UI.registerHelper "notLoggedInUser", (result)-> result._id isnt Meteor.userId()
 
 findByUsersTags = (name, tags)->
-  if tags.length == 0
+  if tags.length is 0
     Meteor.users.find(
       name: { $regex: "^#{name}.*", $options: "i" }
     ).fetch()
@@ -73,7 +66,7 @@ findByUsersTags = (name, tags)->
     ).fetch()
 
 findByProjectTags = (name, tags)->
-  if tags.length == 0
+  if tags.length is 0
     Projects.find(
       name: { $regex: "^#{name}.*", $options: "i" }
     ).fetch()
@@ -103,9 +96,7 @@ Template.searchResults.helpers
 
 Template.searchResults.events
   "click #messageContact": (event) ->
-    console.log $(event.currentTarget).data('user-id')
     userId = $(event.currentTarget).data('user-id')
     Session.set "currentContact", userId
     
-UI.registerHelper "dateOf", (timestamp)->
-  timestamp.toLocaleDateString()
+UI.registerHelper "dateOf", (timestamp)-> timestamp.toLocaleDateString()

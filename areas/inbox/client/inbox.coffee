@@ -2,7 +2,7 @@ Meteor.subscribe "allMessages"
 
 userExists = (id)-> Meteor.users.findOne(id)?
 
-getPair = ()->
+getPair = ->
   user: Meteor.userId()
   contact: Session.get "currentContact"
 
@@ -38,28 +38,28 @@ UI.registerHelper "inbound", (id)-> inbound id
 
 UI.registerHelper "unread", (id)-> not Messages.findOne(id).read
 
-UI.registerHelper "cleanup", (timeStamp)-> clean(timeStamp)
+UI.registerHelper "cleanup", (timeStamp)-> clean timeStamp
 
 UI.registerHelper "contactExists", (id)-> userExists id
 
 UI.registerHelper "contactNameExists", (name)-> userExists Meteor.users.findOne(username:name)._id
 
 Template.chat.helpers
-  contactSelected: ()-> Session.get("currentContact")?
-  currentConversation: ()->
+  contactSelected: -> Session.get("currentContact")?
+  currentConversation: ->
     pair = getPair()
     {user, contact} = pair
     Meteor.call "readMessages", pair
     conv = Messages.messagesBetween user, contact
     conv.sort (a, b)-> a.timeStamp - b.timeStamp
-  currentContactName: ()->
+  currentContactName: ->
     contactId = Session.get "currentContact"
     contact = Meteor.users.findOne contactId
     contact?.username or "Deleted User"
-  userName: ()-> Meteor.user().username
+  userName: -> Meteor.user().username
 
 Template.chat.events
-  "click #submitMessage": ()->
+  "click #submitMessage": ->
     pair = getPair()
     {user, contact} = pair
     messageModel =
@@ -72,7 +72,7 @@ Template.chat.events
     $("#messageContent").val ""
 
 Template.previousContacts.helpers
-  contactList: ()->
+  contactList: ->
     contacts = Meteor.user().contacts
     contacts.sort (a, b)-> b.favorite - a.favorite
   contactExists: (contactId)-> userExists contactId
@@ -100,15 +100,15 @@ messageSort = (value)->
 Template.messageList.created = ()-> messageSort 'time' unless messageSort()?
 
 Template.messageList.helpers
-  isTime: ()-> messageSort() is 'time'
-  isUnread: ()-> messageSort() is 'unread'
-  isInbound: ()-> messageSort() is 'inbound'
-  isFavorite: ()-> messageSort() is 'favorite'
-  isTimeActive: ()-> if messageSort() is 'time' then 'active'
-  isUnreadActive: ()-> if messageSort() is 'unread' then 'active'
-  isInboundActive: ()-> if messageSort() is 'inbound' then 'active'
-  isFavoriteActive: ()-> if messageSort() is 'favorite' then 'active'
-  conversationList: ()->
+  isTime: -> messageSort() is 'time'
+  isUnread: -> messageSort() is 'unread'
+  isInbound: -> messageSort() is 'inbound'
+  isFavorite: -> messageSort() is 'favorite'
+  isTimeActive: -> if messageSort() is 'time' then 'active'
+  isUnreadActive: -> if messageSort() is 'unread' then 'active'
+  isInboundActive: -> if messageSort() is 'inbound' then 'active'
+  isFavoriteActive: -> if messageSort() is 'favorite' then 'active'
+  conversationList: ->
     conversations = Meteor.user().conversations
     switch messageSort()
       when 'time'
