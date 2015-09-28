@@ -54,6 +54,8 @@ UI.registerHelper "isUser", (result)-> result.type is "user"
 
 UI.registerHelper "notLoggedInUser", (result)-> result._id isnt Meteor.userId()
 
+UI.registerHelper "count", (list)-> list.length
+
 findByUsersTags = (name, tags)->
   if tags.length is 0
     Meteor.users.find(
@@ -81,14 +83,15 @@ Template.searchResults.helpers
   time: -> (new Date this.createdAt).toLocaleTimeString()
   isLoggedIn: -> Meteor.user()?
   isInviteSearch: -> this.type is 'invite'
-  filterInput: -> "#{Session.get("nameSearch")} | #{Session.get("tagSearch")}"
+  filterInput: ->
+    nameInput = Session.get("nameSearch") ? ""
+    tagInput = Session.get("tagSearch") ? ""
+    "#{nameInput} | #{tagInput}"
   filterResults: ->
-    tags = Session.get "tagSearch"
-    name = Session.get "nameSearch"
+    tags = Session.get("tagSearch") ? ""
+    tags = tags.trim().split " " if tags.length > 0
+    name = Session.get("nameSearch") ? ""
     type = Session.get "typeSearch"
-    if tags is undefined or tags == "" then tags = []
-    else tags = tags.trim().split " "
-    if name is undefined then name = ""
     switch type
       when "users" then findByUsersTags(name, tags)
       when "projects" then findByProjectTags(name, tags)
