@@ -1,3 +1,10 @@
+tagNotBlocked = (value)->
+  tag = Tags.findOne(value: value)
+  if tag? then tag.status isnt 'blocked'
+  else
+    Meteor.call 'addTag', value
+    true
+
 Template.profileEdit.onCreated = ->
   console.info this.identiconHex
   Session.set 'identiconHex', this.identiconHex
@@ -12,6 +19,8 @@ Template.profileEdit.events
 
     if allTags.length is 1 and allTags[0] is ""
       allTags = []
+
+    allTags = (Tags.findOne(value: value)._id for value in allTags when tagNotBlocked value)
 
     Meteor.call "updateUser", {
       email: e.target.emailTextBox.value

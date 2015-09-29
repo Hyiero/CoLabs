@@ -1,0 +1,55 @@
+<template name="adminReview">
+    {{> nav }}
+    <div class="main">
+        {{> reviewFlagged }}
+        {{> acceptedTags }}
+        {{> blockedTags }}
+    </div>
+</template>
+
+<template name="reviewFlagged">
+    <h2>Flagged Tags:</h2>
+    <div class="results">
+        {{#each flagged}}
+            <div class="tag" data-target="{{_id}}">
+                <span class="txt">{{value}}</span>
+                <button type="submit"
+                        id="acceptButton"
+                        class="btn btn-success reviewButton"
+                        data-status="accepted">
+                    <i class="fa fa-thumbs-o-up"></i>
+                    <span class="txt">Accept Tag</span>
+                </button>
+                <button type="submit"
+                        id="blockButton"
+                        class="btn btn-danger reviewButton"
+                        data-status="blocked">
+                    <i class="fa fa-thumbs-o-down"></i>
+                    <span class="txt">Block Tag</span>
+                </button>
+            </div>
+        {{/each}}
+    </div>
+</template>
+
+<template name="acceptedTags">
+    <h2>Accepted Tags:</h2>
+    <div class="results">
+        {{#each accepted}}
+            <div class="tag">
+                <span class="txt">{{value}}</span>
+            </div>
+        {{/each}}
+    </div>
+</template>
+
+<template name="blockedTags">
+    <h2>Blocked Tags:</h2>
+    <div class="results">
+        {{#each blocked}}
+            <div class="tag">
+                <span class="txt">{{value}}</span>
+            </div>
+        {{/each}}
+    </div>
+</template>

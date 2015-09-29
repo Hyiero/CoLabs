@@ -8,6 +8,9 @@ Meteor.publish 'allProjects', ->
 Meteor.publish 'allMessages', ->
   Messages.find()
 
+Meteor.publish 'allTags', ->
+  Tags.find()
+
 Meteor.publish 'thisUser', (id) ->
   Meteor.users.find _id:id
   

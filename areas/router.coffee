@@ -70,6 +70,11 @@ Router.map ->
     path: '/admin/power'
     onBeforeAction: redirectIfNotAdmin
   }
+
+  @route 'adminReview', {
+    path: '/admin/review'
+    onBeforeAction: redirectIfNotAdmin
+  }
   
   @route 'projects', {
     path: '/projects'
