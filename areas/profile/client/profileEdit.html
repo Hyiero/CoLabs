@@ -6,7 +6,6 @@
     <form id="editProfileForm">
         <div class="col-sm-4">
             <div class="col-item">
-                {{saveTagsToSession}}
                 {{#with user}}
                     <div class="info">
                         <div class="row">
@@ -131,7 +130,7 @@
                                     <ul class="tags-list-buttons">
                                         {{#each currentTags}}
                                             <li>
-                                                {{>tagButton}}
+                                                {{>tagButton tag=this}}
                                             </li>
                                         {{/each}}
                                     </ul>
@@ -179,4 +178,11 @@
         
         </div>
     </div>
+</template>
+
+<template name="tagButton">
+    <button name="{{tag}}" class="at_{{tag}} btn btn-default">
+        <span class="txt">{{tag}}</span>
+        <i class="fa fa-close"></i>
+    </button>
 </template>

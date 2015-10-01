@@ -1,26 +1,30 @@
+Template.profileEdit.onCreated ->
+  @subscribe 'allTags'
+  Session.set 'identiconHex', this.identiconHex
+  Session.set 'currentTags', (Tags.findOne(tag).value for tag in Meteor.user()?.tags)
+
 tagNotBlocked = (value)->
+  console.log value: value
   tag = Tags.findOne(value: value)
+  console.log tag: tag
   if tag? then tag.status isnt 'blocked'
   else
+    console.log "Add tag"
     Meteor.call 'addTag', value
+    console.log tag: Tags.findOne(value: value)
     true
-
-Template.profileEdit.onCreated = ->
-  console.info this.identiconHex
-  Session.set 'identiconHex', this.identiconHex
 
 Template.profileEdit.events
   "submit form": (e) ->
     e.preventDefault()
-    user = Meteor.user()
-    id = user._id
     longTagString = e.target.tagTextBox.value
     allTags = longTagString.trim().split " "
 
-    if allTags.length is 1 and allTags[0] is ""
-      allTags = []
+    if allTags.length is 1 and allTags[0] is "" then allTags = []
 
     allTags = (Tags.findOne(value: value)._id for value in allTags when tagNotBlocked value)
+
+    console.log allTags: allTags
 
     Meteor.call "updateUser", {
       email: e.target.emailTextBox.value
@@ -31,7 +35,7 @@ Template.profileEdit.events
       age: e.target.ageTextBox.value
       tags: allTags
       identiconHex: Session.get 'identiconHex' or this.identiconHex
-    }, (err, res) ->
+    }, (err) ->
       if err?
         toast.danger 'Error!',
           err.reason or 'Email address is already taken.'
@@ -43,7 +47,6 @@ Template.profileEdit.events
     e.preventDefault()
     user = Meteor.user()
     if user?
-      id = user._id
       hash = CoLabs.encodeAsHexMd5 user.name + Date.now()
       Session.set 'identiconHex', hash
 
@@ -52,9 +55,8 @@ Template.profileEdit.events
       
   "click .js-btn-back": (e) ->
     Router.go '/profile'
-      
-getConcatTags = -> getCurrentTags()?.join " "
-getCurrentTags = -> Session.get "tempTags"
+
+getCurrentTags = -> Session.get 'currentTags'
 
 Template.profileEdit.helpers
   user: -> Meteor.user()
@@ -69,8 +71,13 @@ Template.profileEdit.helpers
       # Gets first email
       else email = user.emails[0].address
     
-  concatTags:-> getConcatTags()
+  concatTags:-> getCurrentTags()?.join " "
   currentTags:-> getCurrentTags()
-  saveTagsToSession:-> Session.set("tempTags",Meteor.user()?.tags)
   identiconHex: -> Session.get 'identiconHex' or this.identiconHex
   avatar: -> this.avatar or Session.get 'identiconHex' or this.identiconHex
+
+Template.tagButton.events
+  'click':(e)->
+    e.preventDefault()
+    tags = (tag for tag in getCurrentTags() when tag isnt e.target.value)
+    Session.set "currentTags", tags

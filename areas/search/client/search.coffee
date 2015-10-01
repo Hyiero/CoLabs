@@ -79,7 +79,7 @@ findByProjectTags = (name, tags)->
     ).fetch()
 
 Template.searchResults.helpers
-  tags: -> if this.tags? then (this.tags).join ', '
+  tags: -> (Tags.findOne(tag)?.value for tag in this.tags).join ', '
   time: -> (new Date this.createdAt).toLocaleTimeString()
   isLoggedIn: -> Meteor.user()?
   isInviteSearch: -> this.type is 'invite'
@@ -90,6 +90,7 @@ Template.searchResults.helpers
   filterResults: ->
     tags = Session.get("tagSearch") ? ""
     tags = tags.trim().split " " if tags.length > 0
+    tags = (Tags.findOne(value: tag) for tag in tags)
     name = Session.get("nameSearch") ? ""
     type = Session.get "typeSearch"
     switch type
