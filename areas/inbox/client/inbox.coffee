@@ -89,10 +89,10 @@ Template.favoriteContact.helpers
       if contact.contact is contactId then return contact.favorite
 
 Template.favoriteContact.events
-  "click #favorite": (event)->
+  "click .favorite": (event)->
     Meteor.call "toggleContact",
       user: Meteor.userId()
-      contact: $(event.currentTarget).data "id"
+      contact: @id
 
 messageSort = (value)->
   if value? then Session.set 'messageSort', value else Session.get 'messageSort'

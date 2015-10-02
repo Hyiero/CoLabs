@@ -46,39 +46,6 @@
     </div>
 </template>
 
-<template name="searchResults-OLD">
-    <!-- TODO REMOVE -->
-    <h3>Search Results</h3>
-    {{#each filterResults}}
-        {{#if notLoggedInUser this}}
-        <div class="filterResult">
-            {{> userAvatar userId=_id size="sm"}}
-            <div class="btn-group">
-                <label for="name">Name</label>
-                <span class="name">{{name}}</span>
-            </div>
-            <div class="btn-group">
-                <label for="tags">Tags</label>
-                <span class="tags">{{tags}}</span>
-            </div>
-            {{#if ../multipleSelection}}
-                <span class="search-checkbox-wrapper">
-                    {{> searchActionCheckbox this}}
-                </span>
-            {{/if}}
-            {{#if isUser this}}
-                <a class="btn btn-default messageButton"
-                    href="{{pathFor 'inbox'}}" id="messageContact"
-                    data-user-id="{{this._id}}">
-                        <i class="fa fa-send"></i>
-                        <span class="txt">Message</span>
-                </a>
-            {{/if}}
-        </div>
-        {{/if}}
-    {{/each}}
-</template>
-
 <template name="searchResults">
     {{#if isInviteSearch}}
         <hgroup class="mb20">
