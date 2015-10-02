@@ -3,38 +3,43 @@
     
     <div class="main">
         <h1>Current Projects</h1>
-        <ul>
+        {{> projectForm}}
+        <div>
             {{#each projects}}
                 {{> project }}
+                <hr />
             {{/each}}
-        </ul>
-        {{> projectForm}}
+        </div>
     </div>
 </template>
 
 <template name="project">
     <div id="{{id}}">
-        <h2>Name:{{name}}</h2>
-        <p>Description:{{description}}</p>
-        <p>Last Updated:{{lastUpdated}}</p>
+        
+        <h3>{{name}}</h3>
+        <p>{{description}}</p>
+        
+        <h4>Members</h4>
         <ul class="project-user-list">
-            <p>Members:
             {{#each this.users}}
-                {{username this}}
+                <li>
+                    {{username this}}
+                </li>
             {{/each}}
-            </p>
         </ul>
-        <button class="btn btn-warning edit"  value="{{this._id}}">
+        <hr />
+        
+        <button class="btn btn-primary edit"  value="{{this._id}}">
             <i class="fa fa-edit"></i>
             <span class="txt">Edit Project</span>
-        </button>
-        <button class="btn btn-danger remove" value="{{this._id}}">
-            <i class="fa fa-remove"></i>
-            <span class="txt">Remove Me</span>
         </button>
         <button class="btn btn-info addUsers" value="{{this._id}}">
             <i class="fa fa-user"></i>
             <span class="txt">Add Users</span>
+        </button>
+        <button class="btn btn-danger remove" value="{{this._id}}">
+            <i class="fa fa-remove"></i>
+            <span class="txt">Remove Me</span>
         </button>
     </div>
 </template>
@@ -70,10 +75,22 @@
             <span class="txt">Add New</span>
             <!-- TODO: Popup form to create new -->
         </button>
-        {{#each projects}}
-            {{>project}}
-            <br>
-            <br>
-        {{/each}}
     {{/if}}
+</template>
+
+<template name="userAlreadyInvitedModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                    <i class="fa fa-close"></i>
+                </button>
+
+                <div class="modal-header">
+                    <h4 class="modal-title">User:{{user}} has already been invited to this project</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>

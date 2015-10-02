@@ -19,6 +19,8 @@ Meteor.publish 'myProjects', ->
   console.log this.userId
   if this.userId then Projects.find users:this.userId
   else []
+  
+Meteor.publish 'project', (id) -> Projects.find _id:id
 
 Meteor.publish('allInvitations', ->
     Invitations.find()

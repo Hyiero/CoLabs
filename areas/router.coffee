@@ -87,6 +87,16 @@ Router.map ->
       projectName: Session.get "projectName"
       projectDescription: Session.get "projectDescription"
   }
+  
+  @route 'projectDashboard', {
+    path: '/projects/:id'
+    waitOn: () -> [
+      (Meteor.subscribe 'thisUser', Meteor.user()._id),
+      (Meteor.subscribe 'project', @params.id)
+    ]
+    onBeforeAction: redirectIfNotVerified
+    data: -> project: Projects.findOne()
+  }
 
   @route 'inbox', {
     path: '/inbox'
