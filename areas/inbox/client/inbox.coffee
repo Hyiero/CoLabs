@@ -7,6 +7,7 @@ getPair = ->
   contact: Session.get "currentContact"
 
 splitTimeStamp = (timeStamp)->
+  timeStamp = new Date timeStamp unless timeStamp.getDate?
   date: timeStamp.toLocaleDateString()
   time: timeStamp.toLocaleTimeString()
 

@@ -56,3 +56,8 @@ html {
 p {
     word-break: break-word;
 }
+
+.center {
+    margin: 0px auto;
+    float: none;
+}

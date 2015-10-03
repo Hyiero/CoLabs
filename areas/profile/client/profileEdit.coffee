@@ -1,7 +1,3 @@
-Template.profileEdit.onCreated = ->
-  console.info this.identiconHex
-  Session.set 'identiconHex', this.identiconHex
-
 Template.profileEdit.events
   "submit form": (e) ->
     e.preventDefault()
@@ -15,13 +11,13 @@ Template.profileEdit.events
 
     Meteor.call "updateUser", {
       email: e.target.emailTextBox.value
-      avatar: e.target.avatarPathTextBox.value or this.identiconHex
+      avatar: e.target.avatarPathTextBox.value or @identiconHex
       firstName: e.target.firstNameTextBox.value
       lastName: e.target.lastNameTextBox.value
       description: e.target.descriptionTextBox.value
       age: e.target.ageTextBox.value
       tags: allTags
-      identiconHex: Session.get 'identiconHex' or this.identiconHex
+      identiconHex: Session.get 'identiconHex' or @identiconHex
     }, (err, res) ->
       if err?
         toast.danger 'Error!',
@@ -39,10 +35,13 @@ Template.profileEdit.events
       Session.set 'identiconHex', hash
 
   "click #resetAvatar": (e) ->
-    Session.set 'identiconHex', this.avatar or this.identiconHex
+    Session.set 'identiconHex', @avatar or @identiconHex
       
   "click .js-btn-back": (e) ->
     Router.go '/profile'
+    
+  "click .delete-account": (e) ->
+    Modal.show "removeUserModal"
       
 getConcatTags = -> getCurrentTags()?.join " "
 getCurrentTags = -> Session.get "tempTags"
@@ -62,6 +61,11 @@ Template.profileEdit.helpers
     
   concatTags:-> getConcatTags()
   currentTags:-> getCurrentTags()
-  saveTagsToSession:-> Session.set("tempTags",Meteor.user()?.tags)
-  identiconHex: -> Session.get 'identiconHex' or this.identiconHex
-  avatar: -> this.avatar or Session.get 'identiconHex' or this.identiconHex
+  saveTagsToSession:-> Session.set "tempTags", Meteor.user()?.tags
+  identiconHex: -> Session.get 'identiconHex' or @identiconHex
+  avatar: -> @avatar or Session.get 'identiconHex' or @identiconHex
+  
+Template.removeUserModal.events
+  "click #removeUserButton": (e) ->
+    Meteor.call 'removeUser'
+    Modal.hide 'removeUserModal'

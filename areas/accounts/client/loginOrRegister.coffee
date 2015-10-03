@@ -1,6 +1,6 @@
 Template.signInButton.events
   "click": (event) ->
-    Modal.show("loginOrRegisterModal")
+    Modal.show "loginOrRegisterModal"
 
 Template.loginOrRegisterModal.events
   "click #loginRadioOption": (event) ->
