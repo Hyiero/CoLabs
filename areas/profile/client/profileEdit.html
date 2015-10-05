@@ -128,20 +128,11 @@
             {{/with}}
             <hr />
             <div class="btn-group">
-                <button type="button" class="js-btn-back btn btn-default at_submitProfileEditButton">
-                    <i class="fa fa-hand-o-left"></i>
-                    <span class="txt">Back</span>
-                </button>
-                <button type="submit" id="submitProfileEditButton"
-                    class="btn btn-primary at_submitProfileEditButton">
-                        <i class="fa fa-save"></i>
-                        <span class="txt">Save Changes</span>
-                </button>
+                {{{buttonBack}}}
+                {{{buttonSave}}}
+                {{{buttonDelete}}}
             </div>
-            <button type="button" class="btn btn-danger delete-account">
-                <i class="fa fa-trash"></i>
-                <span class="txt">Delete Account</span>
-            </button>
+
         </div>
     </form>
 </template>

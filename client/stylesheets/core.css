@@ -61,3 +61,7 @@ p {
     margin: 0px auto;
     float: none;
 }
+
+.txt {
+    margin: .4rem;
+}

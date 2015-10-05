@@ -47,6 +47,19 @@ getConcatTags = -> getCurrentTags()?.join " "
 getCurrentTags = -> Session.get "tempTags"
 
 Template.profileEdit.helpers
+  buttonBack: -> Render.buttonCancel {
+    class: 'js-btn-back'
+    icon: 'hand-o-left'
+    text: 'Back'
+  }
+  buttonSave: -> Render.buttonSave {
+    id: 'submitProfileEditButton'
+    text: 'Save Changes'
+  }
+  buttonDelete: -> Render.buttonDelete {
+    text: 'Delete Account'
+    class: 'delete-account'
+  }
   user: -> Meteor.user()
   email: ->
     user = Meteor.user()
