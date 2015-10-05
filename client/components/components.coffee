@@ -1,4 +1,4 @@
-new Csml.Writer context:window
+new Jsml.Writer context:window
 
 @export = (fnsMap) =>
   @[name] = fn for name, fn of fnsMap

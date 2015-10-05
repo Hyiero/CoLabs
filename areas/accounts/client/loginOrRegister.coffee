@@ -2,6 +2,14 @@ Template.signInButton.events
   "click": (event) ->
     Modal.show "loginOrRegisterModal"
 
+Template.loginOrRegisterModal.helpers
+  buttonClose: -> Render.buttonClose {
+    icon: 'close'
+    text: ''
+    class: 'pull-right'
+    'data-dismiss': 'modal'
+  }
+
 Template.loginOrRegisterModal.events
   "click #loginRadioOption": (event) ->
     $("#login-email").addClass("hidden")

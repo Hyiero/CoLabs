@@ -1,6 +1,10 @@
-Template.admin.events
-  "click #runTerminal": ->
-    console.log(eval($('[name=command]').val()))
+Template.admin.helpers
+  buttonRunTerminal: -> Render.buttonSave
+    id: 'runTerminal'
+    class: 'form-control'
+    icon: 'terminal'
+    text: 'Run'
+    onclick: -> console.log eval $('[name=command]').val()
 
 Template.enableLogs.onCreated = ->
   Session.set 'logEnabled', Logger.isEnabled?

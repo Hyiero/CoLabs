@@ -1,4 +1,4 @@
-Csml = new (->
+Jsml = new (->
   _ = @
   forOwn = (obj, fn) ->
     for key, val of obj
@@ -65,8 +65,14 @@ Csml = new (->
         attributes = {}
 
       forOwn attributes, (prop, attr) ->
+        if not options.useRawAttributes
+          prop = prop.replace /[A-Z]/g, (match) -> "-#{match.toLowerCase()}"
+          
         if attr? and attr isnt false
           if prop is 'style' then attrstr += _.parseStyle attr
+          else if $.isFunction attr
+            regexInnerFn = /function\s\(\)\s\{([\s\S]+)\}/gi
+            attrstr += " #{prop}=\"#{regexInnerFn.exec(attr)[1]}\""
           else attrstr += " #{prop}=\"#{attr}\""
 
       (text += str) for str in strings when str?

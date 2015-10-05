@@ -19,7 +19,6 @@ callback-hook@1.0.3
 check@1.0.5
 coffeescript@1.0.6
 cosmos:browserify@0.4.0
-csml@0.0.1
 ddp@1.1.0
 deps@1.0.7
 ejson@1.0.6
@@ -47,6 +46,7 @@ iron:url@1.0.9
 jparker:crypto-core@0.1.0
 jparker:crypto-md5@0.1.1
 jquery@1.11.3_2
+jsml@0.0.2
 json@1.0.3
 jsx@0.1.2
 launch-screen@1.0.2
