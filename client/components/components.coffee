@@ -1,8 +1,5 @@
 new Jsml.Writer context:window
 
-@export = (fnsMap) =>
-  @[name] = fn for name, fn of fnsMap
-
 mergeInto = (objTo, objFrom) ->
   for key, val of objFrom
     if (not objTo.hasOwnProperty key) and
@@ -14,56 +11,69 @@ filterFrom = (obj, props) ->
   (result[key] = val) for key, val of obj when key not in props
   return result
 
-@export {
+sendTo window,
   mergeInto: mergeInto
   filterFrom: filterFrom
-}
+
+createRenderFn = (fn) -> (model = {}) -> fn.call model
 
 @Render =
-  button: (model = {}) ->
+  button: createRenderFn ->
     # Merge default properties
-    mergeInto model,
+    mergeInto @,
       icon: ''
       text: ''
       type: 'default'
+      isEnabled: null
 
     # Construct attributes
     buttonAttributes =
-      class: "btn btn-#{model.type}#{
-        if model.class then " #{model.class}" else '' }"
-      type: if model.isSubmit then 'submit' else 'button'
+      class: "btn btn-#{@type}#{
+        if @class then " #{@class}" else '' }"
+      type: if @isSubmit then 'submit' else 'button'
 
     # Filter non-attribute properties and merge from model
     mergeInto buttonAttributes,
-      filterFrom model,
-        ['icon', 'text', 'class', 'type', 'isSubmit']
+      filterFrom @,
+        ['icon', 'text', 'class', 'type', 'isSubmit', 'isEnabled']
 
-    console.log buttonAttributes, model
+    #console.log buttonAttributes, @
 
     # Render the component
     (button buttonAttributes,
-      (i class:"fa fa-#{model.icon}") if model.icon isnt ''
-      (span class:"txt", model.text) if model.text isnt ''
+      (i class:"fa fa-#{@icon}") if @icon isnt ''
+      (span class:"txt", @text) if @text isnt ''
+      if @isEnabled?
+        if @isEnabled then (i class:"fa fa-toggle-on")
+        else (i class:"fa fa-toggle-off")
     )
 
-  buttonSave: (model = {}) ->
-    mergeInto model,
+  buttonSave: createRenderFn ->
+    mergeInto @,
       icon: 'save'
       text: 'Save'
       type: 'primary'
       isSubmit: true
-    Render.button model
+    Render.button @
 
-  buttonCancel: (model = {}) ->
-    mergeInto model,
+  buttonCancel: createRenderFn ->
+    mergeInto @,
       icon: 'back'
       text: 'Cancel'
       type: 'default'
-    Render.button model
+    Render.button @
 
-  buttonDelete: (model = {}) ->
-    mergeInto model,
+  buttonDelete: createRenderFn ->
+    mergeInto @,
       icon: 'trash'
       text: 'Delete'
       type: 'danger'
-    Render.button model
+    Render.button @
+    
+  buttonToggle: createRenderFn ->
+    mergeInto @,
+      icon: 'trash'
+      text: 'Delete'
+      type: 'danger'
+      isEnabled: false
+    Render.button @

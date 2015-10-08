@@ -7,5 +7,5 @@ Package.describe({
 Package.onUse(function(api) {
     api.use(['coffeescript'], ['client', 'server'])
     api.addFiles('helpers.coffee')
-    api.export('Helper', ['client', 'server'])
+    api.export(['Helpers', 'sendTo'], ['client', 'server'])
 })

@@ -24,16 +24,7 @@
 </template>
 
 <template name="enableLogs">
-    <button id="enableLogs" class="btn btn-info" type="button">
-        <i class="fa fa-save"></i>
-        <span class="txt">Persist Logs</span>
-    </button>
-    <span class="fa-checkbox alert alert-info fa-stack fa-lg">
-        <i class="fa fa-square-o fa-stack-2x"></i>
-        {{#if isEnabled}}
-            <i class="fa fa-check fa-stack-1x"></i>
-        {{/if}}
-    </span>
+    {{{buttonEnableLogs}}}
 </template>
 
 <template name="clearLogs">

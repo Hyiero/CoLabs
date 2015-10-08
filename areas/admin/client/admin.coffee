@@ -6,18 +6,23 @@ Template.admin.helpers
     text: 'Run'
     onclick: -> console.log eval $('[name=command]').val()
 
-Template.enableLogs.onCreated = ->
-  Session.set 'logEnabled', Logger.isEnabled?
+Template.enableLogs.onCreated ->
+  Session.set 'logEnabled', Logger.isEnabled
+
+sendTo window, setLogging: (enable) ->
+  method = if enable then 'Enable' else 'Disable'
+  toast.info "Success!", "#{method}d log persistence", 1000
+  Logger[method.toLowerCase()]()
 
 Template.enableLogs.helpers
-  isEnabled: -> Session.get 'logEnabled'
-  
-Template.enableLogs.events
-  "click #enableLogs": ->
-    toast.info 'Clicked', Logger.isEnabled, 1000
-    if Logger.isEnabled then Logger.disable()
-    else Logger.enable()
-    Session.set 'logEnabled', Logger.isEnabled
+  buttonEnableLogs: -> Render.buttonToggle
+    type: 'info'
+    icon: 'feed'
+    text: 'Persist Logs'
+    isEnabled: Session.get 'logEnabled'
+    onclick:  ->
+      setLogging not Logger.isEnabled
+      Session.set 'logEnabled', Logger.isEnabled
 
 Template.clearLogs.events
   "click #clearLogs": -> Logger.clear()

@@ -72,7 +72,8 @@ Jsml = new (->
           if prop is 'style' then attrstr += _.parseStyle attr
           else if $.isFunction attr
             regexInnerFn = /function\s\(\)\s\{([\s\S]+)\}/gi
-            attrstr += " #{prop}=\"#{regexInnerFn.exec(attr)[1]}\""
+            innerFn = regexInnerFn.exec(attr)[1].replace /"/g, '&quot;'
+            attrstr += " #{prop}=\"#{innerFn}\""
           else attrstr += " #{prop}=\"#{attr}\""
 
       (text += str) for str in strings when str?
