@@ -84,16 +84,24 @@ Template.previousContacts.events
     if $elem.hasClass "media-body" then $elem = $elem.parent()
     Session.set "currentContact", $elem.data "id"
 
-Template.favoriteContact.helpers
-  isFavorite: (contactId)->
-    for contact in Meteor.user().contacts
-      if contact.contact is contactId then return contact.favorite
 
-Template.favoriteContact.events
-  "click .favorite": (event)->
-    Meteor.call "toggleContact",
-      user: Meteor.userId()
-      contact: @id
+sendTo window, isFavorite: (id) ->
+  for c in Meteor.user().contacts
+    if c.contact is id then return c.favorite
+    
+Template.favoriteContact.helpers
+  favoriteButton: -> Render.button
+    icon: if isFavorite @id then 'star' else 'star-o'
+    class: 'pull-right'
+    text: 'Favorite'
+    type: 'info'
+    dataId: @id
+    onclick: ->
+      # TODO: May want to add an event handler instead of inserting into page
+      Meteor.call "toggleContact",
+        user: Meteor.userId()
+        contact: @data 'id'
+
 
 messageSort = (value)->
   if value? then Session.set 'messageSort', value else Session.get 'messageSort'

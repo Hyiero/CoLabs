@@ -16,20 +16,9 @@
         </div>
         
         <h2>Application Logs</h2>
-        {{> clearLogs }}
-        {{> enableLogs }}
+        {{{buttonClearLogs}}}
+        {{{buttonEnableLogs}}}
         {{> logs }}
     </div>
     
-</template>
-
-<template name="enableLogs">
-    {{{buttonEnableLogs}}}
-</template>
-
-<template name="clearLogs">
-    <button id="clearLogs" class="btn btn-danger pull-right" type="button">
-        <i class="fa fa-trash"></i>
-        <span class="txt">Clear All Logs</span>
-    </button>
 </template>

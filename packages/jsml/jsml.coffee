@@ -71,8 +71,14 @@ Jsml = new (->
         if attr? and attr isnt false
           if prop is 'style' then attrstr += _.parseStyle attr
           else if $.isFunction attr
-            regexInnerFn = /function\s\(\)\s\{([\s\S]+)\}/gi
-            innerFn = regexInnerFn.exec(attr)[1].replace /"/g, '&quot;'
+            # This strips the function () { } wrapper
+            #regexInnerFn = /function\s\(\)\s\{([\s\S]+)\}/gi
+            #innerFn = regexInnerFn.exec(attr)[1].replace /"/g, '&quot;'
+            
+            # This passes a jQuery object as the context
+            innerFn = "(#{attr}).call($(this));".replace /"/g, '&quot;'
+            
+            # TODO: May want to add an event handler instead of inserting into page
             attrstr += " #{prop}=\"#{innerFn}\""
           else attrstr += " #{prop}=\"#{attr}\""
 
