@@ -1,7 +1,4 @@
 Template.genericModal.helpers
-  buttonClose: -> Render.buttonClose {
-    icon: 'close'
-    text: ''
+  buttonClose: -> Render.buttonClose
     class: 'pull-right'
     'data-dismiss': 'modal'
-  }

@@ -5,13 +5,35 @@ Template.projects.helpers
   projects: -> Projects.find().fetch()
 
 Template.project.helpers
-  users: ->
-    Users.find(
-      _id: { $in: @users }
-    )
-  username: (id)->
-    thisUser=Meteor.users.findOne({_id:id})
-    thisUser.username
+  editProjectButton: -> Render.button
+    type: 'primary'
+    icon: 'edit'
+    text: "Edit Project"
+    dataId: @_id
+    onclick: ->
+      project = Projects.findOne _id: @data 'id'
+      Session.set "projectDescription", project.description
+      Session.set "projectName" , project.name
+      Session.set "projectId" , projectId
+      Session.set 'editProject', true
+  addUsersButton: -> Render.button
+    type: 'info'
+    icon: 'user'
+    text: "Add Users"
+    dataId: @_id
+    onclick: ->
+      Session.set 'selectedProjectId', @data 'id'
+      Router.go '/inviteUsers'
+  removeMeButton: -> Render.buttonDelete
+    icon: 'remove'
+    text: "Remove Me"
+    dataId: @_id
+    onclick: ->
+      Meteor.call 'removeUserFromProject',
+        projectId: @data 'id'
+        userId: Meteor.userId()
+  users: -> Users.find _id: { $in: @users }
+  username: (id) -> Meteor.users.findOne(_id:id)?.username
 
 Template.projectForm.events
   'click #submitProject': (e) ->
@@ -24,33 +46,7 @@ Template.projectForm.events
     Meteor.call 'updateProject', data, (err, res) ->
       if err then console.log err
       else Session.set 'editProject', false
-
-  'click button.edit': (e) ->
-    e.preventDefault()
-    projectId=e.currentTarget.attributes["value"].value
-    project=Projects.findOne({_id:projectId})
-
-    Session.set "projectDescription", project.description
-    Session.set "projectName" , project.name
-    Session.set "projectId" , projectId
-    Session.set 'editProject', true
-
-  'click button.remove': (e) ->
-    e.preventDefault()
-    projectId=e.currentTarget.attributes["value"].value
-    data= {
-      projectId: projectId,
-      userId: Meteor.userId()
-    }
-    Meteor.call 'removeUserFromProject', data
-    
-  'click button.addUsers': (e) ->
-    e.preventDefault()
-    projectId=e.currentTarget.attributes["value"].value
-    Session.set 'selectedProjectId', projectId
-    Router.go '/inviteUsers'
-    
-
+  
   'click #goBack': (e) ->
     e.preventDefault()
     Session.set 'editProject', false

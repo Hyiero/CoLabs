@@ -1,4 +1,4 @@
-Template.searchActionCheckbox.onCreated = ->
+Template.searchActionCheckbox.onCreated ->
   id = this._id or this.id
   if not id? then throw new Error 'Need an id!'
   if not Session.get "checkbox-#{id}"

@@ -55,6 +55,12 @@ createRenderFn = (fn) -> (model = {}) -> fn.call model
       type: 'primary'
       isSubmit: true
     Render.button @
+    
+  buttonImportant: createRenderFn ->
+    mergeInto @,
+      icon: 'warning'
+      type: 'warning'
+    Render.button @
 
   buttonCancel: createRenderFn ->
     mergeInto @,
@@ -68,6 +74,10 @@ createRenderFn = (fn) -> (model = {}) -> fn.call model
       icon: 'trash'
       text: 'Delete'
       type: 'danger'
+    Render.button @
+    
+  buttonClose: createRenderFn ->
+    mergeInto @, icon: 'close'
     Render.button @
     
   buttonToggle: createRenderFn ->

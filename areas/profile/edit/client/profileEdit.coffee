@@ -25,18 +25,7 @@ Template.profileEdit.events
         console.error err
       else toast.success 'Success!',
         "You're profile was updated."
-        
-  "click #regenButton": (e) ->
-    e.preventDefault()
-    user = Meteor.user()
-    if user?
-      id = user._id
-      hash = CoLabs.encodeAsHexMd5 user.name + Date.now()
-      Session.set 'identiconHex', hash
-
-  "click #resetAvatar": (e) ->
-    Session.set 'identiconHex', @avatar or @identiconHex
-      
+  
   "click .js-btn-back": (e) ->
     Router.go '/profile'
     
@@ -47,23 +36,36 @@ getConcatTags = -> getCurrentTags()?.join " "
 getCurrentTags = -> Session.get "tempTags"
 
 Template.profileEdit.helpers
-  buttonBack: -> Render.buttonCancel {
+  previewIdenticonButton: -> Render.button
+    text: 'Preview Identicon'
+    icon: 'random'
+    type: 'info'
+    class: 'form-control'
+    onclick: ->
+      hash = CoLabs.encodeAsHexMd5 Meteor.user()?.name + Date.now()
+      Session.set 'identiconHex', hash
+  resetAvatarButton: -> Render.button
+    text: 'Reset Avatar'
+    icon: 'refresh'
+    class: 'form-control'
+    data: {avatar: @avatar, identiconHex: @identiconHex}
+    onclick: ->
+      {avatar, identiconHex} = @data()
+      Session.set 'identiconHex', avatar or identiconHex
+  buttonBack: -> Render.buttonCancel
     class: 'js-btn-back'
     icon: 'hand-o-left'
     text: 'Back'
-  }
-  buttonSave: -> Render.buttonSave {
+  buttonSave: -> Render.buttonSave
     id: 'submitProfileEditButton'
     text: 'Save Changes'
-  }
-  buttonDelete: -> Render.buttonDelete {
+  buttonDelete: -> Render.buttonDelete
     text: 'Delete Account'
     class: 'delete-account'
-  }
   user: -> Meteor.user()
   email: ->
     user = Meteor.user()
-    if user? and user.emails? and user.emails.length > 0
+    if user?.emails?.length > 0
       
       # Gets first verified email
       emails = user.emails.filter (e) -> e.verified
@@ -77,8 +79,31 @@ Template.profileEdit.helpers
   saveTagsToSession:-> Session.set "tempTags", Meteor.user()?.tags
   identiconHex: -> Session.get 'identiconHex' or @identiconHex
   avatar: -> @avatar or Session.get 'identiconHex' or @identiconHex
-  
-Template.removeUserModal.events
-  "click #removeUserButton": (e) ->
-    Meteor.call 'removeUser'
-    Modal.hide 'removeUserModal'
+
+
+Template.removeUserModal.helpers
+  buttonClose: -> Render.buttonClose
+    class: 'pull-right'
+    'data-dismiss': 'modal'
+  removeUserButton: -> Render.buttonDelete
+    icon: 'bomb'
+    text: "Yes, burn it!"
+    onclick: ->
+      Meteor.call 'removeUser', (err, res) ->
+        if err? then toast.error err?.message
+        Modal.hide 'removeUserModal'
+  cancelRemoveButton: -> Render.button
+    text: "Get me out of here!"
+    icon: 'child'
+    type: 'info'
+    'data-dismiss': 'modal'
+
+    
+Template.tagButton.events
+  'click': (e) ->
+    e.preventDefault()
+    tags = Session.get "tempTags"
+    index = tags.indexOf e.target.value
+    if index > -1
+      tags.splice index, 1
+    Session.set "tempTags", tags

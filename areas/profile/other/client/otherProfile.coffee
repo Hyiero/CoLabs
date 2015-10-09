@@ -1,4 +1,4 @@
-Template.otherProfile.onCreated = ->
+Template.otherProfile.onCreated ->
     @subscribe 'thisUserByName', this.params.username
 
 Template.otherProfile.helpers

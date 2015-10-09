@@ -11,7 +11,7 @@ splitTimeStamp = (timeStamp)->
   date: timeStamp.toLocaleDateString()
   time: timeStamp.toLocaleTimeString()
 
-clean = (timeStamp)->
+clean = (timeStamp) ->
   today = (new Date()).toLocaleDateString()
   {date, time} = splitTimeStamp timeStamp
   if date is today then "Today, #{time}" else "#{date}, #{time}"

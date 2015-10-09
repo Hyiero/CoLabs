@@ -1,37 +1,50 @@
-Meteor.subscribe "allNotifications"
+sendTo window,
+  sendOneNotification: (type, date, sender) ->
+    console.log "Sending one Notification:",
+      type:type
+      date:date
+      sender:sender
+    # TODO: Use Meteor.userId on server side for security
+    Meteor.call "sendNotification",
+      type:type
+      date:date
+      sender:sender
+  sendAcceptOrDecline: (data, isAccepted) ->
+    {projectId, invitationId} = data
+    Meteor.call "addUserToProject", Meteor.userId(), projectId, (err, data) ->
+      if err? then throw new Error err
+      Meteor.call "removeInvitation", invitationId
+      sendOneNotification "Invitation #{
+          if isAccepted then 'Accepted' else 'Declined'
+        }", new Date, Meteor.userId()
 
-@SendOneNotification=(type,date,sender)->
-  console.log "Sending one Notification:" + type+","+date+","+sender
-  Meteor.call "sendNotification",
-    type:type
-    date:date
-    sender:sender
-
-Template.notifications.events
-  "click #showGeneralNotificationsButton": (e) ->
-    Session.set "notificationsToShow","general"
-    
-  "click #showInvitationsButton": (e)->
-    Session.set "notificationsToShow","invitations"
-        
-  "click #acceptInvitationButton": (e)->
-    projectId=e.currentTarget.attributes["projectId"].value
-    invId=e.currentTarget.attributes["invitationId"].value
-    Meteor.call "addUserToProject",Meteor.userId(),projectId, (err,data)->
-      console.log data
-      if data?
-        Meteor.call "removeInvitation",invId
-        SendOneNotification "Invitation Accepted",new Date().toLocaleString(),
-          Meteor.userId()
-                    
-  "click #declineInvitationButton": (e) -> 
-    invId=e.currentTarget.attributes["invitationId"].value
-    Meteor.call "removeInvitation", invId        
-    SendOneNotification "Invitation Declined",new Date().toLocaleString(),
-      Meteor.userId()
+Template.notifications.onCreated ->
+  @subscribe 'allNotifications'
 
 Template.notifications.helpers
-  isGeneral: ->
-    general = Session.get("notificationsToShow") == "general"
-  isInvitations: ->
-    invitations = Session.get("notificationsToShow") == "invitations"
+  sendNotificationTestButton: ->Render.button # TODO REMOVE TEST BUTTON
+    text: 'Send Test Notification'
+    icon: 'send'
+    onclick: -> sendOneNotification 'Test', new Date, Meteor.user()?._id
+  showGeneralButton: -> Render.button
+    icon: 'flag-o'
+    text: 'General'
+    type: 'info'
+    onclick: -> Session.set "notificationsToShow","general"
+  showInvitationsButton: -> Render.button
+    icon: 'user-plus'
+    text: 'Invitations'
+    type: 'success'
+    onclick: -> Session.set "notificationsToShow","invitations"
+  acceptInvitationButton: -> Render.buttonSave
+    icon: 'thumbs-o-up'
+    text: 'Accept'
+    data: {projectId: projectId, invitationId: invitationId}
+    onclick: -> sendAcceptOrDecline @data(), true
+  declineInvitationButton: -> Render.buttonDelete
+    icon: 'thumbs-o-down'
+    text: 'Decline'
+    data: {projectId: projectId, invitationId: invitationId}
+    onclick: -> sendAcceptOrDecline @data(), false
+  isGeneral: -> (Session.get "notificationsToShow") is "general"
+  isInvitations: -> (Session.get "notificationsToShow") is "invitations"

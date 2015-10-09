@@ -3,12 +3,9 @@ Template.signInButton.events
     Modal.show "loginOrRegisterModal"
 
 Template.loginOrRegisterModal.helpers
-  buttonClose: -> Render.buttonClose {
-    icon: 'close'
-    text: ''
+  buttonClose: -> Render.buttonClose
     class: 'pull-right'
     'data-dismiss': 'modal'
-  }
 
 Template.loginOrRegisterModal.events
   "click #loginRadioOption": (event) ->

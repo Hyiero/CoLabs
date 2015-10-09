@@ -1,16 +1,11 @@
 <template name="notifications">
     {{> nav }}
     <div class="main">
-        {{> notificationSelection }}
+        {{{showGeneralButton}}}
+        {{{showInvitationsButton}}}
+        {{{sendNotificationTestButton}}}
         
-        <!-- This is a test button, TODO REFACTOR REMOVE -->
-        <button id="sendNotificationButton"
-            class="btn btn-default"
-            name="sendNotificationButton">
-                Send Test Notification
-        </button>
-        
-        <br />
+        <hr />
         {{#if isGeneral}}
             {{> showGeneralNotifications notifications=notifications }}
         {{/if}}
@@ -18,17 +13,6 @@
             {{> showInvitations invitations=invitations }}
         {{/if}}
     </div>
-</template>
-
-<template name="notificationSelection">
-    <button class="btn btn-info" id="showGeneralNotificationsButton">
-        <i class="fa fa-flag-o"></i>
-        <span class="txt">General</span>
-    </button>
-    <button class="btn btn-success" id="showInvitationsButton">
-        <i class="fa fa-user-plus"></i>
-        <span class="txt">Invitations</span>
-    </button>
 </template>
 
 <template name="showGeneralNotifications">
@@ -41,7 +25,7 @@
                 <hr />
                 
                 <h4>Date</h4>
-                <p>{{date}}</p>
+                <p>{{prettyDateTime date}}</p>
                 
                 <hr />
                 
@@ -60,15 +44,9 @@
             <div class="col-sm-3">Date: {{date}}</div>
             <div class="col-sm-3">Description: {{projectDescription}}</div>
             <div class="col-sm-2">
-                <button class="btn btn-default" id="acceptInvitationButton" projectId="{{projectId}}" invitationId="{{invitationId}}">
-                    <i class="fa fa-thumbs-o-up"></i>
-                    <span class="txt">Accept</span>
-                </button>
-            </div>            
-            <button class="btn btn-default" id="declineInvitationButton" invitationId="{{invitationId}}">
-                <i class="fa fa-thumbs-o-down"></i>
-                <span class="txt">Decline</span>
-            </button>
+                {{{acceptInvitationButton}}}
+                {{{declineInvitationButton}}}
+            </div>
         </inline>
     {{/each}}
 </template>

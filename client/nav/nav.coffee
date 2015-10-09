@@ -11,7 +11,7 @@ Template.loginButton.helpers
 Template.navLinks.rendered = ->
   routeName = Router.current().route.getName()
   linkClicked = document.getElementById routeName
-  if linkClicked? then linkClicked.classList.add('active')
+  if linkClicked? then linkClicked.classList.add 'active'
   else console.log 'Nav link has incorrect id (id of element in nav bar does not match route name)'
 
 Template.navLinks.helpers
