@@ -39,12 +39,12 @@ Template.notifications.helpers
   acceptInvitationButton: -> Render.buttonSave
     icon: 'thumbs-o-up'
     text: 'Accept'
-    data: {projectId: projectId, invitationId: invitationId}
-    onclick: -> sendAcceptOrDecline @data(), true
+    dataContext: {projectId: projectId, invitationId: invitationId}
+    onclick: -> sendAcceptOrDecline @data('context'), true
   declineInvitationButton: -> Render.buttonDelete
     icon: 'thumbs-o-down'
     text: 'Decline'
-    data: {projectId: projectId, invitationId: invitationId}
-    onclick: -> sendAcceptOrDecline @data(), false
+    dataContext: {projectId: projectId, invitationId: invitationId}
+    onclick: -> sendAcceptOrDecline @data('context'), false
   isGeneral: -> (Session.get "notificationsToShow") is "general"
   isInvitations: -> (Session.get "notificationsToShow") is "invitations"

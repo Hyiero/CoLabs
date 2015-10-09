@@ -80,6 +80,8 @@ Jsml = new (->
             
             # TODO: May want to add an event handler instead of inserting into page
             attrstr += " #{prop}=\"#{innerFn}\""
+          else if $.isPlainObject attr
+            attrstr += " #{prop}=\"#{(JSON.stringify attr).replace /"/g, '&quot;'}\""
           else attrstr += " #{prop}=\"#{attr}\""
 
       (text += str) for str in strings when str?

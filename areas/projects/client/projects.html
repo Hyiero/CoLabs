@@ -50,38 +50,11 @@
         </div>
         <hr />
         <div class="button-group form-group pull-right inline">
-            <button id="goBack" type="button" class="btn btn-default">
-                <i class="fa fa-hand-o-left"></i>
-                <span class="txt">Back</span>
-            </button>
-            <button id="submitProject" type="submit" class="btn btn-primary">
-                <i class="fa fa-save"></i>
-                <span class="txt">Save Project</span>
-            </button>
+            {{{buttonCancel}}}
+            {{{buttonSubmit}}}
         </div>
     </form>
     {{else}}
-        <button class="btn btn-success pull-right" id="addNew">
-            <i class="fa fa-plus"></i>
-            <span class="txt">Add New</span>
-            <!-- TODO: Popup form to create new -->
-        </button>
+        {{{buttonAddNew}}}
     {{/if}}
-</template>
-
-<template name="userAlreadyInvitedModal">
-    <div class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
-                    <i class="fa fa-close"></i>
-                </button>
-
-                <div class="modal-header">
-                    <h4 class="modal-title">User:{{user}} has already been invited to this project</h4>
-                </div>
-            </div>
-        </div>
-    </div>
 </template>

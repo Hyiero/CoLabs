@@ -101,5 +101,3 @@ Template.searchResults.events
   "click #messageContact": (event) ->
     userId = $(event.currentTarget).data('user-id')
     Session.set "currentContact", userId
-    
-UI.registerHelper "dateOf", (timestamp)-> timestamp.toLocaleDateString()

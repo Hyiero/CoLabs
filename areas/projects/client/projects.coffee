@@ -14,7 +14,7 @@ Template.project.helpers
       project = Projects.findOne _id: @data 'id'
       Session.set "projectDescription", project.description
       Session.set "projectName" , project.name
-      Session.set "projectId" , projectId
+      Session.set "projectId" , project._id
       Session.set 'editProject', true
   addUsersButton: -> Render.button
     type: 'info'
@@ -36,53 +36,38 @@ Template.project.helpers
   username: (id) -> Meteor.users.findOne(_id:id)?.username
 
 Template.projectForm.events
-  'click #submitProject': (e) ->
-    e.preventDefault()
-    data = {
-      id: Session.get 'projectId'
-      name: $('#projectName').val()
-      description: $('#projectDescription').val()
-    }
-    Meteor.call 'updateProject', data, (err, res) ->
-      if err then console.log err
-      else Session.set 'editProject', false
-  
-  'click #goBack': (e) ->
-    e.preventDefault()
-    Session.set 'editProject', false
-
-  'click #addNew': (e) ->
-    e.preventDefault()
-    data={
-      user:Meteor.user()
-    }
-    Meteor.call 'createProject', data, (err, res) ->
-      if err then console.error err
-      else Session.set 'editProject', false
-
+  "submit projectSubmitForm": (e) -> e.preventDefault()
 
 Template.projectForm.helpers
-  projectName: ->
-    @projectName or ''
-  projectDescription: ->
-    @projectDescription or ''
+
+  buttonCancel: -> Render.buttonCancel
+    icon: 'hand-o-left'
+    text: 'Back'
+    onclick: -> Session.set 'editProject', false
+    
+  buttonSubmit: -> Render.buttonSubmit
+    text: 'Save Project'
+    onclick: ->
+      data =
+        id: Session.get 'projectId'
+        name: $('#projectName').val()
+        description: $('#projectDescription').val()
+      Meteor.call 'updateProject', data, (err, res) ->
+        if err then console.log err
+        else Session.set 'editProject', false
+      false
+  
+  #TODO: Popup form to create new
+  buttonAddNew: -> Render.button
+    icon: 'plus'
+    text: 'Add New'
+    type: 'success'
+    class: 'pull-right'
+    onclick: ->
+      Meteor.call 'createProject', user:Meteor.user(), (err, res) ->
+        if err then console.error err
+        else Session.set 'editProject', false
+
+  projectName: -> @projectName or ''
+  projectDescription: -> @projectDescription or ''
   edit: -> Session.get 'editProject'
-
-
-Template.inviteUsersButtons.events 
-  "click #inviteUsersToProject": (event) ->
-    selectedCheckboxes=$('.selectedUserCheckbox')
-    for checkbox in selectedCheckboxes
-      if(checkbox.checked)
-        userId=checkbox.attributes["value"].value
-        invited=CoLabs.IsUserInvitedToProject(userId,Session.get("selectedProjectId"))
-        cb={}
-        console.log invited
-        if invited is "false"
-          Meteor.call 'inviteUserToProject', userId, Session.get("selectedProjectId"), (err,data) ->
-            if data == true then toast.success "Invitation","User invited to project",5000
-            else toast.danger "Invitation","Something went wrong while sending the invitation",5000
-        else
-          toast.warning "Invitation",
-            "This user has a pending invitation to this project.",
-            3000

@@ -48,10 +48,7 @@ Template.profileEdit.helpers
     text: 'Reset Avatar'
     icon: 'refresh'
     class: 'form-control'
-    data: {avatar: @avatar, identiconHex: @identiconHex}
-    onclick: ->
-      {avatar, identiconHex} = @data()
-      Session.set 'identiconHex', avatar or identiconHex
+    onclick: -> Session.set 'identiconHex', null
   buttonBack: -> Render.buttonCancel
     class: 'js-btn-back'
     icon: 'hand-o-left'
@@ -84,7 +81,7 @@ Template.profileEdit.helpers
 Template.removeUserModal.helpers
   buttonClose: -> Render.buttonClose
     class: 'pull-right'
-    'data-dismiss': 'modal'
+    dataDismiss: 'modal'
   removeUserButton: -> Render.buttonDelete
     icon: 'bomb'
     text: "Yes, burn it!"
@@ -96,7 +93,7 @@ Template.removeUserModal.helpers
     text: "Get me out of here!"
     icon: 'child'
     type: 'info'
-    'data-dismiss': 'modal'
+    dataDismiss: 'modal'
 
     
 Template.tagButton.events
