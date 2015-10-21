@@ -11,15 +11,12 @@ buildInvitation = (inv)->
     date: inv.date
   }
 
-@CoLabs.isVerifiedUser = (id)-> anyEmailVerified Meteor.users.findOne id
+@CoLabs.isVerifiedUser = ()-> anyEmailVerified Meteor.user()
 
-@CoLabs.isAdmin = (id)-> Meteor.users.findOne(id).isAdmin?
+@CoLabs.isAdmin = ()-> Meteor.user().isAdmin?
 
-@CoLabs.IsUserInvitedToProject = (user,project)->
-  Meteor.subscribe 'allInvitations'
-  for inv in Invitations.find().fetch()
-    if inv.project == project and inv.user == user then return "true"
-  "false"
+@CoLabs.IsUserInvitedToProject = (user, project)->
+  Invitations.findOne(user: user, project: project)?
         
 @CoLabs.formatInvitations = (list)-> (buildInvitation inv for inv in list)
 

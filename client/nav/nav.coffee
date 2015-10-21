@@ -1,12 +1,12 @@
 Template.loginButton.events
   'click': ->
-    authService = this.toString()
+    authService = @toString()
     authService = authService[0].toUpperCase() + authService.slice(1)
     console.log authService
     Meteor["loginWith#{authService}"]()
     
 Template.loginButton.helpers
-  lowerCase: -> this.toLowerCase()
+  lowerCase: -> @toLowerCase()
 
 Template.navLinks.rendered = ->
   routeName = Router.current().route.getName()
@@ -16,8 +16,8 @@ Template.navLinks.rendered = ->
 
 Template.navLinks.helpers
   isLoggedIn: -> Meteor.user()?
-  isVerifiedUser: -> CoLabs.isVerifiedUser Meteor.userId()
-  isAdmin: -> CoLabs.isAdmin Meteor.userId()
+  isVerifiedUser: -> CoLabs.isVerifiedUser()
+  isAdmin: -> CoLabs.isAdmin()
   numNewMessages: -> Messages.newMessages(Meteor.userId()).length
 
 Template.profileNavDisplay.helpers

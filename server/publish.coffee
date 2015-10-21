@@ -1,39 +1,24 @@
 
-Meteor.publish 'allUsers', ->
-  Meteor.users.find()
+Meteor.publish 'allUsers', -> Meteor.users.find()
 
-Meteor.publish 'allProjects', ->
-  Projects.find()
+Meteor.publish 'allProjects', -> Projects.find()
 
-Meteor.publish 'allMessages', ->
-  Messages.find()
+Meteor.publish 'myMessages', ->
+  Messages.find
+    $or: [
+      to: @userId,
+      from: @userId
+    ]
 
-Meteor.publish 'thisUser', (id) ->
-  Meteor.users.find _id:id
-  
-Meteor.publish 'thisUserByName', (username) ->
-  Meteor.users.find username:username
-
-Meteor.publish 'myProjects', ->
-  #Logger.enable()
-  console.log this.userId
-  if this.userId then Projects.find users:this.userId
-  else []
+Meteor.publish 'myProjects', -> Projects.find users: @userId?
   
 Meteor.publish 'project', (id) -> Projects.find _id:id
 
-Meteor.publish('allInvitations', ->
-    Invitations.find()
-)
+Meteor.publish 'allInvitations', -> Invitations.find()
 
-Meteor.publish('projectInvitations', (id) ->
-    Invitations.find(
-        project:id
-    )
-)
+Meteor.publish 'projectInvitations', (id) -> Invitations.find project:id
 
-Meteor.publish 'userInvitations', (id) ->
-    Invitations.find user:id
+Meteor.publish 'userInvitations', -> Invitations.find user: @userId
 
 Meteor.users.allow
-  update: (userId) -> this.userId?
+  update: (userId) -> @userId?

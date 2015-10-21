@@ -1,24 +1,22 @@
 Router.configure
   load: ->
     $('html, body').animate scrollTop: 0
-    this.next()
+    @next()
   landingTemplate: "splash"
   loadingTemplate: "loading"
   notFoundTemplate: "notFound"
   #waitOn: -> Meteor.subscribe('recordSetThatYouNeedNoMatterWhat')
 
-redirectIfNoUser = ->
-  if Meteor.userId()? then this.next()
-  else Router.go('/')
+redirectIfNotUser = ->
+  if Meteor.userId()? then @next()
+  else Router.go '/'
 
 redirectIfNotVerified = ->
-  if Meteor.userId()? and CoLabs.isVerifiedUser Meteor.userId()
-    this.next()
-  else Router.go('/')
+  if Meteor.userId()? and CoLabs.isVerifiedUser() then @next()
+  else Router.go '/'
 
 redirectIfNotAdmin = ->
-  if Meteor.userId()? and CoLabs.isAdmin Meteor.userId()
-    this.next()
+  if Meteor.userId()? and CoLabs.isAdmin() then @next()
   else Router.go '/'
 
 Router.map ->
@@ -28,13 +26,13 @@ Router.map ->
 
   @route 'profile', {
     path: '/profile'
-    onBeforeAction: redirectIfNoUser
+    onBeforeAction: redirectIfNotUser
     data: -> user: Meteor.user()
   }
   
   @route 'profileEdit', {
     path:'/profile/edit'
-    onBeforeAction: redirectIfNoUser
+    onBeforeAction: redirectIfNotUser
     data:->
       user: Meteor.user()
       setSession:->
@@ -44,7 +42,7 @@ Router.map ->
   @route 'otherProfile', {
     path: '/:username/profile'
     data:->
-      username = this.params.username
+      username = @params.username
       user: Meteor.users.findOne username:username
   }
   
@@ -73,13 +71,11 @@ Router.map ->
   
   @route 'projects', {
     path: '/projects'
-    waitOn: () -> [
-      (Meteor.subscribe 'thisUser', Meteor.user()._id),
-      (Meteor.subscribe 'myProjects', Meteor.user()._id)
-    ]
+    waitOn: () ->
+      Meteor.subscribe 'myProjects'
     onBeforeAction: redirectIfNotVerified
     data: ->
-      projects = Projects.find users:Meteor.user()._id
+      projects = Projects.find users: Meteor.userId()
       # if not projects then Session.set 'editProject', true
       debug: projects.count()
       message: "Projects Page"
@@ -90,25 +86,26 @@ Router.map ->
   
   @route 'projectDashboard', {
     path: '/projects/:id'
-    waitOn: () -> [
-      (Meteor.subscribe 'thisUser', Meteor.user()._id),
-      (Meteor.subscribe 'project', @params.id)
-    ]
+    waitOn: () ->
+      Meteor.subscribe 'project', @params.id
     onBeforeAction: redirectIfNotVerified
     data: -> project: Projects.findOne()
   }
 
   @route 'inbox', {
     path: '/inbox'
-    onBeforeAction: redirectIfNoUser
+    waitOn: () ->
+      Meteor.subscribe 'myMessages'
+    onBeforeAction: redirectIfNotUser
   }
   
   @route 'notifications', {
     path: '/notifications'
-    waitOn: ->
-      Meteor.subscribe 'userInvitations', Meteor.userId()
-      Meteor.subscribe 'allProjects'
-    onBeforeAction: redirectIfNoUser
+    waitOn: -> [
+      (Meteor.subscribe 'userInvitations'),
+      (Meteor.subscribe 'allProjects')
+    ]
+    onBeforeAction: redirectIfNotUser
     data: ->
       message:'Notifications Page',
       notifications: -> Notifications.find(),
@@ -118,10 +115,8 @@ Router.map ->
   
   @route 'inviteUsers', {
     path:'/inviteUsers'
-    waitOn: ->  [
-      (Meteor.subscribe 'thisUser', Meteor.userId()),
-      (Meteor.subscribe 'allInvitations' )
-      ]
+    waitOn: ->
+      Meteor.subscribe 'allInvitations'
     onBeforeAction: redirectIfNotVerified
     #data: -> Meteor.users.find().fetch()
   }

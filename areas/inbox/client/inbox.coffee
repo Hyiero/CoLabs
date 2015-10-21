@@ -1,5 +1,3 @@
-Meteor.subscribe "allMessages"
-
 userExists = (id)-> Meteor.users.findOne(id)?
 
 getPair = ->
@@ -43,7 +41,7 @@ UI.registerHelper "cleanup", (timeStamp)-> clean timeStamp
 
 UI.registerHelper "contactExists", (id)-> userExists id
 
-UI.registerHelper "contactNameExists", (name)-> userExists Meteor.users.findOne(username:name)._id
+UI.registerHelper "contactNameExists", (name)-> Meteor.users.findOne(username:name)?
 
 Template.chat.helpers
   contactSelected: -> Session.get("currentContact")?

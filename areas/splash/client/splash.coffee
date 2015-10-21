@@ -4,7 +4,7 @@ Template._justVerifiedEmailDialog.created = ->
   Accounts._loginButtonsSession.set('justVerifiedEmail', false)
 
 Template.splash.created = ->
-  if Accounts._verifyEmailToken and !CoLabs.isVerifiedUser()
+  if Accounts._verifyEmailToken and not CoLabs.isVerifiedUser()
     Accounts.verifyEmail Accounts._verifyEmailToken, (err, res) ->
       if err? console.error err.message
       else
