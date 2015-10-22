@@ -32,7 +32,7 @@ Template.project.helpers
       Meteor.call 'removeUserFromProject',
         projectId: @data 'id'
         userId: Meteor.userId()
-  users: -> Users.find _id: { $in: @users }
+  users: -> Meteor.users.find { $in: @users }
   username: (id) -> Meteor.users.findOne(_id:id)?.username
 
 Template.projectForm.events
