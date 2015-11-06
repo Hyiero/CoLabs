@@ -1,2 +1,1 @@
-#Meteor.subscribe('allProjects')
-Meteor.subscribe('allUsers')
+Meteor.subscribe 'allUsers'

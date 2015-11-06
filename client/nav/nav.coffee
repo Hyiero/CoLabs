@@ -8,6 +8,9 @@ Template.loginButton.events
 Template.loginButton.helpers
   lowerCase: -> @toLowerCase()
 
+Template.navLinks.onCreated ->
+  @subscribe 'newMessageCount'
+
 Template.navLinks.rendered = ->
   routeName = Router.current().route.getName()
   linkClicked = document.getElementById routeName
@@ -18,7 +21,7 @@ Template.navLinks.helpers
   isLoggedIn: -> Meteor.user()?
   isVerifiedUser: -> CoLabs.isVerifiedUser()
   isAdmin: -> CoLabs.isAdmin()
-  numNewMessages: -> Messages.newMessages(Meteor.userId()).length
+  numNewMessages: -> Counts.get 'newMessages'
 
 Template.profileNavDisplay.helpers
   username: ->

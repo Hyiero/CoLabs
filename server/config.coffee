@@ -7,7 +7,7 @@ Meteor.startup ->
   #Logger.enable()
   console.info process.env
 
-  Accounts.emailTemplates.from = "CoLabs <no-reply@CoLabs.com>"
+  Accounts.emailTemplates.from = "CoLabs <no-reply@CoLabs.biz>"
   Accounts.emailTemplates.siteName = "CoLabs"
 
   Accounts.emailTemplates.verifyEmail.subject = (user) ->

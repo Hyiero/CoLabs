@@ -3,8 +3,7 @@ Accounts.onEmailVerificationLink (token,done)->
 
 Accounts.onLogin ->
   user = Meteor.user()
-  if Session.get 'firstTimeUser' is true and user?
-    Session.set Constants.sessionLoggedInUserKey, user
+  if Session.get 'firstTimeUser' and user?
     Session.set 'firstTimeUser', false
     Meteor.call 'updateName()', user._id, user.username   
     Router.go '/profile/edit'

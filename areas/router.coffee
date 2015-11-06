@@ -94,8 +94,15 @@ Router.map ->
 
   @route 'inbox', {
     path: '/inbox'
-    waitOn: () ->
+    waitOn: ->
       Meteor.subscribe 'myMessages'
+    onBeforeAction: redirectIfNotUser
+  }
+
+  @route 'inboxChat', {
+    path: '/inbox/:id'
+    waitOn: ->
+      Meteor.subscribe 'messagesWith', @params.id
     onBeforeAction: redirectIfNotUser
   }
   

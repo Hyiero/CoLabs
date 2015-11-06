@@ -1,3 +1,0 @@
-@Constants ={
-  sessionLoggedInUserKey:"loggedInUser"
-}

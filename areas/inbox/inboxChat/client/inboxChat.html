@@ -1,0 +1,53 @@
+<template name="inboxChat">
+    {{> nav }}
+
+    <div class="main">
+        {{! backButton }}
+        {{> chat }}
+    </div>
+</template>
+
+<template name="chat">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <div class="container">
+        <div class="row">
+            <h2>{{currentContactName}}</h2>
+        </div>
+        <div class="row">
+            <div class="message-wrap col-lg-8">
+                {{#each currentConversation}}
+                    <div class="msg-wrap">
+                        <div class="media msg ">
+                            <a class="pull-left" href="#">
+                                {{#if contactExists from}}
+                                    {{> userAvatar userId=from size="xs"}}
+                                {{else}}
+                                    {{> deletedAvatar size="xs"}}
+                                {{/if}}
+                            </a>
+                            <div class="media-body">
+                                <small class="pull-right time"><i class="fa fa-clock-o"></i> {{prettyDateTime timeStamp}}</small>
+                                <h5 class="media-heading">
+                                    {{#if contactExists from}}
+                                        {{nameOf from}}
+                                    {{else}}
+                                        <i class="fa fa-warning"></i>
+                                        <em>Deleted User</em>
+                                    {{/if}}
+                                </h5>
+                                <small class="col-lg-10">{{message}}</small>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+                {{#if contactNameExists currentContactName}}
+                    <div class="send-wrap ">
+                        <textarea id="messageContent" class="form-control send-message" rows="3" placeholder="Write a reply..."></textarea>
+                        <input type="submit" id="submitMessage" value="Submit">
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</template>

@@ -4,15 +4,24 @@ Meteor.publish 'allUsers', -> Meteor.users.find()
 Meteor.publish 'allProjects', -> Projects.find()
 
 Meteor.publish 'myMessages', ->
-  Messages.find
-    $or: [
-      to: @userId,
-      from: @userId
-    ]
+  Messages.find $or: [
+    { to: @userId }
+    { from: @userId }
+  ]
+
+Meteor.publish 'messagesWith', (contact)->
+  Messages.find $or: [
+    { to: @userId, from: contact }
+    { to: contact, from: @userId }
+  ]
+
+Meteor.publish 'newMessageCount', ->
+  Counts.publish @, 'newMessages', Messages.find(to: @userId, read: false)
+  return undefined
 
 Meteor.publish 'myProjects', -> Projects.find users: @userId?
   
-Meteor.publish 'project', (id) -> Projects.find _id:id
+Meteor.publish 'project', (id) -> Projects.find id
 
 Meteor.publish 'allInvitations', -> Invitations.find()
 
