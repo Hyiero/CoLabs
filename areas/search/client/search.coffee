@@ -1,4 +1,4 @@
-Template.search.onCreated ->
+Template.searchResults.onCreated ->
   @subscribe 'allUsers'
   @subscribe 'allProjects'
 
@@ -99,5 +99,5 @@ Template.searchResults.helpers
 
 Template.searchResults.events
   "click #messageContact": (event) ->
-    userId = $(event.currentTarget).data 'user-id'
-    Router.go "/inbox/#{userId}"
+    username = $(event.currentTarget).data 'username'
+    Router.go "/inbox/#{username}"

@@ -48,7 +48,7 @@ Template.previousContacts.events
   'click .conversation': (event)->
     $elem = $ event.currentTarget
     if $elem.hasClass 'media-body' then $elem = $elem.parent()
-    Router.go "/inbox/#{$elem.data 'id'}"
+    Router.go "/inbox/#{Meteor.users.findOne($elem.data 'id').username}"
 
 
 sendTo window, isFavorite: (id) ->
@@ -104,4 +104,4 @@ Template.messageList.events
   'click .conversation': (event)->
     $elem = $ event.currentTarget
     unless $elem.hasClass 'media' then $elem = $elem.parent()
-    Router.go "/inbox/#{$elem.data 'id'}"
+    Router.go "/inbox/#{Meteor.users.findOne($elem.data 'id').username}"

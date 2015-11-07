@@ -20,6 +20,15 @@
                                     <p>{{description}}</p>
                                     <hr />
                                 {{/if}}
+
+                                {{#if isLoggedIn}}
+                                    <a class="btn btn-default messageButton"
+                                       id="messageContact"
+                                       data-username="{{username}}">
+                                        <i class="fa fa-send"></i>
+                                        <span class="txt">Message</span>
+                                    </a>
+                                {{/if}}
                                 
                                 {{#if firstEmail}}
                                     <h4>Email</h4>

@@ -1,19 +1,21 @@
 Template.chat.onCreated ->
-  @subscribe 'messagesWith', Router.current().params.id
-  @subscribe 'oneUser', Router.current().params.id
+  contact = Meteor.users.findOne(username: Router.current().params.username)._id
+  Session.set 'contact', contact
+  @subscribe 'messagesWith', contact
+  @subscribe 'oneUser', contact
 
 getPair = ->
   user: Meteor.userId()
-  contact: Router.current().params.id
+  contact: Session.get 'contact'
 
 Template.chat.helpers
   currentConversation: ->
-    contact = Router.current().params.id
+    contact = Session.get 'contact'
     Meteor.call 'readMessages', contact
     conv = Messages.find().fetch()
     conv?.sort (a, b)-> a.timeStamp - b.timeStamp
   currentContactName: ->
-    contactId = Router.current().params.id
+    contactId = Session.get 'contact'
     contact = Meteor.users.findOne contactId
     contact?.username or 'Deleted User'
   userName: -> Meteor.user().username

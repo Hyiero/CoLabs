@@ -98,7 +98,7 @@ Router.map ->
   }
 
   @route 'inboxChat', {
-    path: '/inbox/:id'
+    path: '/inbox/:username'
     onBeforeAction: redirectIfNotUser
   }
   
