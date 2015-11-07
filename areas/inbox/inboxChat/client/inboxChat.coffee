@@ -1,3 +1,7 @@
+Template.chat.onCreated ->
+  @subscribe 'messagesWith', Router.current().params.id
+  @subscribe 'oneUser', Router.current().params.id
+
 getPair = ->
   user: Meteor.userId()
   contact: Router.current().params.id

@@ -15,3 +15,4 @@ formatDateTime = (timeStamp) ->
 
 UI.registerAllHelpers
   prettyDateTime: (date) -> formatDateTime date
+  nameOf: (id) -> Meteor.users.findOne(id).name

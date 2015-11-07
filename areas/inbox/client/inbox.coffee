@@ -1,3 +1,7 @@
+Template.nav.onCreated ->
+  @subscribe 'myMessages'
+  @subscribe 'conversationUsers'
+
 userExists = (id)-> Meteor.users.findOne(id)?
 
 splitTimeStamp = (timeStamp)->
@@ -18,25 +22,21 @@ favorite = (id)->
     return contact.favorite if id is contact.contact
   false
 
-UI.registerHelper "nameOf", (id)-> Meteor.users.findOne(id).name
+UI.registerHelper 'timeOf', (id)-> clean Messages.findOne(id).timeStamp
 
-UI.registerHelper "timeOf", (id)-> clean Messages.findOne(id).timeStamp
-
-UI.registerHelper "preview", (id)->
+UI.registerHelper 'preview', (id)->
   message = Messages.findOne(id).message
-  if message.length < 50 then message else message.slice(0, 50) + "..."
+  if message.length < 50 then message else message.slice(0, 50) + '...'
 
-UI.registerHelper "favorite", (id)-> favorite id
+UI.registerHelper 'favorite', (id)-> favorite id
 
-UI.registerHelper "inbound", (id)-> inbound id
+UI.registerHelper 'inbound', (id)-> inbound id
 
-UI.registerHelper "unread", (id)-> not Messages.findOne(id).read
+UI.registerHelper 'unread', (id)-> not Messages.findOne(id).read
 
-UI.registerHelper "cleanup", (timeStamp)-> clean timeStamp #$%
+UI.registerHelper 'contactExists', (id)-> userExists id
 
-UI.registerHelper "contactExists", (id)-> userExists id
-
-UI.registerHelper "contactNameExists", (name)-> Meteor.users.findOne(username:name)?
+UI.registerHelper 'contactNameExists', (name)-> Meteor.users.findOne(username:name)?
 
 Template.previousContacts.helpers
   contactList: ->
@@ -45,9 +45,9 @@ Template.previousContacts.helpers
   contactExists: (contactId)-> userExists contactId
 
 Template.previousContacts.events
-  "click .conversation": (event)->
+  'click .conversation': (event)->
     $elem = $ event.currentTarget
-    if $elem.hasClass "media-body" then $elem = $elem.parent()
+    if $elem.hasClass 'media-body' then $elem = $elem.parent()
     Router.go "/inbox/#{$elem.data 'id'}"
 
 
@@ -64,13 +64,13 @@ Template.favoriteContact.helpers
     dataId: @id
     onclick: ->
       # TODO: May want to add an event handler instead of inserting into page
-      Meteor.call "toggleContact", @data 'id'
+      Meteor.call 'toggleContact', @data 'id'
 
 
 messageSort = (value)->
   if value? then Session.set 'messageSort', value else Session.get 'messageSort'
 
-Template.messageList.created = ()-> messageSort 'time' unless messageSort()?
+Template.messageList.onCreated -> messageSort 'time' unless messageSort()?
 
 Template.messageList.helpers
   isTime: -> messageSort() is 'time'
@@ -98,10 +98,10 @@ Template.messageList.helpers
     conversations
 
 Template.messageList.events
-  "change .sortSelector": (event)->
+  'change .sortSelector': (event)->
     $elem = $ event.currentTarget
-    messageSort $elem.val() if $elem.is(":checked")
-  "click .conversation": (event)->
+    messageSort $elem.val() if $elem.is(':checked')
+  'click .conversation': (event)->
     $elem = $ event.currentTarget
-    unless $elem.hasClass "media" then $elem = $elem.parent()
+    unless $elem.hasClass 'media' then $elem = $elem.parent()
     Router.go "/inbox/#{$elem.data 'id'}"
