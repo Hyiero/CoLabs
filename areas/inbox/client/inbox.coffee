@@ -1,7 +1,3 @@
-Template.nav.onCreated ->
-  @subscribe 'myMessages'
-  @subscribe 'conversationUsers'
-
 userExists = (id)-> Meteor.users.findOne(id)?
 
 splitTimeStamp = (timeStamp)->
@@ -38,6 +34,9 @@ UI.registerHelper 'contactExists', (id)-> userExists id
 
 UI.registerHelper 'contactNameExists', (name)-> Meteor.users.findOne(username:name)?
 
+Template.previousContacts.onCreated ->
+  @subscribe 'conversationUsers'
+
 Template.previousContacts.helpers
   contactList: ->
     contacts = Meteor.user().contacts
@@ -69,6 +68,10 @@ Template.favoriteContact.helpers
 
 messageSort = (value)->
   if value? then Session.set 'messageSort', value else Session.get 'messageSort'
+
+Template.messageList.onCreated ->
+  @subscribe 'myMessages'
+  @subscribe 'conversationUsers'
 
 Template.messageList.onCreated -> messageSort 'time' unless messageSort()?
 

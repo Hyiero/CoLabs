@@ -3,10 +3,11 @@ Meteor.publish 'allUsers', -> Meteor.users.find()
 
 Meteor.publish 'conversationUsers', ->
   user = Meteor.users.findOne @userId
-  contacts = [conversation.contact for conversation in user.conversations]
+  contacts = [conversation.contact for conversation in user.conversations][0]
+  contacts.push @userId
   Meteor.users.find _id: $in: contacts
 
-Meteor.publish 'oneUser', (id) -> Meteor.users.find id
+Meteor.publish 'oneUser', (id) -> Meteor.users.find _id: $in: [id, @userId]
 
 Meteor.publish 'allProjects', -> Projects.find()
 

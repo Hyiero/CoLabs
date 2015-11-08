@@ -6,7 +6,7 @@ Template.userAvatar.helpers
     else (Meteor.users.findOne this.userId)?.identiconHex
 
 Template.userAvatar.events
-  "click": (e) ->
+  'click': (e) ->
     username = Template.parentData()?.username
     if not username?
       username = ( Meteor.users.findOne this.userId )?.username
