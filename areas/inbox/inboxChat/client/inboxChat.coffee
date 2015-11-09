@@ -1,8 +1,7 @@
 Template.chat.onCreated ->
-  contact = Meteor.users.findOne(username: Router.current().params.username)._id
-  Session.set 'contact', contact
-  @subscribe 'messagesWith', contact
-  @subscribe 'oneUser', contact
+  @subscribe 'messagesWith', Session.get 'contact'
+  @subscribe 'oneUser', Session.get 'contact'
+  @subscribe 'thisUser'
 
 getPair = ->
   user: Meteor.userId()

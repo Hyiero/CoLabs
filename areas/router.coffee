@@ -55,10 +55,6 @@ Router.map ->
         Session.set 'searchType', null
   }
   
-  @route 'loading', {
-    path: '/loading'
-  }
-  
   @route 'admin', {
     path: '/admin'
     onBeforeAction: redirectIfNotAdmin
@@ -78,7 +74,6 @@ Router.map ->
       projects = Projects.find users: Meteor.userId()
       # if not projects then Session.set 'editProject', true
       debug: projects.count()
-      message: "Projects Page"
       projects: projects
       projectName: Session.get "projectName"
       projectDescription: Session.get "projectDescription"
@@ -100,6 +95,9 @@ Router.map ->
   @route 'inboxChat', {
     path: '/inbox/:username'
     onBeforeAction: redirectIfNotUser
+    data: ->
+      contact = Meteor.users.findOne(username: @params.username)._id
+      Session.set 'contact', contact
   }
   
   @route 'notifications', {
@@ -110,7 +108,6 @@ Router.map ->
     ]
     onBeforeAction: redirectIfNotUser
     data: ->
-      message:'Notifications Page',
       notifications: -> Notifications.find(),
       invitations: ->
         CoLabs.formatInvitations Invitations.find().fetch()

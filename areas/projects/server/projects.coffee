@@ -1,51 +1,23 @@
 
-removeUserFromProject= (data) ->
-    project=Projects.findOne({_id:data.projectId})
-    userIndex=project.users.indexOf(data.userId)
-    project.users.splice(userIndex,1)
+removeUserFromProject = (data)->
+  project = Projects.findOne data.projectId
+  users = project.users.filter (id)-> id isnt data.userId
+  admins = project.admins.filter (id)-> id isnt data.userId
+  Projects.update data.projectId, $set:
+    users: users
+    admins: admins
 
-    Projects.update(
-      {_id:data.projectId},
-      {$set:
-        {
-         users:project.users
-        }
-      }
-    )
+removeProjectFromUser = (data)->
+  user = Meteor.users.findOne data.userId
+  projects = user.projects.filter (id)-> id isnt data.userId
+  Meteor.users.update data.userId, $set:
+    projects: projects
 
-removeAdminFromProject= (data) ->
-  project=Projects.findOne({_id:data.projectId})
-  userIndex=project.admins.indexOf(data.userId)
-  if userIndex>-1
-    project.admins.splice(userIndex,1)
-    Projects.update(
-      {_id:data.projectId},
-      {$set:
-        {
-          admins:project.admins
-        }
-      }
-    )
-
-removeProjectFromUser= (data) ->
-    thisUser=Meteor.users.findOne({_id:data.userId})
-    projectIndex=thisUser.projects.indexOf(data.projectId)
-    thisUser.projects.splice(projectIndex,1)
-    
-    Meteor.users.update(
-        {_id:data.userId}
-        {$set:
-         {
-            projects:thisUser.projects
-         }
-        }
-    )
-
-CoLabs.methods(
-  'createProject': (data) ->
-    userId = Meteor.user()._id
-    Projects.insert(
-      name: data.name,
+CoLabs.methods
+  createProject: (data)->
+    userId = Meteor.userId()
+    Projects.insert
+      name: data.name
       description: data.description
       createdAt: Date.now()
       lastUpdated: new Date().toLocaleString()
@@ -56,58 +28,29 @@ CoLabs.methods(
       privacyLevel: 'public'
       tags: []
       type: 'project'
-    )
 
-  'updateProject': (data) ->
-    Projects.update(
-      {_id:data.id},
-      {$set:
-          {
-            name:data.name,
-            description:data.description
-          }
-      }
-    )
+  updateProject: (data)->
+    Projects.update data.id, $set:
+      name: data.name
+      description: data.description
 
-  'removeUserFromProject': (data) ->
-     removeUserFromProject data
-     removeProjectFromUser data
-     removeAdminFromProject data
-
-
-  'getMyProjects': (id) ->
-    Projects.find({users:id})
+  removeUserFromProject: (data)->
+    removeUserFromProject data
+    removeProjectFromUser data
     
-  'inviteUserToProject': (_userId,projectId) ->
-    if _userId? and projectId?
-      Invitations.insert(
-        user:_userId,
-        project:projectId,
-        date:new Date().toLocaleString()
-      )
-      true
-    else
-      false
+  inviteUserToProject: (data)->
+    Invitations.insert
+      user: data.user
+      project: data.project
+      date: new Date().toLocaleString()
 
-  'addUserToProject': (userId,projectId) ->
-     project=Projects.findOne({_id:projectId})
-     if project??
-        currentUsers=project.users
-        currentUsers.push(userId)
-        updated=Projects.update(
-            {_id:projectId},
-            {$set:
-                 {
-                    users:currentUsers
-                 }
-            }
-        )
-        updated
+  addUserToProject: (userId,projectId)->
+    project = Projects.findOne projectId
+    if project?
+      currentUsers = project.users
+      currentUsers.push userId
+      Projects.update projectId, $set:
+        users: currentUsers
     
-  'removeInvitation':(id)->
-     Invitations.remove({_id:id})
-
-)
-
-
-    
+  removeInvitation: (id)->
+    Invitations.remove id

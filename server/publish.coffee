@@ -7,9 +7,17 @@ Meteor.publish 'conversationUsers', ->
   contacts.push @userId
   Meteor.users.find _id: $in: contacts
 
-Meteor.publish 'oneUser', (id) -> Meteor.users.find _id: $in: [id, @userId]
+Meteor.publish 'oneUser', (id) -> Meteor.users.find id
+
+Meteor.publish 'thisUser', -> Meteor.users.find @userId
+
 
 Meteor.publish 'allProjects', -> Projects.find()
+
+Meteor.publish 'project', (id) -> Projects.find id
+
+Meteor.publish 'myProjects', -> Projects.find users: @userId?
+
 
 Meteor.publish 'myMessages', ->
   Messages.find $or: [
@@ -27,15 +35,16 @@ Meteor.publish 'newMessageCount', ->
   Counts.publish @, 'newMessages', Messages.find(to: @userId, read: false)
   return undefined
 
-Meteor.publish 'myProjects', -> Projects.find users: @userId?
-  
-Meteor.publish 'project', (id) -> Projects.find id
 
 Meteor.publish 'allInvitations', -> Invitations.find()
 
 Meteor.publish 'projectInvitations', (id) -> Invitations.find project:id
 
 Meteor.publish 'userInvitations', -> Invitations.find user: @userId
+
+
+Meteor.publish 'allNotifications', -> Notifications.find()
+
 
 Meteor.users.allow
   update: (userId) -> @userId?

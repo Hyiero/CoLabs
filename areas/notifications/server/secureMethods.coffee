@@ -1,6 +1,3 @@
-Meteor.publish 'allNotifications', ->
-  Notifications.find()
-
 CoLabs.methods
   sendNotification: (notificationModel)->
     Notifications.insert
