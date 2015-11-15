@@ -67,24 +67,12 @@ Router.map ->
   
   @route 'projects', {
     path: '/projects'
-    waitOn: () ->
-      Meteor.subscribe 'myProjects'
     onBeforeAction: redirectIfNotVerified
-    data: ->
-      projects = Projects.find users: Meteor.userId()
-      # if not projects then Session.set 'editProject', true
-      debug: projects.count()
-      projects: projects
-      projectName: Session.get "projectName"
-      projectDescription: Session.get "projectDescription"
   }
   
   @route 'projectDashboard', {
     path: '/projects/:id'
-    waitOn: () ->
-      Meteor.subscribe 'project', @params.id
     onBeforeAction: redirectIfNotVerified
-    data: -> project: Projects.findOne()
   }
 
   @route 'inbox', {
@@ -118,5 +106,4 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe 'allInvitations'
     onBeforeAction: redirectIfNotVerified
-    #data: -> Meteor.users.find().fetch()
   }

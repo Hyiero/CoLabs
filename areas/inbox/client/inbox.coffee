@@ -35,6 +35,7 @@ UI.registerHelper 'contactExists', (id)-> userExists id
 UI.registerHelper 'contactNameExists', (name)-> Meteor.users.findOne(username:name)?
 
 Template.previousContacts.onCreated ->
+  @subscribe 'thisUser'
   @subscribe 'conversationUsers'
 
 Template.previousContacts.helpers
@@ -70,6 +71,7 @@ messageSort = (value)->
   if value? then Session.set 'messageSort', value else Session.get 'messageSort'
 
 Template.messageList.onCreated ->
+  @subscribe 'thisUser'
   @subscribe 'myMessages'
   @subscribe 'conversationUsers'
 

@@ -1,2 +1,5 @@
+Template.projectDashboard.onCreated ->
+  Meteor.subscribe 'oneProject', Router.current().params.id
+
 Template.projectDashboard.helpers
-  name: -> @project.name
+  project: -> Projects.findOne()
