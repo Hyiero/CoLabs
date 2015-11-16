@@ -10,9 +10,8 @@ process.env.METEOR_SETTINGS = {
 
 ###
 
-if Meteor.settings and
-  Meteor.settings.env and
-  Meteor.settings.env.type isnt 'development'
+if Meteor.settings?.env?
+  if Meteor.settings.env.type isnt 'development'
     #console.log Meteor.settings
     {port, rootUrl, mongoUrl, bindIp, velocity} = Meteor.settings.env
     
@@ -21,5 +20,7 @@ if Meteor.settings and
     process.env.ROOT_URL = rootUrl
     process.env.MONGO_URL = mongoUrl
     process.env.BIND_IP = bindIp
-#else
-  #Logger.enable()
+  else
+    Logger.enable()
+    {velocity} = Meteor.settings.env
+    process.env.VELOCITY = velocity or 0

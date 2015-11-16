@@ -17,6 +17,7 @@ Jsml = new (->
       checkStyle style
 
   @parseStyle = (style, $base) ->
+    results = []
     parseTree = (selector, rules) ->
       continueParseTree = (s,r) ->
         parseTree "#{selector} #{s}", r
@@ -46,10 +47,14 @@ Jsml = new (->
       parseRules = (a...) -> parseRulesForSelector null, a...
 
       if $.isPlainObject rules then forOwn rules, parseRules
-      else console.warn "Other object parsing is not yet implemented.",
-        {selector: selector, rules: rules}
+      else results.push "#{
+        selector # styleName
+        }: #{
+        rules # rule
+      }"
 
     forOwn style, parseTree
+    return " style=\"#{results.join '; '}\""
 
   @Writer = (options) ->
     createNode = (isVoid, tag, attributes, strings...) ->

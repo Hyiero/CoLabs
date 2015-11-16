@@ -2,9 +2,16 @@ new Jsml.Writer context:window
 
 mergeInto = (objTo, objFrom) ->
   for key, val of objFrom
-    if (not objTo.hasOwnProperty key) and
-      (objFrom.hasOwnProperty key) then objTo[key] = val
-  return objTo
+    if (objFrom.hasOwnProperty key) and
+      (not objTo.hasOwnProperty key) then objTo[key] = val
+
+deepMerge = (objTo, objFrom) ->
+  for key, val of objFrom
+    if (objFrom.hasOwnProperty key)
+      if (typeof val is 'object')
+       unless objTo[key]? then objTo[key] = {}
+       mergeInto objTo[key], val
+     else if (not objTo.hasOwnProperty key) then objTo[key] = val
 
 filterFrom = (obj, props) ->
   result = {}
@@ -18,6 +25,46 @@ sendTo window,
 createRenderFn = (fn) -> (model = {}) -> fn.call model
 
 @Render =
+
+  tag: createRenderFn ->
+    unless @name? then throw new Error "Tag requires a name"
+
+    attributes = {}
+    mergeInto attributes, filterFrom @, ['name', 'isEdit']
+    deepMerge attributes, style: position: 'relative'
+    # TODO: Pick a color based on the name (convert to hex code somehow)
+
+    component = if @isEdit then button else div
+
+    if component is div
+      className = "alert alert-info"
+      if attributes.class? then attributes.class += " #{className}"
+      else attributes.class = className
+
+    console.log attributes
+
+    ###
+      TODO/FIX: Why does a class attribute break the style?
+      Render.tags({tags: ['test','one'] })
+        vs.
+      Render.tags({tags: ['test','one'], isEdit: true})
+    ###
+
+    (component attributes,
+      (span {}, @name)
+      (if @isEdit then Render.buttonClose style: {
+        position: 'absolute'
+        top: 0
+        right: 0
+      })
+    )
+
+  tags: createRenderFn ->
+    (Render.tag {
+      name: tag
+      isEdit: @isEdit
+    } for tag in @tags).join ''
+
   button: createRenderFn ->
     # Merge default properties
     mergeInto @,
@@ -87,3 +134,4 @@ createRenderFn = (fn) -> (model = {}) -> fn.call model
       type: 'danger'
       isEnabled: false
     Render.button @
+
