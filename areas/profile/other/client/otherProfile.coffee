@@ -1,5 +1,5 @@
 Template.otherProfile.onCreated ->
-    @subscribe 'thisUserByName', @params.username
+    @subscribe 'oneUserByName', @params.username
 
 Template.otherProfile.helpers
   firstEmail: ->

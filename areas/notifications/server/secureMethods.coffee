@@ -1,6 +1,6 @@
 CoLabs.methods
-  sendNotification: (notificationModel)->
+  sendNotification: (data)->
     Notifications.insert
-      type:notificationModel.type,
-      date:notificationModel.date,
-      sender:notificationModel.sender
+      type: data.type
+      date: data.date
+      sender: data.sender

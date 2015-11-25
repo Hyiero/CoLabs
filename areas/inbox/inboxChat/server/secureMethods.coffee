@@ -5,32 +5,33 @@ updateConversation = (user, contact, message)->
       conversation.message = message
       found = true
       break
-  unless found? then conversations.unshift contact: contact, message: message
+  unless found? then conversations.unshift { contact, message }
   Meteor.users.update user, $set:
     conversations: conversations
 
 CoLabs.methods
   addMessage: (messageModel)->
-    user = Meteor.userId()
-    Messages.insert {
-      to: messageModel.to
-      from: user
-      message: messageModel.message
-      timeStamp: messageModel.timeStamp
-      read: false },
-      (err, doc)->
-        unless err?
-          updateConversation messageModel.to, user, doc
-          updateConversation user, messageModel.to, doc
+    if Meteor.users.findOne(messageModel.to)?
+      user = Meteor.userId()
+      Messages.insert {
+        to: messageModel.to
+        from: user
+        message: messageModel.message
+        timeStamp: messageModel.timeStamp
+        read: false }, (err, doc)->
+          unless err?
+            updateConversation messageModel.to, user, doc
+            updateConversation user, messageModel.to, doc
+
   readMessages: (contact)->
     Messages.update {
       to: Meteor.userId()
       from: contact
     }, { $set:
       read: true }, multi: true
+
   addContact: (contact)->
-    user = Meteor.userId()
-    contacts = Meteor.users.findOne(user).contacts
+    contacts = Meteor.user().contacts
     contacts.unshift contact: contact, favorite: false
-    Meteor.users.update user, $set:
+    Meteor.users.update Meteor.userId(), $set:
       contacts: contacts

@@ -11,9 +11,7 @@ Template.project.helpers
     text: "Edit Project"
     dataId: @_id
     onclick: ->
-      project = Projects.findOne _id: @data 'id'
-      Session.set "projectDescription", project.description
-      Session.set "projectName" , project.name
+      project = Projects.findOne @data 'id'
       Session.set "projectId" , project._id
       Session.set 'editProject', true
   addUsersButton: -> Render.button
@@ -33,19 +31,18 @@ Template.project.helpers
         projectId: @data 'id'
         userId: Meteor.userId()
   users: -> Meteor.users.find { $in: @users }
-  username: (id) -> Meteor.users.findOne(_id:id)?.username
+  username: (id) -> Meteor.users.findOne(id)?.username
 
 Template.projectForm.events
   "submit projectSubmitForm": (e) -> e.preventDefault()
 
 Template.projectForm.helpers
-
   buttonCancel: -> Render.buttonCancel
     icon: 'hand-o-left'
     text: 'Back'
     onclick: -> Session.set 'editProject', false
     
-  buttonSubmit: -> Render.buttonSubmit
+  buttonSubmit: -> Render.buttonSave
     text: 'Save Project'
     onclick: ->
       data =

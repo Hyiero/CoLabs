@@ -1,7 +1,6 @@
 Template.chat.onCreated ->
   @subscribe 'messagesWith', Session.get 'contact'
   @subscribe 'oneUser', Session.get 'contact'
-  @subscribe 'thisUser'
 
 getPair = ->
   user: Meteor.userId()

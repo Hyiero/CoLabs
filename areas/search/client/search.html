@@ -129,18 +129,25 @@
         				</ul>
         			</div>
         			<div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-        			    <!-- TODO: Read description/projects, etc -->
-        				<h3><a href="/{{username}}/profile">{{firstName}} {{lastName}}</a></h3>
-        				{{#if description}}
-        				    <p>{{description}}</p>
-        				{{/if}}
-                        {{#if isLoggedIn}}
-                            <a class="btn btn-default messageButton"
-                                id="messageContact"
-                                data-username="{{username}}">
-                                    <i class="fa fa-send"></i>
-                                    <span class="txt">Message</span>
-                            </a>
+        			    {{#if isUser this}}
+                            <h3><a href="/{{username}}/profile">{{firstName}} {{lastName}}</a></h3>
+                            {{#if description}}
+                                <p>{{description}}</p>
+                            {{/if}}
+                            {{#if isLoggedIn}}
+                                <a class="btn btn-default messageButton"
+                                    id="messageContact"
+                                    data-username="{{username}}">
+                                        <i class="fa fa-send"></i>
+                                        <span class="txt">Message</span>
+                                </a>
+                            {{/if}}
+                        {{else}}
+                            <h3><a href="/projects/{{_id}}">{{name}}</a></h3>
+                            {{#if description}}
+                                <p>{{description}}</p>
+                            {{/if}}
+                            <!-- TODO: Either message project or request entry -->
                         {{/if}}
         			</div>
         			<span class="clearfix borda"></span>

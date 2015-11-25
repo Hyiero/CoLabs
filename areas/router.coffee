@@ -5,7 +5,7 @@ Router.configure
   landingTemplate: "splash"
   loadingTemplate: "loading"
   notFoundTemplate: "notFound"
-  #waitOn: -> Meteor.subscribe('recordSetThatYouNeedNoMatterWhat')
+  waitOn: -> Meteor.subscribe 'thisUser'
 
 redirectIfNotUser = ->
   if Meteor.userId()? then @next()

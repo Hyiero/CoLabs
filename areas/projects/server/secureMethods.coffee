@@ -3,7 +3,9 @@ removeUserFromProject = (data)->
   project = Projects.findOne data.projectId
   users = project.users.filter (id)-> id isnt data.userId
   admins = project.admins.filter (id)-> id isnt data.userId
-  Projects.update data.projectId, $set:
+  # TODO: Handle case when no admins remain
+  if users.length is 0 then Projects.remove data.projectId
+  else Projects.update data.projectId, $set:
     users: users
     admins: admins
 
@@ -20,13 +22,10 @@ CoLabs.methods
       name: data.name
       description: data.description
       createdAt: Date.now()
-      lastUpdated: new Date().toLocaleString()
       users: [userId]
       admins: [userId]
-      owner: userId
-      creator: userId
-      privacyLevel: 'public'
       tags: []
+      conversation: []
       type: 'project'
 
   updateProject: (data)->
