@@ -10,5 +10,5 @@ Template.userAvatar.events
     username = Template.parentData()?.username
     unless username?
       username = ( Meteor.users.findOne @userId )?.username
-    if username? then Router.go "/#{username}/profile"
+    if username? then Router.go "/user/#{username}"
     else console.warn 'Could not find username, will not redirect.'

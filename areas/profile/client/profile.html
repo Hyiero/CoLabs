@@ -1,100 +1,96 @@
 <template name="profile">
-    {{>nav}}
-    
-    <div class="main">
-        <div class="col-md-8 center">
-            <div class="col-item">
-                {{#with user}}
-                    {{> userAvatar userId=_id size="lg"}}
-                    <hr />
-                    <div class="info">
-                        <div class="row">
-                            <div class="price col-lg-6">
-                                <h4>Username</h4>
-                                <p>{{username}}</p>
-                                <hr />
-                                
-                                <h4>Summary</h4>
-                                <p>{{description}}</p>
-                                <hr />
-    
-                                <h4>Email</h4>
-                                {{#if firstEmail}}
-                                    <p>{{firstEmail}}</p>
+    <div class="col-md-8 center">
+        <div class="col-item">
+            {{#with user}}
+                {{> userAvatar userId=_id size="lg"}}
+                <hr />
+                <div class="info">
+                    <div class="row">
+                        <div class="price col-lg-6">
+                            <h4>Username</h4>
+                            <p>{{username}}</p>
+                            <hr />
+
+                            <h4>Summary</h4>
+                            <p>{{description}}</p>
+                            <hr />
+
+                            <h4>Email</h4>
+                            {{#if firstEmail}}
+                                <p>{{firstEmail}}</p>
+                            {{else}}
+                                <p><em>Click 'Edit Profile' to add your email address.</em></p>
+                            {{/if}}
+                            <hr />
+
+                            <h4>Verify</h4>
+                            {{#if isVerifiedUser}}
+                                <p><em>Your email address is verified!</em></p>
+                            {{else}}
+                                {{#if hasEmailSaved}}
+                                    <p><em>
+                                        If you've lost your email to verify, you can resend it here.
+                                        Verified users can create projects, request to be added to a project, and more!
+                                    </em></p>
+                                    {{{resendEmailButton}}}
                                 {{else}}
-                                    <p><em>Click 'Edit Profile' to add your email address.</em></p>
+                                    <p><em>
+                                        You need to save an email address before you can verify your account.
+                                        Until you verify, you will not have access to project participation features.
+                                    </em></p>
                                 {{/if}}
-                                <hr />
-                                
-                                <h4>Verify</h4>
-                                {{#if isVerifiedUser}}
-                                    <p><em>Your email address is verified!</em></p>
-                                {{else}}
-                                    {{#if hasEmailSaved}}
-                                        <p><em>
-                                            If you've lost your email to verify, you can resend it here.
-                                            Verified users can create projects, request to be added to a project, and more!
-                                        </em></p>
-                                        {{{resendEmailButton}}}
-                                    {{else}}
-                                        <p><em>
-                                            You need to save an email address before you can verify your account.
-                                            Until you verify, you will not have access to project participation features.
-                                        </em></p>
-                                    {{/if}}
-                                {{/if}}
-                                <hr />
-    
-                                <h4>First Name</h4>
-                                {{#if firstName}}
-                                    <p>{{firstName}}</p>
-                                {{else}}
-                                    <p><em>Click 'Edit Profile' to add your first name.</em></p>
-                                {{/if}}
-                                <hr />
-                                
-                                <h4>Last Name</h4>
-                                {{#if lastName}}
-                                    <p>{{lastName}}</p>
-                                {{else}}
-                                    <p><em>Click 'Edit Profile' to add your last name.</em></p>
-                                {{/if}}
-                                <hr />
-    
-                                <h4>Age</h4>
-                                {{#if age}}
-                                    <p>{{age}}</p>
-                                {{else}}
-                                    <p><em>Click 'Edit Profile' to add your age.</em></p>
-                                {{/if}}
-                                <hr />
-    
-                                <h4>
-                                    <i class="fa fa-tags"></i>
-                                    <span class="txt">Current Tags</span>
-                                </h4>
-                                {{#if interests}}
-                                <ul>
-                                    {{#each tags}}
-                                    <li>
-                                        {{this}}
-                                    </li>
-                                    {{/each}}
-                                </ul>
-                                {{else}}
-                                    <p><em>Click 'Edit Profile' to add tags so that others can find you!</em></p>
-                                {{/if}}
-                            </div>
+                            {{/if}}
+                            <hr />
+
+                            <h4>First Name</h4>
+                            {{#if firstName}}
+                                <p>{{firstName}}</p>
+                            {{else}}
+                                <p><em>Click 'Edit Profile' to add your first name.</em></p>
+                            {{/if}}
+                            <hr />
+
+                            <h4>Last Name</h4>
+                            {{#if lastName}}
+                                <p>{{lastName}}</p>
+                            {{else}}
+                                <p><em>Click 'Edit Profile' to add your last name.</em></p>
+                            {{/if}}
+                            <hr />
+
+                            <h4>Age</h4>
+                            {{#if age}}
+                                <p>{{age}}</p>
+                            {{else}}
+                                <p><em>Click 'Edit Profile' to add your age.</em></p>
+                            {{/if}}
+                            <hr />
+
+                            <h4>
+                                <i class="fa fa-tags"></i>
+                                <span class="txt">Current Tags</span>
+                            </h4>
+                            {{#if interests}}
+                            <ul>
+                                {{#each tags}}
+                                <li>
+                                    {{this}}
+                                </li>
+                                {{/each}}
+                            </ul>
+                            {{else}}
+                                <p><em>Click 'Edit Profile' to add tags so that others can find you!</em></p>
+                            {{/if}}
                         </div>
                     </div>
-                    
-                    <hr />
-                    <a class="btn btn-info" href="{{pathFor 'profileEdit'}}">
-                        <i class="fa fa-edit"></i>
-                        <span class="txt">Edit Profile</span>
-                    </a>
-                {{/with}}
-            </div>
+                </div>
+
+                <hr />
+                <a class="btn btn-info" href="{{pathFor 'profileEdit'}}">
+                    <i class="fa fa-edit"></i>
+                    <span class="txt">Edit Profile</span>
+                </a>
+            {{/with}}
         </div>
     </div>
 </template>

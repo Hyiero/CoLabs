@@ -17,3 +17,5 @@ UI.registerAllHelpers
   prettyDateTime: (date) -> formatDateTime date
   nameOf: (id) -> Meteor.users.findOne(id).name
   descriptionOf: (id) -> Meteor.users.findOne(id).description
+  isUser: (type) -> type is 'user'
+  count: (list) -> list.length

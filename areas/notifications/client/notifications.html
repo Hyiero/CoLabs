@@ -1,0 +1,44 @@
+<template name="notifications">
+    {{> notificationTypeSelectors }}
+    {{> notificationList }}
+</template>
+
+<template name="notificationTypeSelectors">
+    <div class="filter form-group btn-group">
+        <label for="type" data-toggle="buttons">
+            <span class="txt">Type</span>
+            <br />
+            <label class="btn btn-default {{#if isAll}}active{{/if}}">
+                <input class="typeSelector" type="radio" name="type" value="all" checked="{{isAll}}">
+                <i class="fa fa-refresh"></i>
+                <span class="txt">All</span>
+            </label>
+            <label class="btn btn-default {{#if isGeneral}}active{{/if}}">
+                <input class="typeSelector" type="radio" name="type" value="general" checked="{{isGeneral}}">
+                <i class="fa fa-flag-o"></i>
+                <span class="txt">General</span>
+            </label>
+            <label class="btn btn-default {{#if isInvites}}active{{/if}}">
+                <input class="typeSelector" type="radio" name="type" value="invites" checked="{{isInvites}}">
+                <i class="fa fa-user-plus"></i>
+                <span class="txt">Invites</span>
+            </label>
+        </label>
+    </div>
+</template>
+
+<template name="notificationList">
+    {{#each notifications}}
+        <inline class=" col-md-12 " block>
+            <div class="col-sm-3">Type: {{type}}</div>
+            <div class="col-sm-3">Date: {{prettyDateTime timeStamp}}</div>
+            {{#if isInvite type}}
+                <div class="col-sm-3">Project: {{data.projectId}}</div>
+                <div class="col-sm-2">
+                    {{{acceptInvitationButton}}}
+                    {{{declineInvitationButton}}}
+                </div>
+            {{/if}}
+        </inline>
+    {{/each}}
+</template>

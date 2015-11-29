@@ -1,25 +1,7 @@
 <template name="search">
-    {{> nav }}
-    
-    <div class="main">
-        {{> searchFilter }}
-        {{> searchTypeSelectors }}
-        {{> searchResults }}
-    </div>
-</template>
-
-<template name="searchFilter">
-    <h2>Search Filter</h2>
-    <div class="filter form-group btn-group">
-        <label for="nameSearchFilter">Name</label>
-        <input type="text" class="form-control" id="nameSearchFilter" name="nameSearchFilter" placeholder="Enter name" value="{{name}}">
-        <i class="search-clear fa fa-close"></i>
-    </div>
-    <div class="filter form-group btn-group">
-        <label for="searchFilter">Tags</label>
-        <input type="text" class="form-control" id="searchFilter" name="searchFilter" placeholder="Enter search terms" value="{{tags}}">
-        <i class="search-clear fa fa-close"></i>
-    </div>    
+    {{> listFilter }}
+    {{> searchTypeSelectors }}
+    {{> listResults list=filterResults }}
 </template>
 
 <template name="searchTypeSelectors">
@@ -27,133 +9,21 @@
         <label for="type" data-toggle="buttons">
             <span class="txt">Type</span>
             <br />
-            <label class="btn btn-default {{isUsersActive}}">
+            <label class="btn btn-default {{#if isUsers}}active{{/if}}">
                 <input class="typeSelector" type="radio" name="type" value="users" checked="{{isUsers}}">
                 <i class="fa fa-user"></i>
                 <span class="txt">Users</span>
             </label>
-            <label class="btn btn-default {{isProjectsActive}}">
+            <label class="btn btn-default {{#if isProjects}}active{{/if}}">
                 <input class="typeSelector" type="radio" name="type" value="projects" checked="{{isProjects}}">
                 <i class="fa fa-folder"></i>
                 <span class="txt">Projects</span>
             </label>
-            <label class="btn btn-default {{isBothActive}}">
+            <label class="btn btn-default {{#if isBoth}}active{{/if}}">
                 <input class="typeSelector" type="radio" name="type" value="both" checked="{{isBoth}}">
                 <i class="fa fa-refresh"></i>
                 <span class="txt">Both</span>
             </label>
         </label>
     </div>
-</template>
-
-<template name="searchResults">
-    {{#if isInviteSearch}}
-        <hgroup class="mb20">
-    		<h1>Invite Users</h1>
-    		<h2 class="lead"><strong class="text-danger">many</strong> results were found for the search for <strong class="text-danger">Lorem</strong></h2>								
-    	</hgroup>
-    
-        <section class="col-xs-12 col-sm-6 col-md-12">
-            {{#each filterResults}}
-            {{#if notLoggedInUser this}}
-        		<article class="search-result row">
-        			<div class="col-xs-12 col-sm-12 col-md-3">
-        				{{> userAvatar userId=_id size="sm" }}
-        			</div>
-        			<div class="col-xs-12 col-sm-12 col-md-2">
-        				<ul class="meta-search">
-        				    <li>
-        					    <i class="fa fa-user" title="Username"></i>
-        					    <span>{{name}}</span>
-        					</li>
-        					<li>
-        					    <i class="fa fa-calendar" title="Created Date"></i>
-        					    <span>{{prettyDateTime createdAt}}</span>
-        					</li>
-        					<li>
-        					    <i class="fa fa-clock-o"></i>
-        					    <span>{{time}}</span>
-        					</li>
-        					<li>
-        					    <i class="fa fa-tags" title="Tags"></i>
-        					    <span>{{tags}}</span>
-        					</li>
-        				</ul>
-        			</div>
-        			<div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-        			    <!-- TODO: Read description/projects, etc -->
-        				<h3><a href="#">{{firstName}} {{lastName}}</a></h3>
-        				<p>{{description}}</p>
-                            <span class="search-checkbox-wrapper">
-                                <!-- TODO: Make new JSML component -->
-                                {{! searchActionCheckbox this}}
-                            </span>
-        			</div>
-        			<span class="clearfix borda"></span>
-        		</article>
-        	{{/if}}
-    		{{/each}}
-    	</section>
-    	
-    {{else}}
-    
-        <hgroup class="mb20">
-    		<h2 class="lead"><strong class="text-danger">{{count filterResults}}</strong> results were found for the search for <strong class="text-danger">{{filterInput}}</strong></h2>
-    	</hgroup>
-    
-        <section class="col-xs-12 col-sm-6 col-md-12">
-            {{#each filterResults}}
-            {{#if notLoggedInUser this}}
-        		<article class="search-result row">
-        			<div class="col-xs-12 col-sm-12 col-md-3">
-        				{{> userAvatar userId=_id size="md" }}
-        			</div>
-        			<div class="col-xs-12 col-sm-12 col-md-2">
-        				<ul class="meta-search">
-        				    <li>
-        					    <i class="fa fa-user" title="Username"></i>
-        					    <span>{{name}}</span>
-        					</li>
-        					<li>
-        					    <i class="fa fa-calendar" title="Created Date"></i>
-        					    <span>{{prettyDateTime createdAt}}</span>
-        					</li>
-        					<li>
-        					    <i class="fa fa-clock-o" title="Created Time"></i>
-        					    <span>{{time}}</span>
-        					</li>
-        					<li>
-        					    <i class="fa fa-tags" title="Tags"></i>
-        					    <span>{{tags}}</span>
-        					</li>
-        				</ul>
-        			</div>
-        			<div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-        			    {{#if isUser this}}
-                            <h3><a href="/{{username}}/profile">{{firstName}} {{lastName}}</a></h3>
-                            {{#if description}}
-                                <p>{{description}}</p>
-                            {{/if}}
-                            {{#if isLoggedIn}}
-                                <a class="btn btn-default messageButton"
-                                    id="messageContact"
-                                    data-username="{{username}}">
-                                        <i class="fa fa-send"></i>
-                                        <span class="txt">Message</span>
-                                </a>
-                            {{/if}}
-                        {{else}}
-                            <h3><a href="/projects/{{_id}}">{{name}}</a></h3>
-                            {{#if description}}
-                                <p>{{description}}</p>
-                            {{/if}}
-                            <!-- TODO: Either message project or request entry -->
-                        {{/if}}
-        			</div>
-        			<span class="clearfix borda"></span>
-        		</article>
-        	{{/if}}
-    		{{/each}}
-    	</section>
-	{{/if}}
 </template>

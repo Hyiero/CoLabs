@@ -1,13 +1,9 @@
 <template name="projectDashboard">
-    {{> nav }}
-
-    <div class="main">
-        {{#with project}}
-            <h2>{{name}}</h2>
-            <span class="txt">{{description}}</span>
-            {{> projectChat }}
-        {{/with}}
-    </div>
+    {{#with project}}
+        <h2>{{name}}</h2>
+        <span class="txt">{{description}}</span>
+        {{> projectChat }}
+    {{/with}}
 </template>
 
 <template name="projectChat">

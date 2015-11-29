@@ -1,4 +1,5 @@
 Template.profile.helpers
+  user: -> Meteor.user()
   resendEmailButton: -> Render.buttonImportant
     icon: 'share'
     text: 'Resend'

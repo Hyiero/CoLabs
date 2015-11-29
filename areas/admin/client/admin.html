@@ -1,24 +1,19 @@
 <template name="admin">
-    {{> nav }}
-    
-    <div class="main">
-        <h1>Admin Panel</h1>
+    <h1>Admin Panel</h1>
 
-        <a id="adminPowerLink" href="{{pathFor 'adminPower'}}">
-            <i class="fa fa-user-plus"></i>
-            <span class="txt">Add/Remove Admins</span>
-        </a>
-        
-        <h2>Command Line</h2>
-        <div class="form-group">
-            <textarea name="command" class="form-control"></textarea>
-            {{{buttonRunTerminal}}}
-        </div>
-        
-        <h2>Application Logs</h2>
-        {{{buttonClearLogs}}}
-        {{{buttonEnableLogs}}}
-        {{> logs }}
+    <a id="adminPowerLink" href="{{pathFor 'adminPower'}}">
+        <i class="fa fa-user-plus"></i>
+        <span class="txt">Add/Remove Admins</span>
+    </a>
+
+    <h2>Command Line</h2>
+    <div class="form-group">
+        <textarea name="command" class="form-control"></textarea>
+        {{{buttonRunTerminal}}}
     </div>
-    
+
+    <h2>Application Logs</h2>
+    {{{buttonClearLogs}}}
+    {{{buttonEnableLogs}}}
+    {{> logs }}
 </template>

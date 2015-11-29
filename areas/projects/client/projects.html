@@ -1,15 +1,11 @@
 <template name="projects">
-    {{> nav}}
-    
-    <div class="main">
-        <h1>Your Current Projects</h1>
-        {{> projectForm}}
-        <div>
-            {{#each projects}}
-                {{> project }}
-                <hr />
-            {{/each}}
-        </div>
+    <h1>Your Current Projects</h1>
+    {{> projectForm}}
+    <div>
+        {{#each projects}}
+            {{> project }}
+            <hr />
+        {{/each}}
     </div>
 </template>
 
@@ -57,4 +53,32 @@
     {{else}}
         {{{buttonAddNew}}}
     {{/if}}
+</template>
+
+<template name="createProjectModal">
+    <div id="createProjectModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{{buttonClose}}}
+                    <h4 class="modal-title">New Project</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="projectName">Project Name:</label>
+                        <input id="projectName" class="form-control"
+                               type="text" placeholder="Name"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectDescription">Project Description:</label>
+                        <textarea id="projectDescription" class="form-control"
+                            placeholder="Description"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {{{createProjectButton}}}
+                </div>
+            </div>
+        </div>
+    </div>
 </template>

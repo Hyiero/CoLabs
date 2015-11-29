@@ -1,7 +1,8 @@
 Template.otherProfile.onCreated ->
-    @subscribe 'oneUserByName', @params.username
+    @subscribe 'oneUserByName', Router.current().params.username
 
 Template.otherProfile.helpers
+  user: -> Meteor.users.findOne username: Router.current().params.username
   firstEmail: ->
     email = @emails?[0]
     if email then email.address else ''

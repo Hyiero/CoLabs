@@ -1,83 +1,79 @@
 <template name="otherProfile">
-    {{>nav}}
-    
-    <div class="main">
-        <div class="col-md-8 center">
-            <div class="col-item">
-                {{#with user}}
-                    {{> userAvatar userId=_id size="lg"}}
-                    <hr />
-                    <div class="info">
-                        <div class="row">
-                            <div class="price col-lg-6">
-                                
-                                <h4>Username</h4>
-                                <p>{{username}}</p>
-                                <hr />
-                                
-                                {{#if description}}
-                                    <h4>Summary</h4>
-                                    <p>{{description}}</p>
-                                    <hr />
-                                {{/if}}
+    <div class="col-md-8 center">
+        <div class="col-item">
+            {{#with user}}
+                {{> userAvatar userId=_id size="lg"}}
+                <hr />
+                <div class="info">
+                    <div class="row">
+                        <div class="price col-lg-6">
 
-                                {{#if isLoggedIn}}
-                                    <a class="btn btn-default messageButton"
-                                       id="messageContact"
-                                       data-username="{{username}}">
-                                        <i class="fa fa-send"></i>
-                                        <span class="txt">Message</span>
-                                    </a>
-                                {{/if}}
-                                
-                                {{#if firstEmail}}
-                                    <h4>Email</h4>
-                                    <p>{{firstEmail}}</p>
-                                    <hr />
-                                {{/if}}
-                                
-    
-                                {{#if firstName}}
-                                    <h4>First Name</h4>
-                                    <p>{{firstName}}</p>
-                                    <hr />
-                                {{/if}}
-                                
-                                {{#if lastName}}
-                                    <h4>Last Name</h4>
-                                    <p>{{lastName}}</p>
-                                    <hr />
-                                {{/if}}
-                                
-    
-                                {{#if age}}
-                                    <h4>Age</h4>
-                                    <p>{{age}}</p>
-                                    <hr />
-                                {{/if}}
-                                
-                                <h4>
-                                    <i class="fa fa-tags"></i>
-                                    <span class="txt">Current Tags</span>
-                                </h4>
-                                {{#if interests}}
-                                <ul>
-                                    {{#each tags}}
-                                    <li>
-                                        {{this}}
-                                    </li>
-                                    {{/each}}
-                                </ul>
-                                {{else}}
-                                    <p><em>
-                                        This user has no tags.
-                                    </em></p>
-                                {{/if}}
-                            </div>
+                            <h4>Username</h4>
+                            <p>{{username}}</p>
+                            <hr />
+
+                            {{#if description}}
+                                <h4>Summary</h4>
+                                <p>{{description}}</p>
+                                <hr />
+                            {{/if}}
+
+                            {{#if isLoggedIn}}
+                                <a class="btn btn-default messageButton"
+                                   id="messageContact"
+                                   data-username="{{username}}">
+                                    <i class="fa fa-send"></i>
+                                    <span class="txt">Message</span>
+                                </a>
+                            {{/if}}
+
+                            {{#if firstEmail}}
+                                <h4>Email</h4>
+                                <p>{{firstEmail}}</p>
+                                <hr />
+                            {{/if}}
+
+
+                            {{#if firstName}}
+                                <h4>First Name</h4>
+                                <p>{{firstName}}</p>
+                                <hr />
+                            {{/if}}
+
+                            {{#if lastName}}
+                                <h4>Last Name</h4>
+                                <p>{{lastName}}</p>
+                                <hr />
+                            {{/if}}
+
+
+                            {{#if age}}
+                                <h4>Age</h4>
+                                <p>{{age}}</p>
+                                <hr />
+                            {{/if}}
+
+                            <h4>
+                                <i class="fa fa-tags"></i>
+                                <span class="txt">Current Tags</span>
+                            </h4>
+                            {{#if interests}}
+                            <ul>
+                                {{#each tags}}
+                                <li>
+                                    {{this}}
+                                </li>
+                                {{/each}}
+                            </ul>
+                            {{else}}
+                                <p><em>
+                                    This user has no tags.
+                                </em></p>
+                            {{/if}}
                         </div>
                     </div>
-                {{/with}}
-            </div>
+                </div>
+            {{/with}}
         </div>
     </div>
 </template>

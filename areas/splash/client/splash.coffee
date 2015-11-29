@@ -19,7 +19,6 @@ Template.splash.events
   "click .searchChoice": (event) ->
     type = $(event.target).attr("value") or
       $(event.target).parent().attr("value")
-    Session.set "typeSearch", type
     Session.set "tagSearch", ""
     Session.set "nameSearch", ""
     Router.go "search", type: type

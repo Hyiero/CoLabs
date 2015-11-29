@@ -8,23 +8,24 @@ Template.project.helpers
   editProjectButton: -> Render.button
     type: 'primary'
     icon: 'edit'
-    text: "Edit Project"
+    text: 'Edit Project'
     dataId: @_id
     onclick: ->
       project = Projects.findOne @data 'id'
-      Session.set "projectId" , project._id
+      Session.set 'projectId' , project._id
       Session.set 'editProject', true
   addUsersButton: -> Render.button
     type: 'info'
     icon: 'user'
-    text: "Add Users"
+    text: 'Add Users'
     dataId: @_id
     onclick: ->
       Session.set 'selectedProjectId', @data 'id'
+      Session.set 'isInvitedUsers', true
       Router.go '/inviteUsers'
   removeMeButton: -> Render.buttonDelete
     icon: 'remove'
-    text: "Remove Me"
+    text: 'Remove Me'
     dataId: @_id
     onclick: ->
       Meteor.call 'removeUserFromProject',
@@ -33,15 +34,11 @@ Template.project.helpers
   users: -> Meteor.users.find { $in: @users }
   username: (id) -> Meteor.users.findOne(id)?.username
 
-Template.projectForm.events
-  "submit projectSubmitForm": (e) -> e.preventDefault()
-
 Template.projectForm.helpers
   buttonCancel: -> Render.buttonCancel
     icon: 'hand-o-left'
     text: 'Back'
     onclick: -> Session.set 'editProject', false
-    
   buttonSubmit: -> Render.buttonSave
     text: 'Save Project'
     onclick: ->
@@ -53,18 +50,28 @@ Template.projectForm.helpers
         if err then console.log err
         else Session.set 'editProject', false
       false
-  
-  #TODO: Popup form to create new
   buttonAddNew: -> Render.button
     icon: 'plus'
     text: 'Add New'
     type: 'success'
     class: 'pull-right'
-    onclick: ->
-      Meteor.call 'createProject', user:Meteor.user(), (err, res) ->
-        if err then console.error err
-        else Session.set 'editProject', false
-
+    onclick: -> Modal.show 'removeUserModal'
   projectName: -> @projectName or ''
   projectDescription: -> @projectDescription or ''
   edit: -> Session.get 'editProject'
+
+Template.projectForm.events
+  'submit projectSubmitForm': (e) -> e.preventDefault()
+
+Template.createProjectModal.helpers
+  buttonClose: -> Render.buttonClose
+    class: 'pull-right'
+    dataDismiss: 'modal'
+  buttonSubmit: -> Render.buttonSave
+    text: 'Create Project'
+    dataDismiss: 'modal'
+    onclick: ->
+      Meteor.call 'createProject',
+        name: $('#projectName').val()
+        description: $('#projectDescription').val()
+

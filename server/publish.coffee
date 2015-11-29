@@ -42,14 +42,9 @@ Meteor.publish 'newMessageCount', ->
   return undefined
 
 
-Meteor.publish 'allInvitations', -> Invitations.find()
+Meteor.publish 'myNotifications', -> Notifications.find userId: @userId
 
-Meteor.publish 'projectInvitations', (id) -> Invitations.find project: id
-
-Meteor.publish 'userInvitations', -> Invitations.find user: @userId
-
-
-Meteor.publish 'allNotifications', -> Notifications.find()
+Meteor.publish 'projectNotifications', (id) -> Notifications.find projectId: id
 
 
 Meteor.users.allow

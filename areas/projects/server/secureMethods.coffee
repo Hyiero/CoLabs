@@ -11,7 +11,7 @@ removeUserFromProject = (data)->
 
 removeProjectFromUser = (data)->
   user = Meteor.users.findOne data.userId
-  projects = user.projects.filter (id)-> id isnt data.userId
+  projects = user.projects.filter (id)-> id isnt data.projectId
   Meteor.users.update data.userId, $set:
     projects: projects
 
@@ -36,20 +36,3 @@ CoLabs.methods
   removeUserFromProject: (data)->
     removeUserFromProject data
     removeProjectFromUser data
-    
-  inviteUserToProject: (data)->
-    Invitations.insert
-      user: data.user
-      project: data.project
-      date: new Date().toLocaleString()
-
-  addUserToProject: (userId,projectId)->
-    project = Projects.findOne projectId
-    if project?
-      currentUsers = project.users
-      currentUsers.push userId
-      Projects.update projectId, $set:
-        users: currentUsers
-    
-  removeInvitation: (id)->
-    Invitations.remove id
