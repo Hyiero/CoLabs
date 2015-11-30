@@ -70,6 +70,8 @@ Template.createProjectModal.helpers
     text: 'Create Project'
     dataDismiss: 'modal'
     onclick: ->
-      Meteor.call 'createProject',
+      Meteor.call 'createProject', {
         name: $('#projectName').val()
         description: $('#projectDescription').val()
+      },(err, res) ->
+        Meteor.subscribe 'myProjects'

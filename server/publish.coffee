@@ -22,7 +22,10 @@ Meteor.publish 'allProjects', -> Projects.find()
 
 Meteor.publish 'oneProject', (id) -> Projects.find id
 
-Meteor.publish 'myProjects', -> Projects.find users: @userId
+Meteor.publish 'myProjects', ->
+  user = Meteor.users.findOne @userId
+  projects = user.projects
+  Projects.find _id: $in: projects
 
 
 Meteor.publish 'myMessages', ->
@@ -44,7 +47,13 @@ Meteor.publish 'newMessageCount', ->
 
 Meteor.publish 'myNotifications', -> Notifications.find userId: @userId
 
-Meteor.publish 'projectNotifications', (id) -> Notifications.find projectId: id
+Meteor.publish 'projectNotifications', (id) -> Notifications.find 'data.projectId': id
+
+Meteor.publish 'newNotificationCount', ->
+  Counts.publish @, 'newNotifications', Notifications.find
+    userId: @userId
+    'data.status': 'none'
+  return undefined
 
 
 Meteor.users.allow

@@ -10,6 +10,7 @@ Template.loginButton.helpers
 
 Template.navLinks.onCreated ->
   @subscribe 'newMessageCount'
+  @subscribe 'newNotificationCount'
 
 Template.navLinks.rendered = ->
   routeName = Router.current().route.getName()
@@ -22,6 +23,7 @@ Template.navLinks.helpers
   isVerifiedUser: -> CoLabs.isVerifiedUser()
   isAdmin: -> CoLabs.isAdmin()
   numNewMessages: -> Counts.get 'newMessages'
+  numNewNotifications: -> Counts.get 'newNotifications'
 
 Template.profileNavDisplay.helpers
   username: ->

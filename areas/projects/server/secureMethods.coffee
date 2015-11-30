@@ -15,11 +15,16 @@ removeProjectFromUser = (data)->
   Meteor.users.update data.userId, $set:
     projects: projects
 
+removeInviteNotification = (data)->
+  Notifications.remove
+    userId: data.userId
+    'data.projectId': data.projectId
+
 CoLabs.methods
   createProject: (data)->
     if CoLabs.isVerifiedUser()
       userId = Meteor.userId()
-      Projects.insert
+      Projects.insert {
         name: data.name
         description: data.description
         createdAt: Date.now()
@@ -27,7 +32,12 @@ CoLabs.methods
         admins: [userId]
         tags: []
         conversation: []
-        type: 'project'
+        type: 'project' }, (err, doc)->
+          unless err?
+            projects = Meteor.user().projects
+            projects.push doc
+            Meteor.users.update userId, $set:
+              projects: projects
   updateProject: (data)->
     if Meteor.userId() in Projects.findOne data.id
       Projects.update data.id, $set:
@@ -35,6 +45,7 @@ CoLabs.methods
         description: data.description
   removeUserFromProject: (data)->
     project = Projects.findOne data.projectId
-    if Meteor.userId() in project.admins or Metoeor.userId() is data.userId
+    if Meteor.userId() in project.admins or Meteor.userId() is data.userId
       removeUserFromProject data
       removeProjectFromUser data
+      removeInviteNotification data

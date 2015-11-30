@@ -90,6 +90,9 @@
             <a href="{{pathFor 'notifications'}}">
                 <i class="fa fa-bell"></i>
                 <span class="txt">Notifications</span>
+                {{#if numNewNotifications}}
+                    <div class="badge">{{numNewNotifications}}</div>
+                {{/if}}
             </a>
         </li>
         {{#if isAdmin}}

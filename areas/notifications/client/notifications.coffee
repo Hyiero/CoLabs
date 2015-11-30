@@ -18,15 +18,14 @@ Template.notificationList.helpers
   acceptInvitationButton: -> Render.buttonSave
     icon: 'thumbs-o-up'
     text: 'Accept'
+    class: 'pull-right'
     dataContext: { notificationId: @_id, isAccept: true }
     onclick: -> Meteor.call 'respondToInvite', @data('context')
   declineInvitationButton: -> Render.buttonDelete
     icon: 'thumbs-o-down'
     text: 'Decline'
+    class: 'pull-right'
     dataContext: { notificationId: @_id }
     onclick: -> Meteor.call 'respondToInvite', @data('context')
-  notifications: -> Notifications.find(
-    data:
-      status: 'none'
-  ).fetch()
+  notifications: -> Notifications.find('data.status': 'none').fetch()
   isInvite: (type) -> type is 'invite'
