@@ -66,11 +66,10 @@ Template.createProjectModal.helpers
   buttonClose: -> Render.buttonClose
     class: 'pull-right'
     dataDismiss: 'modal'
-  buttonSubmit: -> Render.buttonSave
+  createProjectButton: -> Render.buttonSave
     text: 'Create Project'
     dataDismiss: 'modal'
     onclick: ->
       Meteor.call 'createProject',
         name: $('#projectName').val()
         description: $('#projectDescription').val()
-
