@@ -95,6 +95,7 @@ Router.map ->
     path:'/inviteUsers'
     # TODO: only allow project admins to invite users
     #onBeforeAction: redirectIfNotProjectAdmin @params.id
+    data: -> Session.set 'isInvitedUsers', true
 
 
   @route 'admin',

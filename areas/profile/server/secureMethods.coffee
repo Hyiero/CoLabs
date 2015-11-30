@@ -1,5 +1,5 @@
 CoLabs.methods
-  removeUser: ->
+  removeSelf: ->
     userId = Meteor.userId()
     Meteor.users.remove userId
-    Notifications.remove sender:userId
+    Notifications.remove userId: userId

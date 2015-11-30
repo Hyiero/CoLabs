@@ -17,22 +17,24 @@ removeProjectFromUser = (data)->
 
 CoLabs.methods
   createProject: (data)->
-    userId = Meteor.userId()
-    Projects.insert
-      name: data.name
-      description: data.description
-      createdAt: Date.now()
-      users: [userId]
-      admins: [userId]
-      tags: []
-      conversation: []
-      type: 'project'
-
+    if CoLabs.isVerifiedUser()
+      userId = Meteor.userId()
+      Projects.insert
+        name: data.name
+        description: data.description
+        createdAt: Date.now()
+        users: [userId]
+        admins: [userId]
+        tags: []
+        conversation: []
+        type: 'project'
   updateProject: (data)->
-    Projects.update data.id, $set:
-      name: data.name
-      description: data.description
-
+    if Meteor.userId() in Projects.findOne data.id
+      Projects.update data.id, $set:
+        name: data.name
+        description: data.description
   removeUserFromProject: (data)->
-    removeUserFromProject data
-    removeProjectFromUser data
+    project = Projects.findOne data.projectId
+    if Meteor.userId() in project.admins or Metoeor.userId() is data.userId
+      removeUserFromProject data
+      removeProjectFromUser data

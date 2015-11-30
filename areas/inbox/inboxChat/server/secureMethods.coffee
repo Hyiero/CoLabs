@@ -11,7 +11,7 @@ updateConversation = (user, contact, message)->
 
 CoLabs.methods
   addMessage: (messageModel)->
-    if Meteor.users.findOne(messageModel.to)?
+    if Meteor.user()? and Meteor.users.findOne(messageModel.to)?
       user = Meteor.userId()
       Messages.insert {
         to: messageModel.to
@@ -31,7 +31,7 @@ CoLabs.methods
       read: true }, multi: true
 
   addContact: (contact)->
-    contacts = Meteor.user().contacts
+    contacts = Meteor.user()?.contacts
     contacts.unshift contact: contact, favorite: false
     Meteor.users.update Meteor.userId(), $set:
       contacts: contacts

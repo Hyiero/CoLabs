@@ -21,7 +21,6 @@ Template.project.helpers
     dataId: @_id
     onclick: ->
       Session.set 'selectedProjectId', @data 'id'
-      Session.set 'isInvitedUsers', true
       Router.go '/inviteUsers'
   removeMeButton: -> Render.buttonDelete
     icon: 'remove'
