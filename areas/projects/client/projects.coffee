@@ -54,7 +54,7 @@ Template.projectForm.helpers
     text: 'Add New'
     type: 'success'
     class: 'pull-right'
-    onclick: -> Modal.show 'removeUserModal'
+    onclick: -> Modal.show 'createProjectModal'
   projectName: -> @projectName or ''
   projectDescription: -> @projectDescription or ''
   edit: -> Session.get 'editProject'

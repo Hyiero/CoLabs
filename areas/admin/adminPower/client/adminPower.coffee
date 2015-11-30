@@ -1,3 +1,6 @@
+Template.powerGrant.onCreated ->
+  @subscribe 'allUsers'
+
 Template.powerGrant.helpers
   grantButton: -> Render.buttonSave
     dataCommand: 'grant'
@@ -19,6 +22,9 @@ Template.powerGrant.events
         target: user._id
         command: $(event.currentTarget).data "command"
       Meteor.call "adminPower", powerCommand
+
+Template.adminList.onCreated ->
+  @subscribe 'allUsers'
 
 Template.adminList.helpers
   admins: -> (user for user in Meteor.users.find().fetch() when user.isAdmin)

@@ -101,6 +101,7 @@ Router.map ->
   @route 'admin',
     path: '/admin'
     onBeforeAction: redirectIfNotAdmin
+    data: -> Session.set 'logEnabled', Logger.isEnabled
 
   @route 'adminPower',
     path: '/admin/power'

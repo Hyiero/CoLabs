@@ -4,9 +4,6 @@ sendTo window, setLogging: (enable) ->
   Logger[method.toLowerCase()]()
   Session.set 'logEnabled', Logger.isEnabled
 
-Template.admin.onCreated ->
-  Session.set 'logEnabled', Logger.isEnabled
-
 Template.admin.helpers
   buttonRunTerminal: -> Render.buttonSave
     class: 'form-control'
