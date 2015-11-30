@@ -78,7 +78,7 @@ Template.removeUserModal.helpers
     icon: 'bomb'
     text: 'Yes, burn it!'
     onclick: ->
-      Meteor.call 'removeUser', (err, res) ->
+      Meteor.call 'removeSelf', (err, res) ->
         if err? then toast.error err?.message
         Modal.hide 'removeUserModal'
   cancelRemoveButton: -> Render.button
