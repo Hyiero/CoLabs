@@ -2,7 +2,7 @@ CoLabs.methods
   respondToInvite: (data)->
     notification = Notifications.findOne data.notificationId
     userId = notification.userId
-    if userId is Meteor.user()
+    if userId is Meteor.userId()
       projectId = notification.data.projectId
       status = if data.isAccept then 'accepted' else 'declined'
       Notifications.update data.notificationId, $set:
