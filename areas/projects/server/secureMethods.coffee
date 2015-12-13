@@ -32,6 +32,7 @@ CoLabs.methods
         admins: [userId]
         tags: []
         conversation: []
+        identiconHex: CoLabs.encodeAsHexMd5(data.name.concat Date.now().toString())
         type: 'project' }, (err, doc)->
           unless err?
             projects = Meteor.user().projects

@@ -1,7 +1,7 @@
 Template.inviteUsers.onCreated ->
   @subscribe 'allUsers'
-  @subscribe 'projectNotifications', Session.get 'selectedProjectId'
-  @subscribe 'oneProject', Session.get 'selectedProjectId'
+  @subscribe 'projectNotifications', Router.current().params.id
+  @subscribe 'oneProject', Router.current().params.id
 
 Template.inviteUsers.helpers
   filteredUsers: ->

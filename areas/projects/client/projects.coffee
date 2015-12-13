@@ -4,6 +4,9 @@ Template.projects.onCreated ->
 Template.projects.helpers
   projects: -> Projects.find().fetch()
 
+Template.project.onCreated ->
+  @subscribe 'projectUsers', @data._id
+
 Template.project.helpers
   editProjectButton: -> Render.button
     type: 'primary'
@@ -20,8 +23,7 @@ Template.project.helpers
     text: 'Add Users'
     dataId: @_id
     onclick: ->
-      Session.set 'selectedProjectId', @data 'id'
-      Router.go '/inviteUsers'
+      Router.go "/project/#{@data 'id'}/invite"
   removeMeButton: -> Render.buttonDelete
     icon: 'remove'
     text: 'Remove Me'

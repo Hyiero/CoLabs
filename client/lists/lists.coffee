@@ -22,7 +22,7 @@ Template.listResults.helpers
     text: 'Message'
     class: 'pull-right'
     dataContext: @username
-    onclick: -> Router.go "/inbox/#{@data('context')}"
+    onclick: -> Router.go "/inbox/#{@data 'context'}"
   inviteButton: -> Render.button
     icon: 'user-plus'
     text: 'Invite'
@@ -30,12 +30,12 @@ Template.listResults.helpers
     dataContext: @_id
     onclick: -> Meteor.call 'inviteUserToProject',
       userId: @data 'context'
-      projectId: Session.get 'selectedProjectId'
+      projectId: Router.current().params.id
   tags: -> if @tags? then (@tags).join ', '
   time: -> (new Date this.createdAt).toLocaleTimeString()
   isLoggedIn: -> Meteor.user()?
   isUser: (type) -> type is 'user'
-  isInvite: -> Session.get 'isInvitedUsers'
+  isInvite: -> 'invite' in Router.current().url.split '/'
   filterInput: ->
     nameInput = Session.get('nameSearch') ? ''
     tagInput = Session.get('tagSearch') ? ''

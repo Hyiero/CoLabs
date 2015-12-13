@@ -29,7 +29,7 @@ Template.search.helpers
     tags = Session.get('tagSearch') ? ''
     tags = tags.trim().split ' ' if tags.length > 0
     name = Session.get('nameSearch') ? ''
-    type = Session.get 'searchType'
+    type = Router.current().params.type
     results = switch type
       when 'users' then findByUsersTags(name, tags)
       when 'projects' then findByProjectTags(name, tags)
@@ -39,9 +39,9 @@ Template.search.helpers
 
 
 Template.searchTypeSelectors.helpers
-  isUsers: -> 'users' is Session.get 'searchType'
-  isProjects: -> 'projects' is Session.get 'searchType'
-  isBoth: -> null is Session.get 'searchType'
+  isUsers: -> Router.current().params.type is 'users'
+  isProjects: -> Router.current().params.type is 'projects'
+  isBoth: -> not Router.current().params.type?
 
 Template.searchTypeSelectors.events
   "change .typeSelector": (event) ->
@@ -53,7 +53,3 @@ Template.searchTypeSelectors.events
         Session.set 'nameSearch', ''
         Router.go 'search', type: val
       else Router.go 'search'
-
-#UI.registerHelper "isUser", (result)-> result.type is "user"
-
-#UI.registerHelper "notLoggedInUser", (result)-> result._id isnt Meteor.userId()
