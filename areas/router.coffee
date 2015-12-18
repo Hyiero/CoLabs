@@ -8,6 +8,7 @@ Router.configure
   notFoundTemplate: 'notFound'
   waitOn: -> Meteor.subscribe 'thisUser'
 
+
 searchTypes = [
   'users'
   'projects'
@@ -18,21 +19,24 @@ notificationTypes = [
   'invites'
 ]
 
-redirectIfNotLoggedIn = ->
-  if Meteor.userId()? then @next()
-  else Router.go '/'
+isValidSearchType = (type) -> if type? then type in searchTypes
 
-redirectIfNotVerified = ->
-  if Meteor.userId()? and CoLabs.isVerifiedUser() then @next()
-  else Router.go '/'
+isValidNotificationType = (type) -> if type? then type in notificationTypes
 
-redirectIfNotProjectAdmin = (projectId) ->
-  if Meteor.userId()? and CoLabs.isProjectAdmin projectId then @next()
-  else Router.go '/'
+isLoggedIn = -> Meteor.user()?
 
-redirectIfNotAdmin = ->
-  if Meteor.userId()? and CoLabs.isAdmin() then @next()
-  else Router.go '/'
+isVerified = -> CoLabs.isVerifiedUser()
+
+isCoLabsAdmin = -> CoLabs.isAdmin()
+
+
+redirectUnless = (ctor, perms) ->
+  for perm in perms
+    { func, args, fail } = perm
+    unless func args
+      Router.go fail
+      break
+  ctor.next()
 
 
 Router.map ->
@@ -43,33 +47,41 @@ Router.map ->
 
   @route 'search',
     path: '/search/:type?'
-    data: ->
-      Session.set 'isInvitedUsers', false
-      unless @params.type? then Session.set 'searchType', null
-      else if @params.type not in searchTypes then Router.go '/search'
-      else Session.set 'searchType', @params.type
+    onBeforeAction: -> redirectUnless @, [
+      { func: isValidSearchType, args: @params.type, fail: '/search' }
+    ]
 
 
   @route 'profile',
     path: '/profile'
-    onBeforeAction: redirectIfNotLoggedIn
+    onBeforeAction: -> redirectUnless @, [
+      { func: isLoggedIn, fail: '/' }
+    ]
   
   @route 'profileEdit',
     path:'/profile/edit'
-    onBeforeAction: redirectIfNotLoggedIn
+    onBeforeAction: -> redirectUnless @, [
+      { func: isLoggedIn, fail: '/' }
+    ]
     data: -> Session.set 'tags', Meteor.user().tags
   
   @route 'otherProfile',
     path: '/user/:username'
+    # TODO: redirect if username not valid
 
 
   @route 'inbox',
     path: '/inbox'
-    onBeforeAction: redirectIfNotLoggedIn
+    onBeforeAction: -> redirectUnless @, [
+      { func: isLoggedIn, fail: '/' }
+    ]
 
   @route 'inboxChat',
     path: '/inbox/:username'
-    onBeforeAction: redirectIfNotLoggedIn
+    onBeforeAction: -> redirectUnless @, [
+      { func: isLoggedIn, fail: '/' }
+      # TODO: redirect if username not valid
+    ]
     data: ->
       contact = Meteor.users.findOne(username: @params.username)._id
       Session.set 'contact', contact
@@ -77,32 +89,37 @@ Router.map ->
 
   @route 'notifications',
     path: '/notifications/:type?'
-    onBeforeAction: redirectIfNotLoggedIn
-    data: ->
-      unless @params.type? then Session.set 'notificationsType', null
-      else if @params.type not in notificationTypes then Router.go '/notifications'
-      else Session.set 'notificationsType', @params.type
+    onBeforeAction: -> redirectUnless @, [
+      { func: isLoggedIn, fail: '/' }
+      { func: isValidNotificationType, args: @params.type, fail: '/notifications' }
+    ]
 
 
   @route 'projects',
     path: '/projects'
-    onBeforeAction: redirectIfNotVerified
+    onBeforeAction: -> redirectUnless @, [
+      { func: isVerified, fail: '/' }
+    ]
 
   @route 'projectDashboard',
     path: '/project/:id'
+    # TODO: redirect if id not valid
 
   @route 'inviteUsers',
     path:'/project/:id/invite'
-    # TODO: only allow project admins to invite users
-    #onBeforeAction: redirectIfNotProjectAdmin @params.id
-    data: -> Session.set 'isInvitedUsers', true
+    # TODO: redirect if id not valid
+    # TODO: redirect if not project admin
 
 
   @route 'admin',
     path: '/admin'
-    onBeforeAction: redirectIfNotAdmin
+    onBeforeAction: -> redirectUnless @, [
+      { func: isCoLabsAdmin, fail: '/' }
+    ]
     data: -> Session.set 'logEnabled', Logger.isEnabled
 
   @route 'adminPower',
     path: '/admin/power'
-    onBeforeAction: redirectIfNotAdmin
+    onBeforeAction: -> redirectUnless @, [
+      { func: isCoLabsAdmin, fail: '/' }
+    ]

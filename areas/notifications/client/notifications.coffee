@@ -1,7 +1,7 @@
 Template.notificationTypeSelectors.helpers
-  isAll: -> null is Session.get 'notificationType'
-  isGeneral: -> 'general' is Session.get 'notificationType'
-  isInvites: -> 'invites' is Session.get 'notificationType'
+  isAll: -> not Router.current().params.type?
+  isGeneral: -> Router.current().params.type? is 'general'
+  isInvites: -> Router.current().params.type? is 'invites'
 
 Template.notificationTypeSelectors.events
   'change .typeSelector': (event) ->
