@@ -11,7 +11,7 @@ updateConversation = (user, contact, message)->
 
 CoLabs.methods
   addMessage: (messageModel)->
-    if Meteor.user()? and Meteor.users.findOne(messageModel.to)?
+    if CoLabs.isLoggedIn() and Meteor.users.findOne(messageModel.to)?
       user = Meteor.userId()
       Messages.insert {
         to: messageModel.to

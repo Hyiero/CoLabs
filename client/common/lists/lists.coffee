@@ -1,15 +1,21 @@
 Template.listFilter.helpers
-  tags: -> Session.get('tagSearch') ? ''
-  name: -> Session.get('nameSearch') ? ''
+  skills: -> (Session.get 'skillSearch') ? ''
+  interests: -> (Session.get 'interestSearch') ? ''
+  name: -> (Session.get 'nameSearch') ? ''
 
 Template.listFilter.events
-  'input #tagFilter': (event) ->
-    Session.set 'tagSearch', $(event.currentTarget).val()
+  'input #skillFilter': (event) ->
+    Session.set 'skillSearch', $(event.currentTarget).val()
+  'input #interestFilter': (event) ->
+    Session.set 'interestSearch', $(event.currentTarget).val()
   'input #nameFilter': (event) ->
     Session.set 'nameSearch', $(event.currentTarget).val()
-  'click #clearTagFilter': (event) ->
-    $('#tagFilter').val ''
-    Session.set 'tagSearch', ''
+  'click #clearSkillFilter': (event) ->
+    $('#skillFilter').val ''
+    Session.set 'skillSearch', ''
+  'click #clearInterestFilter': (event) ->
+    $('#interestFilter').val ''
+    Session.set 'interestSearch', ''
   'click #clearNameFilter': (event) ->
     $('#nameFilter').val ''
     Session.set 'nameSearch', ''
@@ -31,12 +37,14 @@ Template.listResults.helpers
     onclick: -> Meteor.call 'inviteUserToProject',
       userId: @data 'context'
       projectId: Router.current().params.id
-  tags: -> if @tags? then (@tags).join ', '
+  skills: -> if @skills? then (@skills).join ', '
+  interests: -> if @interests? then (@interests).join ', '
   time: -> (new Date this.createdAt).toLocaleTimeString()
-  isLoggedIn: -> Meteor.user()?
+  isLoggedIn: -> CoLabs.isLoggedIn()
   isUser: (type) -> type is 'user'
   isInvite: -> 'invite' in Router.current().url.split '/'
   filterInput: ->
-    nameInput = Session.get('nameSearch') ? ''
-    tagInput = Session.get('tagSearch') ? ''
-    "#{nameInput} | #{tagInput}"
+    nameInput = (Session.get 'nameSearch') ? ''
+    skillInput = (Session.get 'skillSearch') ? ''
+    interestInput = (Session.get 'interestSearch') ? ''
+    "#{nameInput} | #{skillInput} | #{interestInput}"

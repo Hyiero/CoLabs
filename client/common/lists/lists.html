@@ -10,14 +10,24 @@
         <i class="clearNameFilter fa fa-close"></i>
     </div>
     <div class="filter form-group btn-group">
-        <label for="tagFilter">Tags</label>
+        <label for="skillFilter">Skills</label>
         <input type="text"
                class="form-control"
-               id="tagFilter"
-               name="tagFilter"
+               id="skillFilter"
+               name="skillFilter"
                placeholder="Enter search terms"
-               value="{{tags}}">
-        <i class="clearTagFilter fa fa-close"></i>
+               value="{{skills}}">
+        <i class="clearSkillFilter fa fa-close"></i>
+    </div>
+    <div class="filter form-group btn-group">
+        <label for="interestFilter">Interests</label>
+        <input type="text"
+               class="form-control"
+               id="interestFilter"
+               name="interestFilter"
+               placeholder="Enter search terms"
+               value="{{interests}}">
+        <i class="clearInterestFilter fa fa-close"></i>
     </div>
 </template>
 
@@ -45,12 +55,12 @@
                             <span>{{prettyDateTime createdAt}}</span>
                         </li>
                         <li>
-                            <i class="fa fa-clock-o" title="Created Time"></i>
-                            <span>{{time}}</span>
+                            <i class="fa fa-clock-o" title="Skills"></i>
+                            <span>{{skills}}</span>
                         </li>
                         <li>
-                            <i class="fa fa-tags" title="Tags"></i>
-                            <span>{{tags}}</span>
+                            <i class="fa fa-tags" title="Interests"></i>
+                            <span>{{interests}}</span>
                         </li>
                     </ul>
                 </div>

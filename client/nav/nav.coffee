@@ -19,7 +19,7 @@ Template.navLinks.rendered = ->
   else console.log 'Nav link has incorrect id (id of element in nav bar does not match route name)'
 
 Template.navLinks.helpers
-  isLoggedIn: -> Meteor.user()?
+  isLoggedIn: -> CoLabs.isLoggedIn()
   isVerifiedUser: -> CoLabs.isVerifiedUser()
   isAdmin: -> CoLabs.isAdmin()
   numNewMessages: -> Counts.get 'newMessages'

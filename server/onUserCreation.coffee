@@ -5,19 +5,17 @@ Accounts.onCreateUser (options, user) ->
   user.profile ?= {}
   user.projects ?= []
   user.identiconHex ?= CoLabs.encodeAsHexMd5(user.username.concat Date.now().toString())
-  user.avatar ?= ""
-  user.age ?= ""
-  user.tags ?= []
-  user.type ?= "user"
+  user.avatar ?= ''
+  user.age ?= ''
+  user.interests ?= []
+  user.skills ?= []
+  user.type ?= 'user'
   user.contacts ?= []
   user.conversations ?= []
   user.emails ?= []
-  user.firstName ?= ""
+  user.firstName ?= ''
   user.name ?= user.username
-  user.description ?= ""
-  
-  #Logger.enable()
-  #console.info user
+  user.description ?= ''
   
   last = null
   checkIfReady = ->

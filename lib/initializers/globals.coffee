@@ -37,7 +37,8 @@ CoLabs.methods
       lastName: obj.lastName
       description: obj.description
       age: obj.age
-      tags: obj.tags
+      skills: obj.skills
+      interests: obj.interests
       identiconHex: obj.identiconHex
 
   updateName: (id, newName) ->

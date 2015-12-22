@@ -2,38 +2,62 @@ Template.search.onCreated ->
   @subscribe 'allUsers'
   @subscribe 'allProjects'
 
-findByUsersTags = (name, tags)->
-  if tags.length is 0
+findByUsersTags = (name, skills, interests)->
+  if skills.length is 0 and interests.length is 0
     Meteor.users.find(
       name: $regex: "^#{name}.*", $options: 'i'
+    ).fetch()
+  else if interests.length is 0
+    Meteor.users.find(
+      name: $regex: "^#{name}.*", $options: 'i'
+      skills: $all: skills
+    ).fetch()
+  else if skills.length is 0
+    Meteor.users.find(
+      name: $regex: "^#{name}.*", $options: 'i'
+      interests: $all: interests
     ).fetch()
   else
     Meteor.users.find(
       name: $regex: "^#{name}.*", $options: 'i'
-      tags: $all: tags
+      skills: $all: skills
+      interests: $all: interests
     ).fetch()
 
-findByProjectTags = (name, tags)->
-  if tags.length is 0
+findByProjectTags = (name, skills, interests)->
+  if skills.length is 0 and interests.length is 0
     Projects.find(
       name: $regex: "^#{name}.*", $options: 'i'
+    ).fetch()
+  else if interests.length is 0
+    Projects.find(
+      name: $regex: "^#{name}.*", $options: 'i'
+      skills: $all: skills
+    ).fetch()
+  else if skills.length is 0
+    Projects.find(
+      name: $regex: "^#{name}.*", $options: 'i'
+      interests: $all: interests
     ).fetch()
   else
     Projects.find(
       name: $regex: "^#{name}.*", $options: 'i'
-      tags: $all: tags
+      skills: $all: skills
+      interests: $all: interests
     ).fetch()
 
 Template.search.helpers
   filterResults: ->
-    tags = Session.get('tagSearch') ? ''
-    tags = tags.trim().split ' ' if tags.length > 0
-    name = Session.get('nameSearch') ? ''
+    skills = (Session.get 'skillSearch') ? ''
+    skills = skills.trim().split ' ' if skills.length > 0
+    interests = (Session.get 'interestSearch') ? ''
+    interests = interests.trim().split ' ' if interests.length > 0
+    name = (Session.get 'nameSearch') ? ''
     type = Router.current().params.type
     results = switch type
-      when 'users' then findByUsersTags(name, tags)
-      when 'projects' then findByProjectTags(name, tags)
-      else findByProjectTags(name, tags).concat findByUsersTags(name, tags)
+      when 'users' then findByUsersTags(name, skills, interests)
+      when 'projects' then findByProjectTags(name, skills, interests)
+      else findByProjectTags(name, skills, interests).concat findByUsersTags(name, skills, interests)
     results = results.filter (item)->
       item.type is 'user' and item._id isnt Meteor.userId()
 
@@ -44,12 +68,13 @@ Template.searchTypeSelectors.helpers
   isBoth: -> not Router.current().params.type?
 
 Template.searchTypeSelectors.events
-  "change .typeSelector": (event) ->
+  'change .typeSelector': (event) ->
     $elem = $ event.currentTarget
     if $elem.is ':checked'
       val = $elem.val()
       if val != 'both'
-        Session.set 'tagSearch', ''
+        Session.set 'skillSearch', ''
+        Session.set 'interestSearch', ''
         Session.set 'nameSearch', ''
         Router.go 'search', type: val
       else Router.go 'search'

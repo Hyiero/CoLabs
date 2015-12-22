@@ -30,7 +30,8 @@ CoLabs.methods
         createdAt: Date.now()
         users: [userId]
         admins: [userId]
-        tags: []
+        skills: []
+        interests: []
         conversation: []
         identiconHex: CoLabs.encodeAsHexMd5(data.name.concat Date.now().toString())
         type: 'project' }, (err, doc)->

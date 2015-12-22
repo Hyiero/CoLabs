@@ -1,11 +1,13 @@
 Template.profileEdit.events
   'submit form': (e) ->
     e.preventDefault()
-    longTagString = e.target.tagTextBox.value
-    allTags = longTagString.trim().split ' '
+    longSkillString = e.target.skillTextBox.value
+    longInterestString = e.target.interestTextBox.value
+    allSkills = longSkillString.trim().split ' '
+    allInterests = longInterestString.trim().split ' '
 
-    if allTags.length is 1 and allTags[0] is ''
-      allTags = []
+    if allSkills.length is 1 and allSkills[0] is '' then allSkills = []
+    if allInterests.length is 1 and allInterests[0] is '' then allInterests = []
 
     Meteor.call 'updateUser', {
       email: e.target.emailTextBox.value
@@ -14,7 +16,8 @@ Template.profileEdit.events
       lastName: e.target.lastNameTextBox.value
       description: e.target.descriptionTextBox.value
       age: e.target.ageTextBox.value
-      tags: allTags
+      skills: allSkills
+      interests: allInterests
       identiconHex: Session.get 'identiconHex' or @identiconHex
     }, (err, res) ->
       if err?
@@ -24,8 +27,10 @@ Template.profileEdit.events
       else toast.success 'Success!',
         "You're profile was updated."
 
-getCurrentTags = -> Session.get 'tags'
-getConcatTags = -> getCurrentTags()?.join ' '
+getCurrentSkills = -> Session.get 'skills'
+getCurrentInterests = -> Session.get 'interests'
+getConcatSkills = -> getCurrentSkills()?.join ' '
+getConcatInterests = -> getCurrentInterests()?.join ' '
 
 Template.profileEdit.helpers
   previewIdenticonButton: -> Render.button
@@ -64,8 +69,10 @@ Template.profileEdit.helpers
       
       # Gets first email
       else user.emails[0].address
-  concatTags:-> getConcatTags()
-  currentTags:-> getCurrentTags()
+  concatSkills:-> getConcatSkills()
+  concatInterests:-> getConcatInterests()
+  currentSkills:-> getCurrentSkills()
+  currentInterests:-> getCurrentInterests()
   identiconHex: -> Session.get 'identiconHex' or @identiconHex
   avatar: -> @avatar or Session.get 'identiconHex' or @identiconHex
 

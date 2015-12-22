@@ -23,7 +23,7 @@ isValidSearchType = (type) -> if type? then type in searchTypes
 
 isValidNotificationType = (type) -> if type? then type in notificationTypes
 
-isLoggedIn = -> Meteor.user()?
+isLoggedIn = -> CoLabs.isLoggedIn()
 
 isVerified = -> CoLabs.isVerifiedUser()
 
@@ -63,7 +63,9 @@ Router.map ->
     onBeforeAction: -> redirectUnless @, [
       { func: isLoggedIn, fail: '/' }
     ]
-    data: -> Session.set 'tags', Meteor.user().tags
+    data: ->
+      Session.set 'skills', Meteor.user().skills
+      Session.set 'interests', Meteor.user().interests
   
   @route 'otherProfile',
     path: '/user/:username'
