@@ -7,34 +7,34 @@
     <h2>Contact List</h2>
     <div class="conversation-wrap col-lg-3">
         {{#each contactList}}
-            {{#if contactExists contact}}
-                <div class="media conversation" data-id="{{contact}}">
-                    <a class="pull-left" href="#">
-                        {{> userAvatar userId=contact size="sm"}}
-                    </a>
-                    <div class="media-body">
-                        <h5 class="media-heading">{{nameOf contact}}</h5>
-                        <small>{{descriptionOf contact}}</small>
-                    </div>
-                    {{>favoriteContact id=contact}}
-                </div>
-            {{else}}
-                <div class="media conversation" data-id="{{contact}}">
-                    <a class="pull-left" href="#">
-                        {{>deletedAvatar size="sm"}}
-                    </a>
-                    <div class="media-body">
-                        <h5 class="media-heading"><em>Deleted User</em></h5>
-                        <small>{{contact}}</small>
-                    </div>
-                </div>
-            {{/if}}
+            {{> previousContact contact=contact}}
         {{/each}}
     </div>
 </template>
 
-<template name="favoriteContact">
-    {{{favoriteButton}}}
+<template name="previousContact">
+    {{#if contactExists contact}}
+        <div class="media conversation" data-id="{{contact}}">
+            <a class="pull-left" href="#">
+                {{> userAvatar userId=contact size="sm"}}
+            </a>
+            <div class="media-body">
+                <h5 class="media-heading">{{nameOf contact}}</h5>
+                <small>{{descriptionOf contact}}</small>
+            </div>
+            {{{favoriteButton}}}
+        </div>
+    {{else}}
+        <div class="media conversation" data-id="{{contact}}">
+            <a class="pull-left" href="#">
+                {{> deletedAvatar size="sm"}}
+            </a>
+            <div class="media-body">
+                <h5 class="media-heading"><em>Deleted User</em></h5>
+                <small>{{contact}}</small>
+            </div>
+        </div>
+    {{/if}}
 </template>
 
 <template name="messageList">
@@ -67,22 +67,26 @@
     </div>
     <div class="conversation-wrap">
         {{#each conversationList}}
-            <div class="media conversation" data-id="{{contact}}">
-                <span class="txt">{{nameOf contact}}</span>
-                {{#if favorite contact}}
-                    <i class="fa fa-star-o"></i>
-                {{/if}}
-                <span class="txt">{{preview message}}</span>
-                {{#if inbound message}}
-                    <i class="fa fa-download"></i>
-                    {{#if unread message}}
-                        <i class="fa fa-envelope-o"></i>
-                    {{/if}}
-                {{else}}
-                    <i class="fa fa-upload"></i>
-                {{/if}}
-                <small class="pull-right time"><i class="fa fa-clock-o"></i> {{timeOf message}}</small>
-            </div>
+            {{> messageDetails contact=contact message=message}}
         {{/each}}
+    </div>
+</template>
+
+<template name="messageDetails">
+    <div class="media conversation" data-id="{{contact}}">
+        <span class="txt">{{nameOf contact}}</span>
+        {{#if favorite contact}}
+            <i class="fa fa-star-o"></i>
+        {{/if}}
+        <span class="txt">{{preview message}}</span>
+        {{#if inbound message}}
+            <i class="fa fa-download"></i>
+            {{#if unread message}}
+                <i class="fa fa-envelope-o"></i>
+            {{/if}}
+        {{else}}
+            <i class="fa fa-upload"></i>
+        {{/if}}
+        <small class="pull-right time"><i class="fa fa-clock-o"></i> {{timeOf message}}</small>
     </div>
 </template>

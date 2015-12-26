@@ -27,11 +27,13 @@ Template.userProfile.helpers
   hasEmailSaved: -> @emails?.length > 0
   hasVerifiedEmail: -> (@emails[0]?.filter (e) -> e.verified).length > 0
   otherProfileAndLoggedIn: ->
-    # TODO: Make sure it's not the logged in user
-    CoLabs.isLoggedIn() and 'user' in Router.current().url.split '/'
+    userUrl = 'user' in Router.current().url.split '/'
+    notCurrent = Meteor.user().username isnt Router.current().params.username
+    CoLabs.isLoggedIn() and userUrl and notCurrent
 
 Template.inviteToProjectModal.onCreated ->
   @subscribe 'myProjects'
+  @subscribe 'userInvites', Meteor.users.findOne(username:Router.current().params.username)._id
 
 Template.inviteToProjectModal.helpers
   buttonClose: -> Render.buttonClose
@@ -46,5 +48,7 @@ Template.inviteToProjectModal.helpers
         userId: user
         projectId: (@data 'context').projectId
   adminProjects: ->
-    # TODO: Remove projects user is already invited to
-    Projects.find(admins: Meteor.userId()).fetch()
+    adminProjects = Projects.find(admins: Meteor.userId()).fetch()
+    invites = Notifications.find().fetch()
+    invitedProjects = (invite.data.projectId for invite in invites)
+    adminProjects.filter (id)-> id not in invitedProjects

@@ -90,7 +90,7 @@
                             {{/if}}
 
                             <h4>
-                                <i class="fa fa-tags"></i>
+                                <i class="fa fa-graduation-cap"></i>
                                 <span class="txt">Current Skills</span>
                             </h4>
                             {{#if skills}}
@@ -149,14 +149,14 @@
                     <h4 class="modal-title">Projects</h4>
                 </div>
                 <div class="modal-body">
-                    <ul>
+                    <div class="conversation-wrap">
                         {{#each adminProjects}}
-                            <li>
+                            <div class="media conversation">
                                 <span class="txt">{{name}}</span>
                                 {{{inviteButton}}}
-                            </li>
+                            </div>
                         {{/each}}
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>
