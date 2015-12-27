@@ -40,11 +40,6 @@ CoLabs.methods
             projects.push doc
             Meteor.users.update userId, $set:
               projects: projects
-  updateProject: (data)->
-    if Meteor.userId() in Projects.findOne data.id
-      Projects.update data.id, $set:
-        name: data.name
-        description: data.description
   removeUserFromProject: (data)->
     project = Projects.findOne data.projectId
     if Meteor.userId() in project.admins or Meteor.userId() is data.userId

@@ -1,6 +1,6 @@
 <template name="projects">
     <h1>Your Current Projects</h1>
-    {{> projectForm}}
+    {{{buttonAddNew}}}
     <div>
         {{#each projects}}
             {{> project }}
@@ -10,8 +10,7 @@
 </template>
 
 <template name="project">
-    <div id="{{id}}">
-        
+    <div>
         <h3><a href="/project/{{_id}}">{{name}}</a></h3>
         <p>{{description}}</p>
         
@@ -24,35 +23,11 @@
             {{/each}}
         </ul>
         <hr />
-        
+
+        {{{dashboardButton}}}
         {{{editProjectButton}}}
-        {{{addUsersButton}}}
         {{{removeMeButton}}}
     </div>
-</template>
-
-<template name="projectForm">
-    {{#if edit}}
-    <form class="projectSubmitForm" role="form">
-        <div class="form-group">
-            <label for="projectName">Project Name:</label>
-            <input id="projectName" class="form-control"
-                type="text" placeholder="Name" value="{{projectName}}"/>
-        </div>
-        <div class="form-group">
-            <label for="projectDescription">Project Description:</label>
-            <textarea id="projectDescription" class="form-control"
-                placeholder="Description">{{projectDescription}}</textarea>
-        </div>
-        <hr />
-        <div class="button-group form-group pull-right inline">
-            {{{buttonCancel}}}
-            {{{buttonSubmit}}}
-        </div>
-    </form>
-    {{else}}
-        {{{buttonAddNew}}}
-    {{/if}}
 </template>
 
 <template name="createProjectModal">

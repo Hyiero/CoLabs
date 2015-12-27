@@ -107,6 +107,16 @@ Router.map ->
     path: '/project/:id'
     # TODO: redirect if id not valid
 
+  @route 'projectSettings',
+    path:'/project/:id/settings'
+    # TODO: redirect if id not valid
+    # TODO: redirect if not project admin
+
+  @route 'editProject',
+    path:'/project/:id/edit'
+    # TODO: redirect if id not valid
+    # TODO: redirect if not project admin
+
   @route 'inviteUsers',
     path:'/project/:id/invite'
     # TODO: redirect if id not valid

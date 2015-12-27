@@ -25,7 +25,7 @@ Template.profileEdit.events
           err.reason or 'Email address is already taken.'
         console.error err
       else toast.success 'Success!',
-        "You're profile was updated."
+        "Your profile was updated."
 
 getCurrentSkills = -> Session.get 'skills'
 getCurrentInterests = -> Session.get 'interests'
@@ -93,13 +93,3 @@ Template.removeUserModal.helpers
     icon: 'child'
     type: 'info'
     dataDismiss: 'modal'
-
-    
-Template.tagButton.events
-  'click': (e) ->
-    e.preventDefault()
-    tags = getCurrentTags()
-    index = tags.indexOf e.target.value
-    if index > -1
-      tags.splice index, 1
-    Session.set 'tags', tags

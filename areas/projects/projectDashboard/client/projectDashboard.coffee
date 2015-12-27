@@ -1,12 +1,18 @@
 Template.projectDashboard.onCreated ->
-  Meteor.subscribe 'oneProject', Router.current().params.id
+  @subscribe 'oneProject', Router.current().params.id
 
 Template.projectDashboard.helpers
+  projectSettingsButton: -> Render.button
+    type: 'primary'
+    text: 'Project Settings'
+    icon: 'edit'
+    onclick: -> Router.go "/project/#{Router.current().params.id}/settings"
   project: -> Projects.findOne()
+  isProjectAdmin: -> Meteor.userId() in Projects.findOne().admins
 
 Template.projectChat.onCreated ->
-  Meteor.subscribe 'oneProject', Router.current().params.id
-  Meteor.subscribe 'projectUsers', Router.current().params.id
+  @subscribe 'oneProject', Router.current().params.id
+  @subscribe 'projectUsers', Router.current().params.id
 
 Template.projectChat.helpers
   contactExists: (id) -> Meteor.users.findOne(id)?

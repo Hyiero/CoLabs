@@ -2,67 +2,40 @@ Template.projects.onCreated ->
   @subscribe 'myProjects'
 
 Template.projects.helpers
-  projects: -> Projects.find().fetch()
-
-Template.project.onCreated ->
-  @subscribe 'projectUsers', @data._id
-
-Template.project.helpers
-  editProjectButton: -> Render.button
-    type: 'primary'
-    icon: 'edit'
-    text: 'Edit Project'
-    dataId: @_id
-    onclick: ->
-      project = Projects.findOne @data 'id'
-      Session.set 'projectId' , project._id
-      Session.set 'editProject', true
-  addUsersButton: -> Render.button
-    type: 'info'
-    icon: 'user'
-    text: 'Add Users'
-    dataId: @_id
-    onclick: ->
-      Router.go "/project/#{@data 'id'}/invite"
-  removeMeButton: -> Render.buttonDelete
-    icon: 'remove'
-    text: 'Remove Me'
-    dataId: @_id
-    onclick: ->
-      Meteor.call 'removeUserFromProject',
-        projectId: @data 'id'
-        userId: Meteor.userId()
-  users: -> Meteor.users.find _id: $in: @users
-  username: (id) -> Meteor.users.findOne(id)?.username
-
-Template.projectForm.helpers
-  buttonCancel: -> Render.buttonCancel
-    icon: 'hand-o-left'
-    text: 'Back'
-    onclick: -> Session.set 'editProject', false
-  buttonSubmit: -> Render.buttonSave
-    text: 'Save Project'
-    onclick: ->
-      data =
-        id: Session.get 'projectId'
-        name: $('#projectName').val()
-        description: $('#projectDescription').val()
-      Meteor.call 'updateProject', data, (err, res) ->
-        if err then console.log err
-        else Session.set 'editProject', false
-      false
   buttonAddNew: -> Render.button
     icon: 'plus'
     text: 'Add New'
     type: 'success'
     class: 'pull-right'
     onclick: -> Modal.show 'createProjectModal'
-  projectName: -> @projectName or ''
-  projectDescription: -> @projectDescription or ''
-  edit: -> Session.get 'editProject'
+  projects: -> Projects.find(admins: Meteor.userId()).fetch()
 
-Template.projectForm.events
-  'submit projectSubmitForm': (e) -> e.preventDefault()
+Template.project.onCreated ->
+  @subscribe 'projectUsers', @data._id
+
+Template.project.helpers
+  dashboardButton: -> Render.button
+    icon: 'folder'
+    text: 'Project Dashboard'
+    dataId: @_id
+    onclick: -> Router.go "/project/#{@data 'id'}"
+  removeMeButton: -> Render.buttonDelete
+    icon: 'remove'
+    text: 'Remove Me'
+    dataId: @_id
+    onclick: ->
+      # TODO: Add warning modal
+      Meteor.call 'removeUserFromProject',
+        projectId: @data 'id'
+        userId: Meteor.userId()
+  editProjectButton: -> Render.button
+    type: 'primary'
+    icon: 'edit'
+    text: 'Edit Project'
+    dataId: @_id
+    onclick: -> Router.go "/project/#{@data 'id'}/edit"
+  users: -> Meteor.users.find _id: $in: @users
+  username: (id) -> Meteor.users.findOne(id)?.username
 
 Template.createProjectModal.helpers
   buttonClose: -> Render.buttonClose
