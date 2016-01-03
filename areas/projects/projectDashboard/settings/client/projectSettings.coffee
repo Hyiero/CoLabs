@@ -12,3 +12,8 @@ Template.projectSettings.helpers
     text: 'Invite Users'
     icon: 'user'
     onclick: -> Router.go "/project/#{Router.current().params.id}/invite"
+  adminsButton: -> Render.button
+    type: 'danger'
+    text: 'Add/remove admins'
+    icon: 'plus'
+    onclick: -> Router.go "/project/#{Router.current().params.id}/admins"

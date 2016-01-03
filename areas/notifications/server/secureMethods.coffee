@@ -27,3 +27,7 @@ CoLabs.methods
       projects.push projectId
       Meteor.users.update userId, $set:
         projects: projects
+
+  dismissNotification: (notificationId)->
+    Notifications.update notificationId, $set:
+      'data.status': 'accepted'

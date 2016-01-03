@@ -25,7 +25,6 @@ Template.chat.events
     messageModel =
       to: contact
       message: $('#messageContent').val()
-      timeStamp: new Date()
     Meteor.call 'addContact', contact unless Messages.findOne(to: contact, from: user)?
     Meteor.call 'addMessage', messageModel
     $('#messageContent').val ''

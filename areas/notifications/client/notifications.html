@@ -32,6 +32,12 @@
         <inline class=" col-md-12 " block>
             <div class="col-sm-3">Type: {{type}}</div>
             <div class="col-sm-3">Date: {{prettyDateTime timeStamp}}</div>
+            {{#if isGeneral type}}
+                <div class="col-sm-3">{{data.message}}</div>
+                <div class="col-sm-2">
+                    {{{dismissNotifyButton}}}
+                </div>
+            {{/if}}
             {{#if isInvite type}}
                 <div class="col-sm-3">Project: {{data.projectId}}</div>
                 <div class="col-sm-2">

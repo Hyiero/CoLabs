@@ -3,4 +3,11 @@ CoLabs.methods
     if CoLabs.isAdmin()
       { target, command } = data
       Meteor.users.update target, $set:
-        isAdmin: if command is "grant" then true else undefined
+        isAdmin: command is "grant"
+      Notifications.insert
+        userId: target
+        type: 'general'
+        timeStamp: new Date()
+        data:
+          status: 'none'
+          message: "You have #{if command is 'grant' then 'been granted' else 'lost'} CoLabs admin power"

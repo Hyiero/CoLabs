@@ -27,7 +27,7 @@ CoLabs.methods
       Projects.insert {
         name: data.name
         description: data.description
-        createdAt: Date.now()
+        createdAt: new Date()
         users: [userId]
         admins: [userId]
         skills: []

@@ -5,7 +5,7 @@ sendTo window, setLogging: (enable) ->
   Session.set 'logEnabled', Logger.isEnabled
 
 Template.admin.helpers
-  adminPowersButton: -> Render.buttonDelete
+  buttonAdminPowers: -> Render.button
     text: 'Add/Remove Admins'
     icon: 'user-plus'
     onclick: -> Router.go '/admin/power'

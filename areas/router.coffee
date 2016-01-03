@@ -122,6 +122,11 @@ Router.map ->
     # TODO: redirect if id not valid
     # TODO: redirect if not project admin
 
+  @route 'projectAdmins',
+    path:'/project/:id/admins'
+    # TODO: redirect if id not valid
+    # TODO: redirect if not project admin
+
 
   @route 'admin',
     path: '/admin'

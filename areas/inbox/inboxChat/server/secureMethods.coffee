@@ -17,7 +17,7 @@ CoLabs.methods
         to: messageModel.to
         from: user
         message: messageModel.message
-        timeStamp: messageModel.timeStamp
+        timeStamp: new Date()
         read: false }, (err, doc)->
           unless err?
             updateConversation messageModel.to, user, doc

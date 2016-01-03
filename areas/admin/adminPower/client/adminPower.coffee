@@ -15,13 +15,15 @@ Template.powerGrant.helpers
     text: 'Revoke Admin'
 
 Template.powerGrant.events
-  "click .powerButton": (event) ->
-    user = Meteor.users.findOne( username: $("#adminSelect").val())
+  'click .powerButton': (event) ->
+    $elem = $ '#adminSelect'
+    user = Meteor.users.findOne( username: $elem.val())
     if user?
       powerCommand =
         target: user._id
-        command: $(event.currentTarget).data "command"
-      Meteor.call "adminPower", powerCommand
+        command: $(event.currentTarget).data 'command'
+      Meteor.call 'adminPower', powerCommand
+    $elem.val ''
 
 Template.adminList.onCreated ->
   @subscribe 'allUsers'

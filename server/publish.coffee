@@ -3,8 +3,11 @@ Meteor.publish 'allUsers', -> Meteor.users.find()
 
 Meteor.publish 'projectUsers', (id) ->
   project = Projects.findOne id
-  users = project.users
-  Meteor.users.find _id: $in: users
+  Meteor.users.find _id: $in: project.users
+
+Meteor.publish 'projectAdmins', (id) ->
+  project = Projects.findOne id
+  Meteor.users.find _id: $in: project.admins
 
 Meteor.publish 'oneUser', (id) -> Meteor.users.find id
 
@@ -19,8 +22,7 @@ Meteor.publish 'oneProject', (id) -> Projects.find id
 
 Meteor.publish 'myProjects', ->
   user = Meteor.users.findOne @userId
-  projects = user.projects
-  Projects.find _id: $in: projects
+  Projects.find _id: $in: user.projects
 
 
 Meteor.publish 'oneMessage', (id)-> Messages.find id

@@ -15,6 +15,12 @@ Template.notificationList.onCreated ->
   @subscribe 'myNotifications'
 
 Template.notificationList.helpers
+  dismissNotifyButton: -> Render.buttonClose
+    icon: 'close'
+    text: 'Dismiss'
+    class: 'pull-right'
+    dataContext: notificationId: @_id
+    onclick: -> Meteor.call 'dismissNotification', @data('context').notificationId
   acceptInvitationButton: -> Render.buttonSave
     icon: 'thumbs-o-up'
     text: 'Accept'
@@ -28,4 +34,5 @@ Template.notificationList.helpers
     dataContext: { notificationId: @_id }
     onclick: -> Meteor.call 'respondToInvite', @data('context')
   notifications: -> Notifications.find('data.status': 'none').fetch()
+  isGeneral: (type) -> type is 'general'
   isInvite: (type) -> type is 'invite'

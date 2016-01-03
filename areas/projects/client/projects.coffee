@@ -31,9 +31,9 @@ Template.project.helpers
   editProjectButton: -> Render.button
     type: 'primary'
     icon: 'edit'
-    text: 'Edit Project'
+    text: 'Project Settings'
     dataId: @_id
-    onclick: -> Router.go "/project/#{@data 'id'}/edit"
+    onclick: -> Router.go "/project/#{@data 'id'}/settings"
   users: -> Meteor.users.find _id: $in: @users
   username: (id) -> Meteor.users.findOne(id)?.username
 

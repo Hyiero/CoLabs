@@ -58,8 +58,7 @@ Template.search.helpers
       when 'users' then findByUsersTags(name, skills, interests)
       when 'projects' then findByProjectTags(name, skills, interests)
       else findByProjectTags(name, skills, interests).concat findByUsersTags(name, skills, interests)
-    results = results.filter (item)->
-      item.type is 'user' and item._id isnt Meteor.userId()
+    results = results.filter (item)-> item._id isnt Meteor.userId()
 
 
 Template.searchTypeSelectors.helpers
