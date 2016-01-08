@@ -8,7 +8,8 @@ Template.projects.helpers
     type: 'success'
     class: 'pull-right'
     onclick: -> Modal.show 'createProjectModal'
-  projects: -> Projects.find(admins: Meteor.userId()).fetch()
+  projects: -> Projects.find(users: Meteor.userId()).fetch()
+  isVerified: -> CoLabs.isVerifiedUser()
 
 Template.project.onCreated ->
   @subscribe 'projectUsers', @data._id
@@ -28,7 +29,7 @@ Template.project.helpers
       Meteor.call 'removeUserFromProject',
         projectId: @data 'id'
         userId: Meteor.userId()
-  editProjectButton: -> Render.button
+  projectSettingsButton: -> Render.button
     type: 'primary'
     icon: 'edit'
     text: 'Project Settings'
@@ -36,6 +37,7 @@ Template.project.helpers
     onclick: -> Router.go "/project/#{@data 'id'}/settings"
   users: -> Meteor.users.find _id: $in: @users
   username: (id) -> Meteor.users.findOne(id)?.username
+  isProjectAdmin: -> Meteor.userId() in @admins
 
 Template.createProjectModal.helpers
   buttonClose: -> Render.buttonClose

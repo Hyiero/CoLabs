@@ -100,7 +100,7 @@ Router.map ->
   @route 'projects',
     path: '/projects'
     onBeforeAction: -> redirectUnless @, [
-      { func: isVerified, fail: '/' }
+      { func: isLoggedIn, fail: '/' }
     ]
 
   @route 'projectDashboard',

@@ -20,7 +20,6 @@ Template.navLinks.rendered = ->
 
 Template.navLinks.helpers
   isLoggedIn: -> CoLabs.isLoggedIn()
-  isVerifiedUser: -> CoLabs.isVerifiedUser()
   isAdmin: -> CoLabs.isAdmin()
   numNewMessages: -> Counts.get 'newMessages'
   numNewNotifications: -> Counts.get 'newNotifications'

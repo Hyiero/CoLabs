@@ -69,14 +69,12 @@
                 <span class="txt">Profile</span>
             </a>
         </li>
-        {{#if isVerifiedUser}}
-            <li id="projects">
-                <a href="{{pathFor 'projects'}}">
-                    <i class="fa fa-folder"></i>
-                    <span class="txt">Projects</span>
-                </a>
-            </li>
-        {{/if}}
+        <li id="projects">
+            <a href="{{pathFor 'projects'}}">
+                <i class="fa fa-folder"></i>
+                <span class="txt">Projects</span>
+            </a>
+        </li>
         <li id="inbox">
             <a href="{{pathFor 'inbox'}}">
                 <i class="fa fa-envelope"></i>

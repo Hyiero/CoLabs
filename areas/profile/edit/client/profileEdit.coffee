@@ -11,21 +11,23 @@ Template.profileEdit.events
 
     Meteor.call 'updateUser', {
       email: e.target.emailTextBox.value
-      avatar: e.target.avatarPathTextBox.value or @identiconHex
+      avatar: e.target.avatarPathTextBox.value
       firstName: e.target.firstNameTextBox.value
       lastName: e.target.lastNameTextBox.value
       description: e.target.descriptionTextBox.value
       age: e.target.ageTextBox.value
       skills: allSkills
       interests: allInterests
-      identiconHex: Session.get 'identiconHex' or @identiconHex
+      identiconHex: Session.get 'identiconHex'
     }, (err, res) ->
       if err?
         toast.danger 'Error!',
           err.reason or 'Email address is already taken.'
         console.error err
-      else toast.success 'Success!',
-        "Your profile was updated."
+      else
+        toast.success 'Success!',
+          "Your profile was updated."
+        Router.go '/profile'
 
 getCurrentSkills = -> Session.get 'skills'
 getCurrentInterests = -> Session.get 'interests'
@@ -45,7 +47,7 @@ Template.profileEdit.helpers
     text: 'Reset Avatar'
     icon: 'refresh'
     class: 'form-control'
-    onclick: -> Session.set 'identiconHex', null
+    onclick: -> Session.set 'identiconHex', Meteor.user().identiconHex
   buttonBack: -> Render.buttonCancel
     class: 'js-btn-back'
     icon: 'hand-o-left'

@@ -1,6 +1,8 @@
 <template name="projects">
     <h1>Your Current Projects</h1>
-    {{{buttonAddNew}}}
+    {{#if isVerified}}
+        {{{buttonAddNew}}}
+    {{/if}}
     <div>
         {{#each projects}}
             {{> project }}
@@ -25,7 +27,9 @@
         <hr />
 
         {{{dashboardButton}}}
-        {{{editProjectButton}}}
+        {{#if isProjectAdmin}}
+            {{{projectSettingsButton}}}
+        {{/if}}
         {{{removeMeButton}}}
     </div>
 </template>
