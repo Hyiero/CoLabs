@@ -20,8 +20,6 @@ logger
 react
 less
 hillmark:meteor-identicon
-mike:mocha
-practicalmeteor:chai
 vasaka:livescript-compiler
 jparker:crypto-md5
 jsml
