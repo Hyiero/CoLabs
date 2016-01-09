@@ -73,8 +73,7 @@ Logger = class
       result
 
   _.clear = ->
-    if window and window.console and window.console.clear
-      window.console.clear()
+    window?.console?.clear?()
     Meteor.call 'deleteAllLogs'
 
 
@@ -88,7 +87,7 @@ if Meteor.isClient
 if Meteor.isServer
   deleteAll = ->
     Logs.remove log._id for log in Logs.find().fetch()
-  Meteor.startup -> deleteAll()
+  #Meteor.startup -> deleteAll()
   Meteor.publish 'logs', -> Logs.find()
   Meteor.methods
     createLog: (log) -> Logs.insert log
