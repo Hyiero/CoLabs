@@ -1,0 +1,91 @@
+<template name="listFilter">
+    <div class="filter form-group btn-group">
+        <label for="nameFilter">Name</label>
+        <input type="text"
+               class="form-control"
+               id="nameFilter"
+               name="nameFilter"
+               placeholder="Enter name"
+               value="{{name}}">
+        <i class="clearNameFilter fa fa-close"></i>
+    </div>
+    <div class="filter form-group btn-group">
+        <label for="skillFilter">Skills</label>
+        <input type="text"
+               class="form-control"
+               id="skillFilter"
+               name="skillFilter"
+               placeholder="Enter search terms"
+               value="{{skills}}">
+        <i class="clearSkillFilter fa fa-close"></i>
+    </div>
+    <div class="filter form-group btn-group">
+        <label for="interestFilter">Interests</label>
+        <input type="text"
+               class="form-control"
+               id="interestFilter"
+               name="interestFilter"
+               placeholder="Enter search terms"
+               value="{{interests}}">
+        <i class="clearInterestFilter fa fa-close"></i>
+    </div>
+</template>
+
+<template name="listResults">
+    <hgroup class="mb20">
+        <h2 class="lead">
+            <strong class="text-danger">{{count list}}</strong> results were found for the search for <strong class="text-danger">{{filterInput}}</strong>
+        </h2>
+    </hgroup>
+
+    <section class="col-xs-12 col-sm-6 col-md-12">
+        {{#each list}}
+            <article class="search-result row">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    {{> userAvatar userId=_id size="md" }}
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2">
+                    <ul class="meta-search">
+                        <li>
+                            <i class="fa fa-user" title="Username"></i>
+                            <span>{{name}}</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-calendar" title="Created Date"></i>
+                            <span>{{prettyDateTime createdAt}}</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-clock-o" title="Skills"></i>
+                            <span>{{skills}}</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-tags" title="Interests"></i>
+                            <span>{{interests}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+                    {{#if isUser type}}
+                        <h3><a href="/user/{{username}}">{{firstName}} {{lastName}}</a></h3>
+                        {{#if description}}
+                            <p>{{description}}</p>
+                        {{/if}}
+                        {{#if isLoggedIn}}
+                            {{{messageButton}}}
+                        {{/if}}
+                        {{#if isInvite}}
+                            {{{inviteButton}}}
+                        {{/if}}
+                    {{else}}
+                        <h3><a href="/project/{{_id}}">{{name}}</a></h3>
+                        {{#if description}}
+                            <p>{{description}}</p>
+                        {{/if}}
+                        <!-- TODO: Either message project or request entry -->
+                    {{/if}}
+                </div>
+                <span class="clearfix borda"></span>
+            </article>
+        {{/each}}
+    </section>
+</template>

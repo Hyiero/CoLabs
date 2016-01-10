@@ -1,0 +1,25 @@
+<template name="adminPower">
+    {{> powerGrant }}
+    {{> adminList }}
+</template>
+
+<template name="powerGrant">
+    <input type="text"
+           id="adminSelect"
+           class="form-control at_adminSelectTextBox"
+           placeholder="Enter a username:"
+           value=""/>
+    {{{grantButton}}}
+    {{{revokeButton}}}
+</template>
+
+<template name="adminList">
+    <h2>Admin List</h2>
+    <div id="adminList">
+        {{#each admins}}
+            <div class="admin">
+                <span class="txt">{{username}}</span>
+            </div>
+        {{/each}}
+    </div>
+</template>
