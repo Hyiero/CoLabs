@@ -1,4 +1,4 @@
-Feature: Search the Web
+Feature: Splash page interface
 
   As a human
   I want to have buttons in splash page
@@ -6,6 +6,6 @@ Feature: Search the Web
 
   @watch
   Scenario: Look at pretty buttons
-    Given I have visited home page (splashpage)
-    When I search for observe
-    Then I see buttans
+    Given I am at the splash page
+    When I observe
+    Then I see buttons

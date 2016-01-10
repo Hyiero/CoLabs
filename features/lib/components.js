@@ -11,15 +11,19 @@ unimplemented = function () {
   console.warn('Unimplemented!')
 }
 
-mixin = function (mixFrom, mixTo) {
-  
-  for (var property in mixFrom) {
-    if (mixFrom.hasOwnProperty(property)) {
-      mixTo[property] = mixFrom[property]
+mixin = function () {
+  var mixFrom = Array.prototype.slice.call(arguments, 0, arguments.length - 1)
+  var mixTo = arguments[arguments.length - 1]
+
+  for (var i = 0; i < mixFrom.length; i++) {
+    for (var property in mixFrom[i]) {
+      if (mixFrom[i].hasOwnProperty(property)) {
+        mixTo[property] = mixFrom[i][property]
+      }
     }
   }
   
-  return mixTo;
+  return mixTo
 }
 
 
@@ -64,22 +68,16 @@ var Link = function (selector) {
   this.selector = selector
 }
 
-// TODO: mixin should accept multiple objects to mix from
-// mixin(mixFrom1, mixFrom2, mixTarget)
 Button.prototype = mixin(
   getVisibilityProps(),
-  mixin(
-    getMouseEvents(),
-    Button.prototype
-  )
+  getMouseEvents(),
+  Button.prototype
 )
 
 Link.prototype = mixin(
   getVisibilityProps(),
-  mixin(
-    getMouseEvents(),
-    Link.prototype
-  )
+  getMouseEvents(),
+  Link.prototype
 )
 
 console.log(Button.toString())
