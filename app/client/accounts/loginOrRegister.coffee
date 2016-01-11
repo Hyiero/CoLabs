@@ -4,6 +4,7 @@ Template.signInButton.events
 
 Template.loginOrRegisterModal.helpers
   buttonClose: -> Render.buttonClose
+    id: 'closeLoginModal'
     class: 'pull-right'
     dataDismiss: 'modal'
 

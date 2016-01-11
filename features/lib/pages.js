@@ -1,9 +1,15 @@
 
+var app = require('./app.js')
 var components = require('./components.js')
 var Button = components.Button
 var Link = components.Link
+var Input = components.Input
+var View = components.View
 
-console.info(components)
+
+var toasts = function (index) {
+  client.getText('.toast')
+}
 
 var splash = {
   
@@ -18,16 +24,22 @@ var splash = {
 }
 
 var profile = {
+
+  get url() {
+    return app.baseUrl + '/profile/' + this.username || ''
+  },
   
-  emailDisplay: new Button('#email'),
-  
-  firstNameDisplay: new Button('#firstName'),
-  
-  // ...
-  
+  buttons: {
+    emailDisplay: new Button('#email'),
+
+    firstNameDisplay: new Button('#firstName'),
+
+    // ...
+  }
+
 }
 
-exports = {
+module.exports = {
   splash: splash,
-  profile: profile,
+  profile: profile
 }

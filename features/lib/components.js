@@ -1,5 +1,5 @@
 
-createGetter = function (context, prop, get) {
+function createGetter(context, prop, get) {
   return Object.defineProperty(
     context.prototype, prop, {
       get: get,
@@ -7,13 +7,13 @@ createGetter = function (context, prop, get) {
   })
 }
 
-unimplemented = function () {
+function unimplemented() {
   console.warn('Unimplemented!')
 }
 
-mixin = function () {
-  var mixFrom = Array.prototype.slice.call(arguments, 0, arguments.length - 1)
-  var mixTo = arguments[arguments.length - 1]
+function mixin() {
+  var mixFrom = Array.prototype.slice.call(arguments)
+  var mixTo = mixFrom.pop()
 
   for (var i = 0; i < mixFrom.length; i++) {
     for (var property in mixFrom[i]) {
@@ -27,62 +27,102 @@ mixin = function () {
 }
 
 
-var getVisibilityProps = function () {
+function getVisibilityProps() {
   return {
-    // TODO: get isPresent() {
     isPresent: function () {
-      unimplemented()
-      //return client.waitForExist(this.selector)
+      return client.isExisting(this.selector)
     },
     
-    // TODO: get isDisplayed() {
     isDisplayed: function () {
-      unimplemented()
-      //return client.isDisplayed(this.selector)
+      return client.isVisible(this.selector)
     }
   }
 }
 
-var getMouseEvents = function () {
+function getMouseEvents() {
   return {
     click: function () {
       return client.click(this.selector)
     },
     
     hover: function () {
-      unimplemented()
+      return client.moveToObject(this.selector)
     },
     
-    drag: function () {
-      unimplemented()
+    drag: function (destinationSelector) {
+      return client.dragAndDrop(this.selector, destinationSelector)
+    }
+  }
+}
+
+function getKeyboardEvents() {
+  return {
+    setValue: function (value) {
+      return client.setValue(this.selector, value)
+    }
+  }
+}
+
+function getViewAssertions() {
+  return {
+    contains: function (text) {
+      return client.getText(this.selector)
+        .then(function (res) {
+          var isFound = false
+          res.forEach(function (item) {
+            if (item.indexOf(text) > -1) isFound = true
+          })
+          
+          return isFound
+        })
     }
   }
 }
 
 
-var Button = function (selector) {
+
+function Button(selector) {
   this.selector = selector
 }
 
-var Link = function (selector) {
+function Link(selector) {
+  this.selector = selector
+}
+
+function Input(selector) {
+  this.selector = selector
+}
+
+function View(selector) {
   this.selector = selector
 }
 
 Button.prototype = mixin(
   getVisibilityProps(),
   getMouseEvents(),
-  Button.prototype
-)
+  Button.prototype)
 
 Link.prototype = mixin(
   getVisibilityProps(),
   getMouseEvents(),
-  Link.prototype
-)
+  Link.prototype)
 
-console.log(Button.toString())
+Input.prototype = mixin(
+  getVisibilityProps(),
+  getMouseEvents(),
+  getKeyboardEvents(),
+  Input.prototype)
 
-exports.Button = Button
-exports.Link = Link
+View.prototype = mixin(
+  getVisibilityProps(),
+  getMouseEvents(),
+  getViewAssertions(),
+  View.prototype)
 
-console.log(exports)
+
+module.exports = {
+  Button: Button,
+  Link: Link,
+  Input: Input,
+  View: View
+}
