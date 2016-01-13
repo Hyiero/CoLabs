@@ -5,7 +5,52 @@ var Link = components.Link
 var Input = components.Input
 var View = components.View
 
+
+// app.views.toasts(0).getText('inner html text')
+// app.views.toasts(1).getAttribute('class')
+// app.views.toasts().count
+var toasts = function (index) {
+  
+  var getToasts = function () {
+    return client.elements('.toast')
+      .then(function (toasts) {
+        return toasts[index]
+      })
+  }
+  return {
+    
+    getText: function (text) {
+      return getToasts().getText(text)
+    },
+    
+    getAttribute: function (attrName) {
+      return getToasts().getAttribute(attrName)
+    }
+    
+    
+  }
+}
+
+// toast = (ind) -> ->
+//   getText: ->
+//   getAttribute: ->
+  
+  
+  
+  //var toasts = client.getText('.toast')
+  //  toasts.forEach()
+  
+  // client.elements[index]
+  // 
+  
+  
+
+
 var nav = {
+
+  buttons: {
+    collapse: new Button('#navbarCollapse')
+  },
   
   links: {
     splash: new Link('#splashLink'),
@@ -33,7 +78,8 @@ var nav = {
 
 var app = {
   views: {
-    nav: nav
+    nav: nav,
+    toasts: toasts
   },
   baseUrl: 'http://dev.colabs.biz/',
   pages: require('./pages.js'),

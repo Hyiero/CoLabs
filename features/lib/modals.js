@@ -4,6 +4,10 @@ var Button = components.Button
 var Input = components.Input
 
 var loginOrRegister = {
+  isDisplayed: function () {
+    return client.isVisible('#loginOrRegisterModal')
+  },
+  
   inputs: {
     loginOption: new Input('#loginRadioOption'),
     

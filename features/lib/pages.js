@@ -7,10 +7,6 @@ var Input = components.Input
 var View = components.View
 
 
-var toasts = function (index) {
-  client.getText('.toast')
-}
-
 var splash = {
   
   buttons: {

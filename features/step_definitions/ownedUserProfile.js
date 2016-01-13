@@ -29,9 +29,20 @@ module.exports = function()
     page.views.verifyEmailButton.click()
   })
 
-  this.Then(/^I see a success toast containing "sent"$/, function () {
+  this.Then(/^I see a (.*) toast containing "(.*)"$/, function (type, text, callback) {
     client.waitForExist(app.elems.toasts(0))
-    if (!app.views.toasts(0).contains('sent'))
-      fail('The most recent toast does not say "sent"!')
+    app.views.toasts(0).getText(text)
+      .then(function (text) {
+        if (!text) callback(fail('The most recent toast does not say "sent"!'))
+      })
+      .then(function () {
+        return app.views.toasts(0).getAttribute('class')
+          .then(function (attr) {
+            if (attr.indexOf(type) === -1)
+              callback(fail('The most recent toast was not of type "' + type + '"'))
+            else callback()
+          })
+      })
+    
   })
 }

@@ -30,10 +30,12 @@ function mixin() {
 function getVisibilityProps() {
   return {
     isPresent: function () {
+      client.waitForExist(this.selector)
       return client.isExisting(this.selector)
     },
     
     isDisplayed: function () {
+      client.waitForExist(this.selector)
       return client.isVisible(this.selector)
     }
   }
@@ -42,14 +44,17 @@ function getVisibilityProps() {
 function getMouseEvents() {
   return {
     click: function () {
+      client.waitForExist(this.selector)
       return client.click(this.selector)
     },
     
     hover: function () {
+      client.waitForExist(this.selector)
       return client.moveToObject(this.selector)
     },
     
     drag: function (destinationSelector) {
+      client.waitForExist(this.selector)
       return client.dragAndDrop(this.selector, destinationSelector)
     }
   }
@@ -58,6 +63,7 @@ function getMouseEvents() {
 function getKeyboardEvents() {
   return {
     setValue: function (value) {
+      client.waitForExist(this.selector)
       return client.setValue(this.selector, value)
     }
   }
