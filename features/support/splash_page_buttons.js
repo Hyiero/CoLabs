@@ -11,11 +11,11 @@ app = require('../lib/app.js')
 module.exports = function()
 {
 
-    this.Given(/^I am at the splash page/, function () {
+    this.Given(/^I am at the splash page$/, function () {
         browser.url(app.baseUrl);
     });
 
-    this.When(/^I observe/, function (arg1) {
+    this.When(/^I observe$/, function (arg1) {
 
     });
 

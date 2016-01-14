@@ -5,17 +5,17 @@ Feature: Register User
   I want to create an account
   So that I can become a user
 
-  @ignore
+  @watch
   Scenario: Close register modal
     Given I am at the register form
     When I click the close button
     Then The register modal disappears
 
-  @ignore
-  Scenario: Register user without email
+  @watch
+  Scenario: Enter non-matching passwords
     Given I am at the register form
-    When I register without email
-    Then I see a warning toast containing "Please add an email address on your profile page"
+    When I enter non-matching passwords
+    Then I see a danger toast containing "Please make sure your password fields match"
 
   @ignore
   Scenario: Register user with email
@@ -35,8 +35,8 @@ Feature: Register User
     When I enter an existing email
     Then I see a danger toast containing "Email already exists"
 
-  @watch
-  Scenario: Enter non-matching passwords
+  @ignore
+  Scenario: Register user without email
     Given I am at the register form
-    When I enter non-matching passwords
-    Then I see a danger toast containing "Please make sure your password fields match"
+    When I register without email
+    Then I see a warning toast containing "Please add an email address on your profile page"

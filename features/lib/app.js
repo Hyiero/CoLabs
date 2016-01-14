@@ -6,9 +6,6 @@ var Input = components.Input
 var View = components.View
 
 
-// app.views.toasts(0).getText('inner html text')
-// app.views.toasts(1).getAttribute('class')
-// app.views.toasts().count
 var toasts = function (index) {
   
   var getToasts = function () {
@@ -30,21 +27,6 @@ var toasts = function (index) {
     
   }
 }
-
-// toast = (ind) -> ->
-//   getText: ->
-//   getAttribute: ->
-  
-  
-  
-  //var toasts = client.getText('.toast')
-  //  toasts.forEach()
-  
-  // client.elements[index]
-  // 
-  
-  
-
 
 var nav = {
 

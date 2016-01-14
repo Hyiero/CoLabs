@@ -1,3 +1,4 @@
+@ignore
 Feature: Splash page interface
 
   As a human

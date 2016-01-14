@@ -1,11 +1,11 @@
-@watch
+@ignore
 Feature: Owned user profile
 
   As a user
   I want to view and manage my profile
   So that I can make sure my information is up-to-date
 
-  @watch
+  @ignore
   Scenario: Resend email verification
     Given I am a logged in, unverified user
     Given I am on the profile page
