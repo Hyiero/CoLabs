@@ -16,11 +16,6 @@ module.exports = function() {
   })
   
   var page = app.pages.profile
-  
-  this.Given(/^I am on the profile page$/, function () {
-    browser.url(page.url)
-    client.waitForExist(page.views.username)
-  })
 
   this.When(/^I click on the verify email button$/, function () {
     page.views.verifyEmailButton.click()

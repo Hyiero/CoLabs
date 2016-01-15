@@ -26,6 +26,14 @@ function mixin() {
   return mixTo
 }
 
+function getBaseProps() {
+  return {
+    attr: function (attribute) {
+      var id = client.element(this.selector).value.ELEMENT
+      return client.elementIdAttribute(id, attribute).value
+    }
+  }
+}
 
 function getVisibilityProps() {
   return {
@@ -102,22 +110,26 @@ function View(selector) {
 }
 
 Button.prototype = mixin(
+  getBaseProps(),
   getVisibilityProps(),
   getMouseEvents(),
   Button.prototype)
 
 Link.prototype = mixin(
+  getBaseProps(),
   getVisibilityProps(),
   getMouseEvents(),
   Link.prototype)
 
 Input.prototype = mixin(
+  getBaseProps(),
   getVisibilityProps(),
   getMouseEvents(),
   getKeyboardEvents(),
   Input.prototype)
 
 View.prototype = mixin(
+  getBaseProps(),
   getVisibilityProps(),
   getMouseEvents(),
   getViewAssertions(),

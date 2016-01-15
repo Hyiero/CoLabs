@@ -8,7 +8,7 @@ Feature: Owned user profile
   @ignore
   Scenario: Resend email verification
     Given I am a logged in, unverified user
-    Given I am on the profile page
+    Given I am at the profile page
     When I click on the verify email button
     Then I see a success toast containing "sent"
   

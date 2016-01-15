@@ -22,7 +22,7 @@ var splash = {
 var profile = {
 
   get url() {
-    return app.baseUrl + '/profile/' + this.username || ''
+    return app.baseUrl + '/profile'
   },
   
   buttons: {
