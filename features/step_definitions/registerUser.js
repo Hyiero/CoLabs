@@ -78,7 +78,7 @@ module.exports = function() {
 
   this.Then(/^The login modal appears$/, function () {
     client.pause(500)
-    expect(modal.isDisplayed()).toEqual(true)
+    expect(modal.isDisplayed()).toBe(true)
   })
 
   this.Then(/^The register form appears$/, function () {
@@ -88,10 +88,11 @@ module.exports = function() {
   
   this.Then(/^The register modal disappears$/, function () {
     client.pause(500)
-    expect(modal.isDisplayed()).toEqual(false)
+    expect(modal.isDisplayed()).toBe(false)
   })
 
   this.Then(/^I sign out$/, function () {
+    client.pause(500)
     if(!nav.links.signOut.isDisplayed()) {
       nav.buttons.collapse.click()
     }

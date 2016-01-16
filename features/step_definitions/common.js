@@ -22,10 +22,7 @@ module.exports = function() {
     var toastClass = client.elementIdAttribute(toastId, 'class').value
     var toastText = client.elementIdText(toastId).value
 
-    if (toastClass.indexOf(type) == -1) {
-      fail('The most recent toast was not of type "' + type + '"!')
-    } else if (toastText.indexOf(text) == -1) {
-      fail('The most recent toast does not say "' + text + '"!')
-    }
+    expect(toastClass).toContain(type)
+    expect(toastText).toContain(text)
   })
 }
