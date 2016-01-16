@@ -1,5 +1,5 @@
 
-var app = require('./app.js')
+var app = require('./app.coffee')
 var components = require('./components.js')
 var Button = components.Button
 var Link = components.Link

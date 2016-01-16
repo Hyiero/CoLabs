@@ -1,5 +1,5 @@
 require.call(this, '../lib/util.coffee')
-var app = require('../lib/app.js')
+var app = require('../lib/app.coffee')
 
 module.exports = function() {
   this.Given(/^I am at the (.*) page$/, function (page) {

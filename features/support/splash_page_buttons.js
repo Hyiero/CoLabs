@@ -6,7 +6,7 @@
 // app.elems.toasts(0).isVisible()
 // app.elems.toasts(0).contains('Success')
 
-app = require('../lib/app.js')
+app = require('../lib/app.coffee')
 
 module.exports = function()
 {

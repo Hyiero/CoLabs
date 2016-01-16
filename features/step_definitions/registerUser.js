@@ -1,6 +1,6 @@
 
 require.call(this, '../lib/util.coffee')
-var app = require('../lib/app.js')
+var app = require('../lib/app.coffee')
 
 var modal = app.modals.loginOrRegister
 var nav = app.views.nav

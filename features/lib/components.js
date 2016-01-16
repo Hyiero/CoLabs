@@ -107,7 +107,18 @@ function Input(selector) {
 
 function View(selector) {
   this.selector = selector
+  this.valueOf = function () {
+    return client.element(this.selector)
+  }
 }
+
+function ViewList(selector) {
+  this.selector = selector
+  this.valueOf = function () {
+    return client.elements(this.selector)
+  }
+}
+
 
 Button.prototype = mixin(
   getBaseProps(),
