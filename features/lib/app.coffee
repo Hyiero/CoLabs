@@ -1,4 +1,4 @@
-components = require('./components.js')
+components = require('./components.coffee')
 Button = components.Button
 Link = components.Link
 Input = components.Input
@@ -37,8 +37,8 @@ app =
     nav: nav
     toasts: toasts
   baseUrl: 'http://localhost:3000/'
-  pages: require './pages.js'
-  components: require './components.js'
-  modals: require './modals.js'
+  pages: require './pages.coffee'
+  components: require './components.coffee'
+  modals: require './modals.coffee'
 
 module.exports = app
