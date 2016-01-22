@@ -65,6 +65,5 @@ module.exports = ->
     if !nav.links.signOut.isDisplayed()
       nav.buttons.collapse.click()
     client.pause 1000
-    console.log "nav.links.signOut.isDisplayed()":nav.links.signOut.isDisplayed()
     nav.links.signOut.click()
   @After

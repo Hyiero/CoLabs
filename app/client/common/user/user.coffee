@@ -1,10 +1,12 @@
 Template.userProfile.helpers
   messageContactButton: -> Render.button
+    id: 'messageUser'
     icon: 'send'
     text: 'Message'
     dataContext: username: @username
     onclick: -> Router.go "/inbox/#{(@data 'context')?.username}"
   inviteUserToProjectButton: -> Render.button
+    id: 'inviteToProject'
     icon: 'plus'
     text: 'Invite to Project'
     onclick: -> Modal.show 'inviteToProjectModal'

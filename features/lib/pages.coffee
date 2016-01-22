@@ -16,9 +16,18 @@ profile =
     app.baseUrl + '/profile'
 
   buttons:
-    emailDisplay: new Button('#email')
-    firstNameDisplay: new Button('#firstName')
+    emailDisplay: new Button '#email'
+    firstNameDisplay: new Button '#firstName'
+
+user =
+  url: (username) ->
+    app.baseUrl + '/user/' + username
+
+  buttons:
+    messageUser: new Button '#messageUser'
+    inviteToProject: new Button '#inviteToProject'
 
 module.exports =
   splash: splash
   profile: profile
+  user: user

@@ -5,17 +5,13 @@ createGetter = (context, prop, get) ->
 
 unimplemented = ->
   console.warn 'Unimplemented!'
-  return
 
 mixin = ->
   mixFrom = Array::slice.call(arguments)
   mixTo = mixFrom.pop()
-  i = 0
-  while i < mixFrom.length
-    for property of mixFrom[i]
-      if mixFrom[i].hasOwnProperty(property)
-        mixTo[property] = mixFrom[i][property]
-    i++
+  for from in mixFrom
+    for prop of from
+      mixTo[prop] = from[prop] if from.hasOwnProperty prop
   mixTo
 
 getBaseProps = ->

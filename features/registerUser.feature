@@ -23,7 +23,7 @@ Feature: Register User
     Given I am at the register form
     When I register with email
     Then I see a success toast containing "Please check your email to verify your registration"
-    Then I sign out
+    And I sign out
 
   Scenario: Enter existing username
     Given I am at the register form
@@ -39,4 +39,8 @@ Feature: Register User
     Given I am at the register form
     When I register without email
     Then I see a warning toast containing "Please add an email address on your profile page"
-    Then I sign out
+    And I sign out
+
+  Scenario: Clear users
+    When I remove all users
+    Then No users remain
