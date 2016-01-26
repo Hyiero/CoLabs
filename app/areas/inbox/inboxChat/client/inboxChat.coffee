@@ -7,6 +7,12 @@ getPair = ->
   contact: Session.get 'contact'
 
 Template.chat.helpers
+  submitMessageButton: -> Render.button
+    id: 'submitMessage'
+    type: 'submit'
+    text: 'Submit'
+    form: 'chatForm'
+    onclick: -> $('form').submit()
   currentConversation: ->
     contact = Session.get 'contact'
     Meteor.call 'readMessages', contact
@@ -19,7 +25,8 @@ Template.chat.helpers
   userName: -> Meteor.user().username
 
 Template.chat.events
-  'click #submitMessage': ->
+  'submit form': (event) ->
+    event.preventDefault()
     pair = getPair()
     {user, contact} = pair
     messageModel =

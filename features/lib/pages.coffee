@@ -1,4 +1,3 @@
-app = require './app.coffee'
 components = require './components.coffee'
 Button = components.Button
 Link = components.Link
@@ -13,7 +12,7 @@ splash =
 
 profile =
   url: ->
-    app.baseUrl + '/profile'
+    'http://localhost:3000/profile'
 
   buttons:
     emailDisplay: new Button '#email'
@@ -21,13 +20,29 @@ profile =
 
 user =
   url: (username) ->
-    app.baseUrl + '/user/' + username
+    'http://localhost:3000/user/' + username
 
   buttons:
     messageUser: new Button '#messageUser'
     inviteToProject: new Button '#inviteToProject'
 
+inbox =
+  url: ->
+    'http://localhost:3000/inbox'
+
+inboxChat =
+  url: (username) ->
+    'http://localhost:3000/inbox/' + username
+
+  inputs:
+    chat: new Input '#messageContent'
+
+  buttons:
+    submit: new Button '#submitMessage'
+
 module.exports =
   splash: splash
   profile: profile
   user: user
+  inbox: inbox
+  inboxChat: inboxChat

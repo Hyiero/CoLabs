@@ -1,4 +1,3 @@
-@watch
 Feature: Register User
 
   As a human

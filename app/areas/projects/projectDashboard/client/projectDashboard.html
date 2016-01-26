@@ -42,8 +42,10 @@
                 {{/each}}
                 {{#if userInProject}}
                     <div class="send-wrap ">
-                        <textarea id="messageContent" class="form-control send-message" rows="3" placeholder="Write a reply..."></textarea>
-                        <input type="submit" id="submitMessage" value="Submit">
+                        <form id="projectForm">
+                            <input id="messageContent" class="form-control send-message" type="text" placeholder="Write to the project..." required>
+                        </form>
+                        {{{submitMessageButton}}}
                     </div>
                 {{/if}}
             </div>

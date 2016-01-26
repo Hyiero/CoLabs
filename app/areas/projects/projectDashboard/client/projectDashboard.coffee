@@ -15,12 +15,19 @@ Template.projectChat.onCreated ->
   @subscribe 'projectUsers', Router.current().params.id
 
 Template.projectChat.helpers
+  submitMessageButton: -> Render.button
+    id: 'submitMessage'
+    type: 'submit'
+    text: 'Submit'
+    form: 'projectForm'
+    onclick: -> $('form').submit()
   contactExists: (id) -> Meteor.users.findOne(id)?
   conversation: -> Projects.findOne().conversation
   userInProject: -> Meteor.userId() in Projects.findOne().users
 
 Template.projectChat.events
-  'click #submitMessage': ->
+  'submit form': (event) ->
+    event.preventDefault()
     Meteor.call 'addMessageToProject',
       project: Router.current().params.id
       message: $('#messageContent').val()

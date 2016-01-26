@@ -60,10 +60,3 @@ module.exports = ->
   @Then /^The register modal disappears$/, ->
     client.pause 500
     expect(modal.isDisplayed()).toBe false
-  @Then /^I sign out$/, ->
-    client.pause 500
-    if !nav.links.signOut.isDisplayed()
-      nav.buttons.collapse.click()
-    client.pause 1000
-    nav.links.signOut.click()
-  @After
